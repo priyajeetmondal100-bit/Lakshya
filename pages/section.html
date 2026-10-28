@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>PrepSphere</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fff;--card:#fff;--ink:#12343B;--mut:#335961;--line:#B2EBF2;--pri:#00BFA5;--pri2:#00897B;--soft:#E0F7FA}
+html{scrollbar-gutter:stable;background:var(--bg)}
+*{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--ink);font:500 14px/1.5 Manrope,system-ui,sans-serif}
+.app{display:grid;grid-template-columns:232px minmax(0,1fr);min-height:100vh}
+aside{background:var(--card);border-right:1px solid var(--line);padding:18px 12px;position:sticky;top:0;height:100vh;display:flex;flex-direction:column;gap:2px;overflow:auto}
+.logo{display:flex;gap:10px;align-items:center;font-weight:800;font-size:18px;padding:4px 10px 16px;color:var(--ink);text-decoration:none}
+.logo i{width:30px;height:30px;border-radius:50%;background:conic-gradient(from 200deg,var(--pri),var(--pri2),var(--line),var(--pri));display:block;flex-shrink:0}
+.nav a{display:flex;gap:10px;align-items:center;padding:9px 12px;border-radius:10px;margin-bottom:2px;color:var(--mut);text-decoration:none;font-weight:600;font-size:14px;transition:all .15s ease}
+.nav a:hover{background:var(--soft);color:var(--ink)}
+.nav a.on{background:var(--pri);color:#fff;font-weight:700}
+.sp{flex:1}
+main{padding:28px 24px 40px;min-width:0;max-width:1100px}
+.back-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--pri2);font:700 13px/1.2 Manrope,system-ui,sans-serif;cursor:pointer;text-decoration:none;white-space:nowrap;flex-shrink:0;transition:all .15s ease;box-shadow:0 1px 3px rgba(18,52,59,.04);margin-bottom:14px}
+.back-btn:hover{background:var(--soft);border-color:var(--pri);color:var(--ink)}
+.card{border:1px solid var(--line);border-radius:16px;padding:24px;background:var(--card)}
+.btn{display:inline-block;background:var(--pri);color:#fff;border:0;border-radius:10px;padding:9px 16px;font-weight:700;text-decoration:none}
+.btn:hover{background:var(--pri2)}
+@media(max-width:900px){aside{display:none}.app{display:block}main{padding:20px 16px 80px}}
+/* === Dark theme (shared ps_theme setting) === */
+html[data-theme=dark]{--bg:#000000;--card:#000000;--ink:#EDEEEA;--mut:rgba(237,238,234,.66);--line:rgba(237,238,234,.2);--soft:rgba(237,238,234,.08);--pri:#7C4DFF;--pri2:#00E5FF;color-scheme:dark}
+/* === Settings page === */
+#settingsPage [hidden],#cfm [hidden]{display:none!important}
+html[data-theme=dark] #settingsPage .btn.ghost:not(.danger),html[data-theme=dark] .avatar-box .mini{color:#00E5FF}
+.set-head{padding-top:24px;display:flex;justify-content:space-between;align-items:flex-start;gap:14px;flex-wrap:wrap;margin-bottom:14px}
+.set-head h1{margin:0 0 4px;font-size:1.9rem;font-weight:800}
+.set-head p{margin:0;color:var(--mut)}
+#settingsPage .btn{cursor:pointer;font:inherit;font-weight:800;border-radius:12px;padding:11px 20px;border:2px solid var(--pri);display:inline-flex;align-items:center;gap:8px}
+#settingsPage .btn:hover{background:var(--pri2);border-color:var(--pri2)}
+#settingsPage .btn.ghost{background:var(--card);color:var(--pri2)}
+#settingsPage .btn.ghost:hover{background:var(--soft)}
+#settingsPage .btn.danger{background:#d64545;border-color:#d64545;color:#fff}
+#settingsPage .btn.danger:hover{background:#b83636;border-color:#b83636}
+#settingsPage .btn.ghost.danger{background:var(--card);color:#d64545}
+#settingsPage .btn.ghost.danger:hover{background:rgba(214,69,69,.12)}
+#settingsPage .btn:disabled{opacity:.45;cursor:not-allowed}
+.set-chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 18px}
+.set-chips a{padding:6px 14px;border-radius:99px;border:1px solid var(--line);background:var(--soft);color:var(--mut);font-weight:700;font-size:12.5px;text-decoration:none}
+.set-chips a:hover{color:var(--ink);border-color:var(--pri)}
+.sc{margin-bottom:20px;scroll-margin-top:16px}
+.sc h2{margin:0 0 4px;font-size:1.15rem;font-weight:800}
+.sc>.sub{margin:0 0 18px;color:var(--mut)}
+.prof{display:grid;grid-template-columns:150px minmax(0,1fr);gap:26px}
+.avatar-box{display:flex;flex-direction:column;align-items:center;gap:10px}
+.avatar{width:112px;height:112px;border-radius:50%;background:linear-gradient(135deg,var(--pri),var(--pri2));color:#fff;display:grid;place-items:center;font-size:44px;font-weight:800;overflow:hidden;border:3px solid var(--line)}
+.avatar img{width:100%;height:100%;object-fit:cover;display:block}
+.avatar-box .mini{border:1px solid var(--line);background:var(--card);color:var(--pri2);border-radius:10px;padding:6px 12px;font:700 12.5px Manrope,system-ui,sans-serif;cursor:pointer}
+.avatar-box .mini:hover:not(:disabled){background:var(--soft)}
+.avatar-box .mini:disabled{opacity:.45;cursor:not-allowed}
+.fgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 16px}
+.fld{display:flex;flex-direction:column;gap:5px;min-width:0}
+.fld label{font-weight:700;font-size:12.5px;color:var(--mut)}
+.fld input,.fld select{width:100%;padding:11px 12px;border-radius:10px;border:1px solid var(--line);background:var(--soft);color:var(--ink);font:inherit;font-size:14px}
+.fld input:read-only,.fld select:disabled{opacity:.8;cursor:default}
+.fld input:focus,.fld select:focus{outline:2px solid var(--pri);outline-offset:1px;background:var(--card)}
+.fld input[aria-invalid=true]{border-color:#d64545}
+.err{color:#d64545;font-size:12.5px;min-height:1em;font-weight:600}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.themes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;max-width:640px}
+.th{position:relative;display:block;cursor:pointer}
+.th input{position:absolute;opacity:0;inset:0;cursor:pointer}
+.th .box{display:block;border:2px solid var(--line);border-radius:16px;padding:12px;background:var(--card);transition:border-color .15s,box-shadow .15s}
+.th input:checked+.box{border-color:var(--pri);box-shadow:0 0 0 3px rgba(0,191,165,.25)}
+.th input:focus-visible+.box{outline:3px solid var(--pri2);outline-offset:2px}
+.pv{display:flex;height:84px;border-radius:10px;overflow:hidden;border:1px solid rgba(128,128,128,.35);margin-bottom:10px}
+.pv .sb{width:26%;padding:8px 6px;display:flex;flex-direction:column;gap:5px}
+.pv .sb i{display:block;height:6px;border-radius:4px}
+.pv .mn{flex:1;padding:8px;display:flex;flex-direction:column;gap:6px}
+.pv .mn b{display:block;height:8px;width:55%;border-radius:4px}
+.pv .mn span{display:block;flex:1;border-radius:6px}
+.pv.l{background:#fff}.pv.l .sb{background:#fff;border-right:1px solid #B2EBF2}.pv.l .sb i{background:#B2EBF2}.pv.l .sb i:first-child{background:#00BFA5}.pv.l .mn{background:#fff}.pv.l .mn b{background:#12343B}.pv.l .mn span{background:#E0F7FA;border:1px solid #B2EBF2}
+.pv.d{background:#000000}.pv.d .sb{background:#000000;border-right:1px solid rgba(237,238,234,.2)}.pv.d .sb i{background:#7C4DFF}.pv.d .sb i:first-child{background:#00E5FF}.pv.d .mn{background:#000000}.pv.d .mn b{background:#EDEEEA}.pv.d .mn span{background:#000000;border:1px solid rgba(237,238,234,.2)}
+.th .tt{display:flex;align-items:center;justify-content:space-between;font-weight:800}
+.th .tt small{display:block;font-weight:500;color:var(--mut);font-size:12.5px}
+.th .ck{width:22px;height:22px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;font-size:13px;color:#fff;flex:none}
+.th input:checked+.box .ck{background:var(--pri);border-color:var(--pri)}
+.sec-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.sub-card{border:1px solid var(--line);border-radius:14px;padding:18px;background:var(--card)}
+.sub-card h3{margin:0 0 4px;font-size:1rem;font-weight:800}
+.sub-card>p{margin:0 0 12px;color:var(--mut);font-size:13px}
+.sub-card .fld{margin-bottom:10px}
+.note{font-size:12.5px;color:var(--mut);margin:10px 0 0}
+.row-sw{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:12px 0;border-bottom:1px solid var(--line)}
+.row-sw:last-of-type{border-bottom:0}
+.row-sw b{display:block}.row-sw span.d{display:block;color:var(--mut);font-size:12.5px}
+.sw{position:relative;width:46px;height:26px;flex:none}
+.sw input{position:absolute;inset:0;opacity:0;cursor:pointer;margin:0}
+.sw i{position:absolute;inset:0;border-radius:99px;background:var(--line);transition:background .15s;pointer-events:none}
+.sw i::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:transform .15s}
+.sw input:checked+i{background:var(--pri)}.sw input:checked+i::after{transform:translateX(20px)}
+.sw input:focus-visible+i{outline:3px solid var(--pri2);outline-offset:2px}
+.dtable{width:100%;border-collapse:collapse;font-size:13.5px;margin-top:6px}
+.dtable th{text-align:left;color:var(--mut);font-weight:700;padding:8px;border-bottom:2px solid var(--line)}
+.dtable td{padding:8px;border-bottom:1px solid var(--line)}
+.danger-zone{border-color:rgba(214,69,69,.55)}
+.toast-area{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:60;display:flex;flex-direction:column;gap:8px;align-items:center;width:min(92vw,460px);pointer-events:none}
+.toast-i{pointer-events:auto;padding:12px 16px;border-radius:12px;font-weight:700;box-shadow:0 12px 30px rgba(18,52,59,.25);background:#12343B;color:#E0F7FA;border-left:5px solid var(--pri);width:100%}
+.toast-i.bad{border-left-color:#d64545}
+html[data-theme=dark] .toast-i{background:#EDEEEA;color:#000000}
+dialog#cfm{border:1px solid var(--line);border-radius:18px;padding:0;width:min(440px,92vw);background:var(--card);color:var(--ink);box-shadow:0 20px 50px rgba(18,52,59,.35)}
+dialog#cfm::backdrop{background:rgba(8,24,28,.55)}
+dialog#cfm form{padding:22px}
+dialog#cfm h3{margin:0 0 8px;font-size:1.15rem}
+dialog#cfm p{margin:0 0 12px;color:var(--mut)}
+dialog#cfm .fld{margin-bottom:6px}
+dialog#cfm .actions{justify-content:flex-end;margin-top:14px}
+@media(max-width:900px){.prof{grid-template-columns:1fr}.avatar-box{flex-direction:row;justify-content:flex-start;flex-wrap:wrap}.sec-grid{grid-template-columns:1fr}}
+@media(max-width:560px){.fgrid,.themes{grid-template-columns:1fr}}
+/* dark: flat classic finish */
+html[data-theme=dark] .logo i{background:var(--pri)!important}
+html[data-theme=dark] .av,html[data-theme=dark] .fab,html[data-theme=dark] .avatar{background:var(--pri)!important;box-shadow:none!important}
+html[data-theme=dark] .bar b{background:var(--pri)!important}
+html[data-theme=dark] .th input:checked+.box{box-shadow:0 0 0 3px rgba(0,229,255,.25)}
+html[data-theme=dark] .btn:hover{color:#000000}
+html[data-theme=dark] #settingsPage .btn:hover{color:#000000}
+/* === Help page === */
+#helpPage [hidden]{display:none!important}
+#helpPage .btn{cursor:pointer;font:inherit;font-weight:800;border-radius:12px;padding:11px 20px;border:2px solid var(--pri);display:inline-flex;align-items:center;gap:8px}
+#helpPage .btn:hover{background:var(--pri2);border-color:var(--pri2)}
+#helpPage .btn.ghost{background:var(--card);color:var(--pri2)}
+#helpPage .btn.ghost:hover{background:var(--soft)}
+html[data-theme=dark] #helpPage .btn.ghost{color:#00E5FF}
+html[data-theme=dark] #helpPage .btn:hover:not(.ghost){color:#000000}
+#helpPage textarea{width:100%;min-height:120px;padding:11px 12px;border-radius:10px;border:1px solid var(--line);background:var(--soft);color:var(--ink);font:inherit;font-size:14px;resize:vertical}
+#helpPage textarea:focus{outline:2px solid var(--pri);outline-offset:1px;background:var(--card)}
+#helpPage .acc{display:grid;grid-template-columns:200px minmax(0,1fr);gap:10px 18px;margin:0}
+#helpPage .acc dt{color:var(--mut);font-weight:700;font-size:13px}#helpPage .acc dd{margin:0;font-weight:700}
+#helpPage .faq{border:1px solid var(--line);border-radius:12px;margin-bottom:10px;background:var(--card)}
+#helpPage .faq summary{cursor:pointer;padding:12px 14px;font-weight:700;list-style:none}
+#helpPage .faq summary::-webkit-details-marker{display:none}
+#helpPage .faq summary::before{content:"+";display:inline-block;width:18px;font-weight:800;color:var(--pri2)}
+#helpPage .faq[open] summary::before{content:"\2212"}
+#helpPage .faq p{margin:0;padding:0 14px 14px 32px;color:var(--mut)}
+#helpPage .hsearch{margin-bottom:14px}
+#helpPage .stars{display:flex;gap:4px}
+#helpPage .stars button{border:0;background:none;font-size:30px;line-height:1;color:var(--line);cursor:pointer;padding:0 2px}
+#helpPage .stars button.on{color:var(--warn,#e29a0b)}
+#helpPage .ok{color:var(--pri2);font-weight:700;min-height:1.2em;margin-top:12px}
+#helpPage .nores{color:var(--mut);margin:0}
+@media(max-width:600px){#helpPage .acc{grid-template-columns:1fr}}
+/* === Downloads page === */
+#dlPage [hidden]{display:none!important}
+#dlPage .hs{margin-bottom:22px}
+#dlPage .hs-h{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+#dlPage .hs-h h2{margin:0;font-size:18px}
+#dlPage .hrow{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x proximity;padding:2px 2px 12px;-webkit-overflow-scrolling:touch}
+#dlPage .hc{flex:0 0 230px;scroll-snap-align:start;background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;display:flex;flex-direction:column}
+#dlPage .hc-t{height:96px;background:var(--soft);display:grid;place-items:center;text-align:center;font-size:32px;line-height:1.1;padding:6px}
+#dlPage .hc-t small{display:block;font-size:12px;font-weight:700;color:var(--mut);margin-top:4px}
+#dlPage .hc-b{padding:10px 12px 12px;display:flex;flex-direction:column;gap:4px;flex:1}
+#dlPage .hc-b b{font-size:14px;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+#dlPage .hc-m{color:var(--mut);font-size:12px}
+#dlPage .hc-a{display:flex;gap:6px;flex-wrap:wrap;margin-top:auto;padding-top:8px}
+#dlPage .btn{cursor:pointer;font:inherit;font-weight:800;border-radius:10px;padding:6px 12px;font-size:12px;border:2px solid var(--pri);display:inline-flex;align-items:center}
+#dlPage .btn:hover{background:var(--pri2);border-color:var(--pri2)}
+#dlPage .btn.ghost{background:var(--card);color:var(--pri2)}
+#dlPage .btn.ghost:hover{background:var(--soft)}
+#dlPage .set-head .btn{font-size:14px;padding:11px 20px;border-radius:12px}
+html[data-theme=dark] #dlPage .btn.ghost{color:#00E5FF}
+html[data-theme=dark] #dlPage .btn:hover:not(.ghost){color:#000000}
+#dlPage .hs-e{color:var(--mut);margin:0;padding:14px 4px}
+#dlPage .note{color:var(--mut);margin:0 0 18px}
+#dlView{border:1px solid var(--line);border-radius:16px;background:var(--card);color:var(--ink);padding:0;width:min(720px,92vw)}
+#dlView::backdrop{background:rgba(0,0,0,.5)}
+#dlView .bd{padding:18px;display:grid;gap:12px}
+#dlView h2{margin:0;font-size:18px}
+#dlView pre{margin:0;max-height:55vh;overflow:auto;white-space:pre-wrap;word-break:break-word;font:13px/1.55 ui-monospace,Menlo,Consolas,monospace;background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:12px}
+@media(max-width:600px){#dlPage .hc{flex-basis:78%}}
+</style>
+<script>(function(){var r=document.documentElement,d=false;try{d=localStorage.getItem("ps_theme")==="dark"}catch(e){}r.dataset.theme=d?"dark":"light"})();</script>
+</head>
+<body>
+<div class="app">
+<aside>
+<div class="logo"><i></i>PrepSphere</div>
+<nav class="nav">
+<a href="home.html"> Home</a>
+<a href="study-books.html"> Study Books</a>
+<a href="analysis.html"> Analysis</a>
+<a href="notes.html"> Notes</a>
+<a href="PYQ.html"> Previous Year Questions</a>
+<a href="mock-test.html"> Mock Test</a>
+<a href="wishlist.html"> Wishlist</a>
+<a href="history.html"> History</a>
+<a href="achievement.html"> Achievements</a>
+<a href="section.html?s=downloads"> Downloads</a>
+</nav>
+<div class="sp"></div>
+<nav class="nav">
+<a href="section.html?s=settings"> Settings</a>
+<a href="section.html?s=premium"> Premium</a>
+<a href="section.html?s=help"> Help</a>
+</nav>
+</aside>
+<main>
+<div id="generic">
+<button id="back" class="back-btn" type="button" aria-label="Go back">← Back</button>
+<div class="card">
+<h1 id="title">PrepSphere</h1>
+<p id="desc">Use the dashboard to continue your preparation.</p>
+<a class="btn" href="home.html">Back to Dashboard</a>
+</div>
+</div>
+<div id="settingsPage" hidden>
+ <div class="set-head">
+  <div><h1>Settings</h1><p>Manage your profile, appearance, account security and privacy in one place.</p></div>
+  <button class="btn ghost" id="setBack" type="button">← Back</button>
+ </div>
+ <nav class="set-chips" aria-label="Settings sections"><a href="#profile">Profile</a><a href="#appearance">Appearance</a><a href="#account">Account &amp; Security</a><a href="#privacy">Privacy</a></nav>
+
+ <section class="card sc" id="profile" aria-labelledby="h-profile">
+  <h2 id="h-profile">Profile Settings</h2>
+  <p class="sub">View and update your details. Changes are saved only after you confirm them.</p>
+  <form id="profForm" class="prof" novalidate>
+   <div class="avatar-box">
+    <div class="avatar" id="avatar" aria-label="Profile picture"></div>
+    <input type="file" id="avFile" accept="image/png,image/jpeg,image/webp" hidden>
+    <button type="button" class="mini" id="avChange" disabled>Change photo</button>
+    <button type="button" class="mini" id="avRemove" disabled>Remove photo</button>
+    <div class="err" id="avErr" role="alert"></div>
+   </div>
+   <div>
+    <div class="fgrid">
+     <div class="fld"><label for="pName">Full name</label><input id="pName" autocomplete="name" placeholder="Your full name" readonly><div class="err" id="eName"></div></div>
+     <div class="fld"><label for="pExam">Preferred competitive examination</label><select id="pExam" disabled></select><div class="err"></div></div>
+     <div class="fld"><label for="pEmail">Email address</label><input id="pEmail" type="email" autocomplete="email" placeholder="you@example.com" readonly><div class="err" id="eEmail"></div></div>
+     <div class="fld"><label for="pMobile">Mobile number</label><input id="pMobile" type="tel" inputmode="numeric" autocomplete="tel-national" placeholder="10-digit mobile number" readonly><div class="err" id="eMobile"></div></div>
+    </div>
+    <div class="actions">
+     <button type="button" class="btn ghost" id="editProf">Edit Profile</button>
+     <button type="submit" class="btn" id="saveProf" disabled>Save Changes</button>
+     <button type="button" class="btn ghost" id="cancelProf" hidden>Cancel</button>
+    </div>
+   </div>
+  </form>
+ </section>
+
+ <section class="card sc" id="appearance" aria-labelledby="h-app">
+  <h2 id="h-app">Appearance</h2>
+  <p class="sub">Choose how PrepSphere looks. The theme applies instantly to every page and is remembered on this device.</p>
+  <div class="themes" role="radiogroup" aria-label="Theme">
+   <label class="th"><input type="radio" name="theme" value="light"><span class="box"><span class="pv l" aria-hidden="true"><span class="sb"><i></i><i></i><i></i></span><span class="mn"><b></b><span></span></span></span><span class="tt"><span>☀️ Light Mode<small>Light background, white cards, dark text</small></span><span class="ck" aria-hidden="true">✓</span></span></span></label>
+   <label class="th"><input type="radio" name="theme" value="dark"><span class="box"><span class="pv d" aria-hidden="true"><span class="sb"><i></i><i></i><i></i></span><span class="mn"><b></b><span></span></span></span><span class="tt"><span>🌙 Dark Mode<small>Deep navy background, dark cards, light text</small></span><span class="ck" aria-hidden="true">✓</span></span></span></label>
+  </div>
+ </section>
+
+ <section class="card sc" id="account" aria-labelledby="h-acc">
+  <h2 id="h-acc">Account &amp; Security</h2>
+  <p class="sub">PrepSphere currently runs without a server account, so these details are stored on this device only.</p>
+  <div class="sec-grid">
+   <form class="sub-card" id="pwForm" novalidate>
+    <h3>Change password</h3><p id="pwHint">Set a password for this device.</p>
+    <div class="fld" id="curWrap" hidden><label for="pwCur">Current password</label><input id="pwCur" type="password" autocomplete="current-password"><div class="err" id="ePwCur"></div></div>
+    <div class="fld"><label for="pwNew">New password</label><input id="pwNew" type="password" autocomplete="new-password"><div class="err" id="ePwNew"></div></div>
+    <div class="fld"><label for="pwNew2">Confirm new password</label><input id="pwNew2" type="password" autocomplete="new-password"><div class="err" id="ePwNew2"></div></div>
+    <p class="note">At least 8 characters, with a letter and a number.</p>
+    <div class="actions"><button type="submit" class="btn" id="pwSave">Update password</button></div>
+   </form>
+   <form class="sub-card" id="ctForm" novalidate>
+    <h3>Update email or mobile number</h3><p>Leave a field unchanged to keep it as is.</p>
+    <div class="fld"><label for="cEmail">Email address</label><input id="cEmail" type="email" autocomplete="email" placeholder="you@example.com"><div class="err" id="eCEmail"></div></div>
+    <div class="fld"><label for="cMobile">Mobile number</label><input id="cMobile" type="tel" inputmode="numeric" placeholder="10-digit mobile number"><div class="err" id="eCMobile"></div></div>
+    <div class="actions"><button type="submit" class="btn" id="ctSave">Update contact details</button></div>
+   </form>
+  </div>
+  <p class="note">Login session management will appear here once PrepSphere accounts are connected to a server.</p>
+  <div class="sub-card danger-zone" style="margin-top:18px">
+   <h3>Delete account</h3>
+   <p>Permanently removes your profile, notes, wishlist, mock-test history and every other PrepSphere setting stored on this device. This cannot be undone.</p>
+   <button type="button" class="btn danger" id="delAcc">Delete account</button>
+  </div>
+ </section>
+
+ <section class="card sc" id="privacy" aria-labelledby="h-pri">
+  <h2 id="h-pri">Privacy</h2>
+  <p class="sub">Control what others can see. Changes are saved only after you confirm them.</p>
+  <div class="row-sw"><div><b id="lblVis">Profile visibility</b><span class="d">Private hides your name from the public leaderboard.</span></div>
+   <div class="fld" style="width:170px"><select id="prVis" aria-labelledby="lblVis"><option value="public">Public</option><option value="private">Private</option></select></div></div>
+  <div class="row-sw"><div><b id="lblAch">Show my study achievements to others</b><span class="d">When off, you appear as hidden on the leaderboard.</span></div>
+   <label class="sw"><input type="checkbox" id="prAch" aria-labelledby="lblAch"><i></i></label></div>
+  <div class="actions"><button type="button" class="btn" id="savePriv" disabled>Save privacy settings</button></div>
+
+  <h3 style="margin:26px 0 4px;font-size:1rem">Your data on this device</h3>
+  <p class="note" style="margin-top:0">PrepSphere keeps the following in your browser. Nothing is sent to a server.</p>
+  <div style="overflow-x:auto"><table class="dtable"><thead><tr><th>Data</th><th>Items</th></tr></thead><tbody id="dataRows"></tbody></table></div>
+  <div class="actions">
+   <button type="button" class="btn ghost" id="exportData">Download my data</button>
+   <button type="button" class="btn ghost danger" id="clearHist">Clear mock-test history</button>
+  </div>
+ </section>
+</div>
+<div id="helpPage" hidden>
+ <div class="set-head">
+  <div><h1>Help</h1><p>Find guidance and support for using PrepSphere.</p></div>
+  <button class="btn ghost" id="helpBack" type="button">← Back</button>
+ </div>
+ <nav class="set-chips" aria-label="Help sections"><a href="#h-account">About your account</a><a href="#h-center">Help Center</a><a href="#h-report">Report an Issue</a><a href="#h-feedback">Feedback</a></nav>
+
+ <section class="card sc" id="h-account" aria-labelledby="hh-account">
+  <h2 id="hh-account">About your account</h2>
+  <p class="sub">A summary of the details saved for your PrepSphere account.</p>
+  <dl class="acc" id="accList"></dl>
+  <div class="actions"><a class="btn" href="section.html?s=settings">Manage in Settings</a><a class="btn ghost" href="section.html?s=premium">View Premium</a></div>
+ </section>
+
+ <section class="card sc" id="h-center" aria-labelledby="hh-center">
+  <h2 id="hh-center">Help Center</h2>
+  <p class="sub">Answers to common questions about using PrepSphere.</p>
+  <div class="fld hsearch"><label for="faqQ">Search help articles</label><input id="faqQ" type="search" placeholder="Type a keyword, e.g. mock test" autocomplete="off"></div>
+  <div id="faqList"></div>
+  <p class="nores" id="faqNone" hidden>No help articles match your search. Try another keyword or report an issue below.</p>
+ </section>
+
+ <section class="card sc" id="h-report" aria-labelledby="hh-report">
+  <h2 id="hh-report">Report an Issue</h2>
+  <p class="sub">Tell us what went wrong and we will look into it.</p>
+  <form id="repForm" novalidate>
+   <div class="fgrid">
+    <div class="fld"><label for="repCat">Issue type</label><select id="repCat"><option>Something is not working</option><option>Wrong or missing content</option><option>Account or login</option><option>Payment or Premium</option><option>Other</option></select></div>
+    <div class="fld"><label for="repArea">Where did it happen?</label><select id="repArea"><option>Home</option><option>Study Books</option><option>Analysis</option><option>Notes</option><option>Previous Year Questions</option><option>Mock Test</option><option>Wishlist</option><option>History</option><option>Achievements</option><option>Settings</option><option>Other</option></select></div>
+   </div>
+   <div class="fld" style="margin-top:14px"><label for="repText">Describe the issue</label><textarea id="repText" placeholder="What happened, and what did you expect to happen?"></textarea><div class="err" id="repErr" role="alert"></div></div>
+   <div class="actions"><button type="submit" class="btn">Submit report</button></div>
+   <div class="ok" id="repOk" role="status" aria-live="polite"></div>
+  </form>
+ </section>
+
+ <section class="card sc" id="h-feedback" aria-labelledby="hh-feedback">
+  <h2 id="hh-feedback">Feedback</h2>
+  <p class="sub">Rate your experience and tell us how we can improve PrepSphere.</p>
+  <form id="fbForm" novalidate>
+   <div class="fld"><label id="fbRL">Your rating</label><div class="stars" id="fbStars" role="radiogroup" aria-labelledby="fbRL"></div><div class="err" id="fbErrR" role="alert"></div></div>
+   <div class="fld" style="margin-top:6px"><label for="fbText">Your comments</label><textarea id="fbText" placeholder="What do you like? What can we do better?"></textarea><div class="err" id="fbErr" role="alert"></div></div>
+   <div class="actions"><button type="submit" class="btn">Send feedback</button></div>
+   <div class="ok" id="fbOk" role="status" aria-live="polite"></div>
+  </form>
+ </section>
+</div>
+<div id="dlPage" hidden>
+ <div class="set-head">
+  <div><h1>Downloads</h1><p>Books, test results and notes you download are saved here.</p></div>
+  <button class="btn ghost" id="dlBack" type="button">← Back</button>
+ </div>
+ <p class="note" id="dlNote"></p>
+ <section class="hs" aria-labelledby="dh-book"><div class="hs-h"><h2 id="dh-book">📘 Books</h2></div><div class="hrow" id="dlBook" tabindex="0"></div></section>
+ <section class="hs" aria-labelledby="dh-test"><div class="hs-h"><h2 id="dh-test">🧪 Test results</h2></div><div class="hrow" id="dlTest" tabindex="0"></div></section>
+ <section class="hs" aria-labelledby="dh-note"><div class="hs-h"><h2 id="dh-note">📝 Notes</h2></div><div class="hrow" id="dlNoteRow" tabindex="0"></div></section>
+ <section class="hs" id="dlOtherS" aria-labelledby="dh-other" hidden><div class="hs-h"><h2 id="dh-other">📄 Reports &amp; materials</h2></div><div class="hrow" id="dlOther" tabindex="0"></div></section>
+</div>
+<dialog id="dlView" aria-labelledby="dlVT"><div class="bd"><h2 id="dlVT"></h2><pre id="dlVB"></pre><div style="display:flex;justify-content:flex-end"><button class="btn ghost" id="dlVX" type="button" style="font-size:14px;padding:10px 18px;border-radius:12px;border:2px solid var(--pri);background:var(--card);color:var(--pri2);font-weight:800;cursor:pointer">Close</button></div></div></dialog>
+<div class="toast-area" id="toasts" role="status" aria-live="polite"></div>
+<dialog id="cfm" aria-labelledby="cfmT"><form method="dialog" id="cfmF"><h3 id="cfmT"></h3><p id="cfmM"></p><div class="fld" id="cfmTypeW" hidden><label for="cfmType" id="cfmTL"></label><input id="cfmType" autocomplete="off"></div><div class="actions"><button type="button" class="btn ghost" id="cfmNo">Cancel</button><button type="submit" class="btn" id="cfmYes">Confirm</button></div></form></dialog>
+</main>
+</div>
+<script>
+(function(){
+ const q=new URLSearchParams(location.search), s=q.get("s")||"";
+ const data={
+  settings:["Settings","Manage your PrepSphere preferences and account settings."],
+  downloads:["Downloads","Your downloaded study resources will appear here."],
+  help:["Help","Find guidance and support for using PrepSphere."],
+  premium:["Premium","Explore PrepSphere premium resources and benefits."],
+  ai:["AI Study Assistant","Use the AI Study Assistant to support your preparation."]
+ };
+ const d=data[s]||["PrepSphere","Use the dashboard to continue your preparation."];
+ document.title=d[0]+" | PrepSphere";
+ document.getElementById("title").textContent=d[0];
+ document.getElementById("desc").textContent=d[1];
+ document.getElementById("back").onclick=()=>history.length>1&&document.referrer?history.back():location.href="home.html";
+
+ // Highlight current section if matching query
+ document.querySelectorAll(".nav a").forEach(a=>{
+  const href=a.getAttribute("href")||"";
+  if(s && href.includes("s="+s)){ a.classList.add("on"); }
+ });
+
+})();
+</script>
+<script src="../assets/js/ps-data.js"></script>
+<script src="../assets/js/navigation-fix.js"></script>
+<script>
+/* PrepSphere Settings page.
+   Settings are kept in one structured object (localStorage key "ps_settings", version 1) so it can later be
+   replaced by calls to a backend: GET/PUT /api/me/settings. Theme is the shared "ps_theme" value (see PSTheme in navigation-fix.js). */
+(function(){
+ if((new URLSearchParams(location.search).get("s")||"")!=="settings")return;
+ const $=id=>document.getElementById(id);
+ $("generic").hidden=true;$("settingsPage").hidden=false;
+ document.title="Settings | PrepSphere";
+
+ const KEY="ps_settings";
+ const EXAMS=["JEE Main","JEE Advanced","WBJEE","NEET","UPSC","NDA","JENPAS-UG","CAT","SSC CGL","SSC CHSL","CTET","TET","GATE","Other"];
+ const DEF=()=>({version:1,profile:{name:"",email:"",mobile:"",avatar:""},privacy:{profileVisibility:"public",showAchievements:true},security:{salt:"",passwordHash:""}});
+ function load(){let s={};try{s=JSON.parse(localStorage.getItem(KEY)||"{}")||{}}catch(e){}const d=DEF();return{version:1,profile:Object.assign(d.profile,s.profile),privacy:Object.assign(d.privacy,s.privacy),security:Object.assign(d.security,s.security)}}
+ function persist(s){try{localStorage.setItem(KEY,JSON.stringify(s));return true}catch(e){return false}}
+ function getExam(){try{const e=localStorage.getItem("ps_exam");if(e&&EXAMS.includes(e))return e}catch(e){}return "JEE Main"}
+ let S=load();
+
+ /* ---------- helpers ---------- */
+ function toast(msg,bad){const t=document.createElement("div");t.className="toast-i"+(bad?" bad":"");t.textContent=msg;$("toasts").appendChild(t);setTimeout(()=>t.remove(),bad?6500:4200)}
+ function saveOrFail(s,okMsg){if(persist(s)){S=s;if(okMsg)toast(okMsg);return true}toast("Could not save. Your browser storage is full or blocked, so nothing was changed.",true);return false}
+ function ask(o){return new Promise(res=>{const d=$("cfm");$("cfmT").textContent=o.title;$("cfmM").textContent=o.message;const yes=$("cfmYes"),inp=$("cfmType");
+  yes.textContent=o.yes||"Confirm";yes.className="btn"+(o.danger?" danger":"");
+  $("cfmTypeW").hidden=!o.typed;inp.value="";yes.disabled=!!o.typed;if(o.typed)$("cfmTL").textContent='Type "'+o.typed+'" to confirm';
+  let done=false;const fin=v=>{if(done)return;done=true;d.close();cleanup();res(v)};
+  const onIn=()=>{yes.disabled=inp.value.trim()!==o.typed};
+  const onYes=e=>{e.preventDefault();if(o.typed&&inp.value.trim()!==o.typed)return;fin(true)};
+  const onNo=()=>fin(false),onCancel=e=>{e.preventDefault();fin(false)};
+  function cleanup(){inp.removeEventListener("input",onIn);$("cfmF").removeEventListener("submit",onYes);$("cfmNo").removeEventListener("click",onNo);d.removeEventListener("cancel",onCancel)}
+  inp.addEventListener("input",onIn);$("cfmF").addEventListener("submit",onYes);$("cfmNo").addEventListener("click",onNo);d.addEventListener("cancel",onCancel);
+  d.showModal();(o.typed?inp:$("cfmNo")).focus()})}
+ const setErr=(id,msg,inputId)=>{$(id).textContent=msg||"";if(inputId)$(inputId).setAttribute("aria-invalid",msg?"true":"false")};
+ const vName=v=>/^[\p{L}][\p{L}\s.'\-]{1,59}$/u.test(v)?"":"Enter your full name (2–60 letters).";
+ const vEmail=v=>v===""||/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)?"":"Enter a valid email address, like name@example.com.";
+ const normMob=v=>v.replace(/[\s\-]/g,"").replace(/^(\+91|91|0)(?=\d{10}$)/,"");
+ const vMob=v=>v===""||/^[6-9]\d{9}$/.test(normMob(v))?"":"Enter a valid 10-digit Indian mobile number.";
+
+ /* ---------- Profile ---------- */
+ const pf={name:$("pName"),email:$("pEmail"),mobile:$("pMobile"),exam:$("pExam")};
+ pf.exam.innerHTML=EXAMS.map(e=>`<option>${e}</option>`).join("");
+ let editing=false,draftAvatar=null; // null = unchanged, "" = removed
+ function showAvatar(src,name){const a=$("avatar");a.textContent="";if(src){const i=new Image();i.alt="Profile picture";i.src=src;a.appendChild(i)}else a.textContent=(name||"").trim().charAt(0).toUpperCase()||"A"}
+ function fillProfile(){const p=S.profile;pf.name.value=p.name;pf.email.value=p.email;pf.mobile.value=p.mobile;pf.exam.value=getExam();draftAvatar=null;showAvatar(p.avatar,p.name);
+  $("cEmail").value=p.email;$("cMobile").value=p.mobile;["eName","eEmail","eMobile","avErr"].forEach(i=>setErr(i,""));["pName","pEmail","pMobile"].forEach(i=>$(i).setAttribute("aria-invalid","false"))}
+ function setEditing(on){editing=on;[pf.name,pf.email,pf.mobile].forEach(i=>i.readOnly=!on);pf.exam.disabled=!on;
+  $("avChange").disabled=!on;$("avRemove").disabled=!on;$("editProf").hidden=on;$("cancelProf").hidden=!on;$("saveProf").disabled=true;if(on)pf.name.focus()}
+ const dirty=()=>{const p=S.profile;return pf.name.value.trim()!==p.name||pf.email.value.trim()!==p.email||pf.mobile.value.trim()!==p.mobile||pf.exam.value!==getExam()||draftAvatar!==null};
+ const upd=()=>{if(editing)$("saveProf").disabled=!dirty()};
+ [pf.name,pf.email,pf.mobile,pf.exam].forEach(i=>{i.addEventListener("input",upd);i.addEventListener("change",upd)});
+ $("editProf").onclick=()=>setEditing(true);
+ $("cancelProf").onclick=()=>{fillProfile();setEditing(false);toast("Changes discarded.")};
+ $("avChange").onclick=()=>$("avFile").click();
+ $("avRemove").onclick=()=>{draftAvatar="";showAvatar("",pf.name.value);setErr("avErr","");upd()};
+ $("avFile").onchange=e=>{const f=e.target.files[0];e.target.value="";if(!f)return;setErr("avErr","");
+  if(!/^image\/(png|jpeg|webp)$/.test(f.type)){setErr("avErr","Choose a PNG, JPG or WebP image.");return}
+  if(f.size>5*1024*1024){setErr("avErr","Image is larger than 5 MB.");return}
+  const r=new FileReader();r.onerror=()=>setErr("avErr","Could not read that image.");
+  r.onload=()=>{const im=new Image();im.onerror=()=>setErr("avErr","That file is not a valid image.");
+   im.onload=()=>{const n=192,c=document.createElement("canvas");c.width=c.height=n;const x=c.getContext("2d"),m=Math.min(im.width,im.height);x.drawImage(im,(im.width-m)/2,(im.height-m)/2,m,m,0,0,n,n);
+    draftAvatar=c.toDataURL("image/jpeg",.86);showAvatar(draftAvatar,pf.name.value);upd()};im.src=r.result};r.readAsDataURL(f)};
+ $("profForm").onsubmit=async e=>{e.preventDefault();if(!editing)return;
+  const n=pf.name.value.trim(),em=pf.email.value.trim(),mo=pf.mobile.value.trim();
+  const a=vName(n),b=vEmail(em),c=vMob(mo);setErr("eName",a,"pName");setErr("eEmail",b,"pEmail");setErr("eMobile",c,"pMobile");
+  if(a||b||c){toast("Please fix the highlighted fields.",true);return}
+  if(!await ask({title:"Save profile changes?",message:"Your updated profile details will be saved on this device.",yes:"Save changes"}))return;
+  const s=load();s.profile.name=n;s.profile.email=em;s.profile.mobile=mo?normMob(mo):"";if(draftAvatar!==null)s.profile.avatar=draftAvatar;
+  if(!saveOrFail(s))return;try{localStorage.setItem("ps_exam",pf.exam.value)}catch(_){}
+  fillProfile();setEditing(false);toast("Profile saved.")};
+
+ /* ---------- Appearance (shared theme) ---------- */
+ const radios=[...document.querySelectorAll('input[name="theme"]')];
+ const syncRadios=()=>{const t=PSTheme.get();radios.forEach(r=>r.checked=r.value===t)};
+ radios.forEach(r=>r.addEventListener("change",()=>{if(!r.checked)return;PSTheme.set(r.value);toast((r.value==="dark"?"Dark":"Light")+" mode is on for all PrepSphere pages.")}));
+ document.addEventListener("ps-theme",syncRadios);syncRadios();
+
+ /* ---------- Account & security ---------- */
+ const hex=b=>[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,"0")).join("");
+ async function hash(salt,pw){const d=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(salt+":"+pw));return hex(d)}
+ function pwUI(){const has=!!S.security.passwordHash;$("curWrap").hidden=!has;$("pwHint").textContent=has?"Enter your current password, then choose a new one.":"No password is set yet. Set one for this device.";$("pwSave").textContent=has?"Update password":"Set password"}
+ $("pwForm").onsubmit=async e=>{e.preventDefault();["ePwCur","ePwNew","ePwNew2"].forEach(i=>setErr(i,""));
+  if(!(window.crypto&&crypto.subtle)){toast("Password changes need a secure page (https or localhost). Open the site that way and try again.",true);return}
+  const has=!!S.security.passwordHash,cur=$("pwCur").value,n=$("pwNew").value,n2=$("pwNew2").value;let bad=false;
+  if(has){if(!cur){setErr("ePwCur","Enter your current password.");bad=true}else if(await hash(S.security.salt,cur)!==S.security.passwordHash){setErr("ePwCur","Current password is incorrect.");bad=true}}
+  if(n.length<8||!/[A-Za-z]/.test(n)||!/\d/.test(n)){setErr("ePwNew","Use at least 8 characters with a letter and a number.");bad=true}
+  else if(has&&n===cur){setErr("ePwNew","New password must be different from the current one.");bad=true}
+  if(n!==n2){setErr("ePwNew2","Passwords do not match.");bad=true}
+  if(bad){toast("Password not changed. Please fix the highlighted fields.",true);return}
+  if(!await ask({title:has?"Change password?":"Set password?",message:"This password is stored (hashed) on this device only.",yes:has?"Change password":"Set password"}))return;
+  const salt=hex(crypto.getRandomValues(new Uint8Array(16))),s=load();s.security.salt=salt;s.security.passwordHash=await hash(salt,n);
+  if(saveOrFail(s,has?"Password changed.":"Password set.")){$("pwForm").reset();pwUI()}};
+ $("ctForm").onsubmit=async e=>{e.preventDefault();const em=$("cEmail").value.trim(),mo=$("cMobile").value.trim();
+  const a=vEmail(em),b=vMob(mo);setErr("eCEmail",a,"cEmail");setErr("eCMobile",b,"cMobile");
+  if(a||b){toast("Contact details not updated. Please fix the highlighted fields.",true);return}
+  const mo2=mo?normMob(mo):"";if(em===S.profile.email&&mo2===S.profile.mobile){toast("Nothing to update. These are already your saved details.");return}
+  if(!await ask({title:"Update contact details?",message:"Your email and mobile number will be updated on this device.",yes:"Update"}))return;
+  const s=load();s.profile.email=em;s.profile.mobile=mo2;if(saveOrFail(s,"Contact details updated.")){if(!editing)fillProfile();else{$("cEmail").value=em;$("cMobile").value=mo2}}};
+ $("delAcc").onclick=async()=>{
+  if(!await ask({title:"Delete account?",message:"This permanently deletes your profile, notes, wishlist, mock-test history and all other PrepSphere data stored on this device. It cannot be undone.",yes:"Delete account",danger:true,typed:"DELETE"}))return;
+  try{Object.keys(localStorage).filter(k=>k.indexOf("ps_")===0).forEach(k=>localStorage.removeItem(k))}catch(_){toast("Could not delete data because browser storage is blocked.",true);return}
+  document.documentElement.dataset.theme="light";S=load();fillProfile();pwUI();syncRadios();renderData();loadPrivacy();
+  toast("Your PrepSphere data on this device has been deleted. Returning to Home…");setTimeout(()=>{location.href="home.html"},2200)};
+
+ /* ---------- Privacy ---------- */
+ let saved={};
+ function loadPrivacy(){saved={vis:S.privacy.profileVisibility,ach:!!S.privacy.showAchievements};$("prVis").value=saved.vis;$("prAch").checked=saved.ach;$("savePriv").disabled=true}
+ const pdirty=()=>{$("savePriv").disabled=$("prVis").value===saved.vis&&$("prAch").checked===saved.ach};
+ $("prVis").onchange=pdirty;$("prAch").onchange=pdirty;
+ $("savePriv").onclick=async()=>{if(!await ask({title:"Save privacy settings?",message:"Your profile visibility and achievement sharing choices will be updated.",yes:"Save"}))return;
+  const s=load();s.privacy.profileVisibility=$("prVis").value;s.privacy.showAchievements=$("prAch").checked;if(saveOrFail(s,"Privacy settings saved."))loadPrivacy()};
+ const NAMES={ps_settings:"Profile, privacy and security",ps_notes_v2:"Notes",ps_wishlist:"Wishlist",ps_store:"Study store",ps_mock_history:"Mock-test history",ps_pyq_state:"PYQ progress",ps_pyq_notes:"PYQ notes",ps_pyq_pdfs:"Saved PYQ papers",ps_pyq_papers:"PYQ papers",ps_ratings:"Book ratings",ps_rewards:"Rewards",ps_unlocked:"Unlocked achievements"};
+ const PREF=["ps_theme","ps_exam"];
+ function count(v){try{const j=JSON.parse(v);if(Array.isArray(j))return j.length+(j.length===1?" item":" items");if(j&&typeof j==="object"){const n=Object.keys(j).length;return n+(n===1?" entry":" entries")}}catch(e){}return "Saved"}
+ function psKeys(){try{return Object.keys(localStorage).filter(k=>k.indexOf("ps_")===0).sort()}catch(e){return[]}}
+ function renderData(){const rows=psKeys().filter(k=>!PREF.includes(k)).map(k=>{const v=localStorage.getItem(k);let c=count(v);if(k==="ps_settings")c="Saved";return`<tr><td>${NAMES[k]||"Other app data"}</td><td>${c}</td></tr>`});
+  $("dataRows").innerHTML=rows.join("")||'<tr><td colspan="2">No data stored on this device yet.</td></tr>'}
+ $("exportData").onclick=()=>{const out={exportedAt:new Date().toISOString(),theme:PSTheme.get(),data:{}};
+  psKeys().forEach(k=>{if(PREF.includes(k))return;let v=localStorage.getItem(k);try{v=JSON.parse(v)}catch(e){}if(k==="ps_settings"&&v&&v.security)v.security={passwordSet:!!v.security.passwordHash};out.data[k]=v});
+  try{out.exam=localStorage.getItem("ps_exam")}catch(e){}
+  const a=document.createElement("a"),u=URL.createObjectURL(new Blob([JSON.stringify(out,null,2)],{type:"application/json"}));a.href=u;a.download="prepsphere-data-"+new Date().toISOString().slice(0,10)+".json";document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),1500);toast("Your data file was downloaded.")};
+ $("clearHist").onclick=async()=>{let has=false;try{has=!!localStorage.getItem("ps_mock_history")}catch(e){}
+  if(!has){toast("There is no mock-test history to clear.");return}
+  if(!await ask({title:"Clear mock-test history?",message:"All saved mock-test results on this device will be removed. This cannot be undone.",yes:"Clear history",danger:true}))return;
+  try{localStorage.removeItem("ps_mock_history");toast("Mock-test history cleared.")}catch(e){toast("Could not clear history. Browser storage is blocked.",true)}renderData()};
+
+ $("setBack").onclick=()=>{history.length>1&&document.referrer?history.back():location.href="home.html"};
+ window.addEventListener("storage",e=>{if(e.key===KEY||e.key==="ps_exam"||e.key==null){S=load();if(!editing)fillProfile();pwUI();loadPrivacy();renderData()}});
+ fillProfile();pwUI();loadPrivacy();renderData();
+})();
+</script>
+<script>
+/* PrepSphere Help page (section.html?s=help). Reports and feedback are kept in localStorage
+   ("ps_issues", "ps_feedback") so they can later be sent to a backend. */
+(function(){
+ if((new URLSearchParams(location.search).get("s")||"")!=="help")return;
+ const $=id=>document.getElementById(id);
+ $("generic").hidden=true;$("helpPage").hidden=false;
+ document.title="Help | PrepSphere";
+ $("helpBack").onclick=()=>history.length>1&&document.referrer?history.back():location.href="home.html";
+ const rd=(k,d)=>{try{const v=JSON.parse(localStorage.getItem(k));return v==null?d:v}catch(e){return d}};
+ const wr=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v));return true}catch(e){return false}};
+
+ /* About your account */
+ const st=rd("ps_settings",{}),pf=st.profile||{},pv=st.privacy||{};
+ let exam="JEE Main";try{exam=localStorage.getItem("ps_exam")||exam}catch(e){}
+ let theme="light";try{theme=localStorage.getItem("ps_theme")==="dark"?"dark":"light"}catch(e){}
+ const rows=[["Name",pf.name||"Aarav"],["Email",pf.email||"Not added"],["Mobile number",pf.mobile||"Not added"],["Preferred examination",exam],["Plan","Free"],["Profile visibility",pv.profileVisibility==="private"?"Private":"Public"],["Appearance",theme==="dark"?"Dark":"Light"]];
+ rows.forEach(r=>{const dt=document.createElement("dt"),dd=document.createElement("dd");dt.textContent=r[0];dd.textContent=r[1];$("accList").append(dt,dd)});
+
+ /* Help Center */
+ const FAQ=[
+  ["How do I change my exam?","Use the Preparing for menu on the Home page, or set your Preferred competitive examination in Settings → Profile. Books, tests and analysis follow the exam you pick."],
+  ["How do I take a mock test?","Open Mock Test from the menu, choose a test type (Full Syllabus, Chapter, Subject, Random or Daily Challenge) and start. Your attempts are saved in History."],
+  ["Where can I see my performance?","Open Analysis for score trends, subject performance and weekly reports. History lists every mock test you have taken."],
+  ["How do I save books or questions for later?","Tap the heart on a book or question to add it to your Wishlist. Open Wishlist from the menu to see everything you saved."],
+  ["How do I use Previous Year Questions?","Open Previous Year Questions, pick your exam, filter by year or status and start practising. You can save questions and mark them for revision."],
+  ["How do I write and organise notes?","Open Notes, tap New note and choose a subject. You can star favourites, highlight topics and filter notes by subject or chapter."],
+  ["How do I switch to dark mode?","Go to Settings → Appearance and choose Dark. The setting is applied on every page."],
+  ["How do I edit my profile?","Go to Settings → Profile, tap Edit Profile, update your details and save. Your changes are saved only after you confirm them."]
+ ];
+ const list=$("faqList");
+ FAQ.forEach(f=>{const d=document.createElement("details"),sm=document.createElement("summary"),p=document.createElement("p");d.className="faq";sm.textContent=f[0];p.textContent=f[1];d.append(sm,p);list.append(d)});
+ $("faqQ").addEventListener("input",()=>{const q=$("faqQ").value.trim().toLowerCase();let n=0;
+  [...list.children].forEach((d,i)=>{const hit=!q||(FAQ[i][0]+" "+FAQ[i][1]).toLowerCase().includes(q);d.hidden=!hit;if(hit)n++});
+  $("faqNone").hidden=n>0});
+
+ /* Report an Issue */
+ $("repForm").addEventListener("submit",e=>{e.preventDefault();
+  const t=$("repText").value.trim();$("repOk").textContent="";
+  if(t.length<10){$("repErr").textContent="Please describe the issue in at least 10 characters.";$("repText").setAttribute("aria-invalid","true");return}
+  $("repErr").textContent="";$("repText").removeAttribute("aria-invalid");
+  const all=rd("ps_issues",[]),id="ISS-"+String(all.length+1).padStart(4,"0");
+  all.unshift({id:id,type:$("repCat").value,area:$("repArea").value,text:t,ts:Date.now()});
+  if(!wr("ps_issues",all)){$("repErr").textContent="Could not save your report. Please try again.";return}
+  $("repText").value="";$("repOk").textContent="Thank you! Your report has been submitted. Reference: "+id+".";
+ });
+
+ /* Feedback */
+ let rating=0;const stars=$("fbStars");
+ function paintStars(){stars.innerHTML="";for(let n=1;n<=5;n++){const b=document.createElement("button");b.type="button";b.textContent="★";b.setAttribute("role","radio");b.setAttribute("aria-checked",String(n===rating));b.setAttribute("aria-label",n+" star"+(n>1?"s":""));if(n<=rating)b.className="on";b.onclick=()=>{rating=n;$("fbErrR").textContent="";paintStars()};stars.append(b)}}
+ paintStars();
+ $("fbForm").addEventListener("submit",e=>{e.preventDefault();
+  const t=$("fbText").value.trim();$("fbOk").textContent="";let bad=false;
+  if(!rating){$("fbErrR").textContent="Please choose a star rating.";bad=true}
+  if(t.length<5){$("fbErr").textContent="Please add a short comment.";bad=true}else $("fbErr").textContent="";
+  if(bad)return;
+  const all=rd("ps_feedback",[]);all.unshift({rating:rating,text:t,ts:Date.now()});
+  if(!wr("ps_feedback",all)){$("fbErr").textContent="Could not save your feedback. Please try again.";return}
+  $("fbText").value="";rating=0;paintStars();$("fbOk").textContent="Thank you for your feedback!";
+ });
+})();
+</script>
+<script>
+/* PrepSphere Downloads page (section.html?s=downloads).
+   Files are kept inside the app (localStorage "ps_downloads") so they open offline.
+   Nothing here is saved to the device. */
+(function(){
+ if((new URLSearchParams(location.search).get("s")||"")!=="downloads")return;
+ const $=id=>document.getElementById(id);
+ $("generic").hidden=true;$("dlPage").hidden=false;document.title="Downloads | PrepSphere";
+ $("dlBack").onclick=()=>history.length>1&&document.referrer?history.back():location.href="home.html";
+ const esc=t=>String(t==null?"":t).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+ const IC={book:"📘",test:"🧪",note:"📝",other:"📄"};
+ const kb=t=>{const n=Math.max(1,Math.round(new TextEncoder().encode(t||"").length/1024));return n+" KB"};
+ const when=ts=>new Date(ts).toLocaleDateString("en-IN",{day:"numeric",month:"short",year:"numeric"})+", "+new Date(ts).toLocaleTimeString("en-IN",{hour:"numeric",minute:"2-digit"});
+ const rows={book:"dlBook",test:"dlTest",note:"dlNoteRow",other:"dlOther"};
+ const empty={book:"No books yet. Tap Download on a book and it will be saved here.",test:"No test results yet. Download a result from History or after a test.",note:"No notes yet. Tap Download on a note and it will be saved here."};
+ function draw(){
+  const all=PSData.downloads(),by={book:[],test:[],note:[],other:[]};
+  all.forEach(d=>(by[d.kind]||by.other).push(d));
+  Object.keys(rows).forEach(k=>{
+   $(rows[k]).innerHTML=by[k].length?by[k].map(d=>`<article class="hc"><div class="hc-t">${IC[k]}<small>Available offline</small></div><div class="hc-b"><b>${esc(d.title)}</b><span class="hc-m">${esc(d.sub)}</span><span class="hc-m">Saved ${when(d.ts)} · ${kb(d.text)}</span><div class="hc-a"><button class="btn" data-a="o" data-k="${k}" data-i="${esc(d.id)}">Open</button><button class="btn ghost" data-a="r" data-k="${k}" data-i="${esc(d.id)}">Remove</button></div></div></article>`).join(""):`<p class="hs-e">${empty[k]||""}</p>`});
+  $("dlOtherS").hidden=!by.other.length;
+  const total=all.reduce((a,d)=>a+new TextEncoder().encode(d.text||"").length,0);
+  $("dlNote").textContent=all.length?`${all.length} file${all.length==1?"":"s"} saved · ${Math.max(1,Math.round(total/1024))} KB used. These files stay inside PrepSphere and open without internet. Nothing is saved to your device.`:"Everything you download stays inside PrepSphere and opens without internet. Nothing is saved to your device.";
+ }
+ document.getElementById("dlPage").addEventListener("click",e=>{
+  const b=e.target.closest("button[data-a]");if(!b)return;
+  const k=b.dataset.k,id=b.dataset.i,d=PSData.downloads().find(x=>x.kind===k&&String(x.id)===id);if(!d)return;
+  if(b.dataset.a==="o"){$("dlVT").textContent=d.title;$("dlVB").textContent=d.text||"This file is empty.";$("dlView").showModal()}
+  else if(confirm("Remove this file from Downloads?")){PSData.removeDownload(k,d.id);draw()}
+ });
+ $("dlVX").onclick=()=>$("dlView").close();
+ draw();
+})();
+</script>
+</body>
+</html>

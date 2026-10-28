@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Previous Year Questions · PrepSphere</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg2:#FFFFFF;--card:#FFFFFF;--ink:#12343B;--mut:#335961;--line:#B2EBF2;--pri:#00BFA5;--pri2:#00897B;--soft:#E0F7FA;--bad:#dc3d4b;--warn:#e29a0b;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px);background:var(--bg2);scrollbar-gutter:stable}
+[data-theme=dark]{--bg2:#000000;--card:#000000;--ink:#EDEEEA;--mut:rgba(237,238,234,.66);--line:rgba(237,238,234,.2);--soft:rgba(237,238,234,.08);--pri:#7C4DFF;--pri2:#00E5FF}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg2);color:var(--ink);font:500 14px/1.5 Manrope,system-ui,sans-serif}
+button,select,input,textarea{font:inherit;color:inherit}button{cursor:pointer}
+:focus-visible{outline:2px solid var(--pri);outline-offset:2px}
+.back-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--pri2);font:700 13px/1.2 Manrope,system-ui,sans-serif;cursor:pointer;text-decoration:none;white-space:nowrap;flex-shrink:0;transition:all .15s ease;box-shadow:0 1px 3px rgba(18,52,59,.04)}
+.back-btn:hover{background:var(--soft);border-color:var(--pri);color:var(--ink)}
+.app{display:grid;grid-template-columns:232px 1fr;min-height:100vh}
+aside.sb{background:var(--card);border-right:1px solid var(--line);padding:18px 12px;position:sticky;top:0;height:100vh;display:flex;flex-direction:column;gap:2px;overflow:auto}
+.logo{display:flex;gap:10px;align-items:center;font-weight:800;font-size:18px;padding:4px 10px 16px}
+.logo i{width:30px;height:30px;border-radius:50%;background:conic-gradient(from 200deg,var(--pri),var(--pri2),var(--line),var(--pri))}
+.nav a{display:flex;gap:10px;align-items:center;padding:9px 12px;border-radius:10px;color:var(--mut);text-decoration:none;font-weight:600;transition:all .15s ease}
+.nav a:hover{background:var(--soft);color:var(--ink)}.nav a.on{background:var(--pri);color:#fff}
+.sp{flex:1}
+main{padding:0 24px 40px;min-width:0}
+.top{display:flex;gap:14px;align-items:center;padding:14px 0;position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg2);z-index:5}
+.search{flex:1;max-width:520px;margin:0 auto;position:relative}
+.search input{width:100%;padding:10px 38px 10px 14px;border-radius:12px;border:1px solid var(--line);background:var(--soft)}
+.search input:focus{background:var(--card);border-color:var(--pri);outline:none}
+.search button{position:absolute;right:8px;top:6px;border:0;background:none;font-size:18px;color:var(--mut)}
+.chip{display:flex;gap:6px;align-items:center;padding:7px 11px;border-radius:99px;background:var(--soft);border:1px solid var(--line);font-weight:700}
+.av{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--pri),var(--pri2));color:#fff;display:grid;place-items:center;font-weight:800;border:0}
+.menu{position:absolute;right:24px;top:58px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:6px;display:none;min-width:170px;box-shadow:0 12px 30px rgba(18,52,59,.12);z-index:8}
+.menu.open{display:block}.menu a{display:block;padding:8px 12px;border-radius:8px;color:var(--ink);text-decoration:none}.menu a:hover{background:var(--soft);color:var(--pri2)}
+h1{font-size:26px;margin:6px 0 2px;letter-spacing:-.4px}h2{font-size:16px;margin:0 0 8px}h3{margin:0;font-size:16px;line-height:1.3}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:0 2px 10px rgba(18,52,59,.04)}
+.hero{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;background:var(--soft);border:1px solid var(--line);border-radius:18px;padding:20px 22px;margin-bottom:16px}
+.hero p{margin:0;color:var(--mut)}
+.lab{color:var(--mut);font-size:12px;font-weight:600}
+.sel{padding:10px 12px;border-radius:12px;border:2px solid var(--pri);background:var(--card);font-weight:700;min-width:180px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-bottom:16px}
+.stats .card{padding:12px 14px}.stats .n{font-size:22px;font-weight:800;letter-spacing:-.5px}
+.snap{margin-bottom:16px}.snap p{margin:0;color:var(--mut)}
+.btn{border:0;background:var(--pri);color:#fff;padding:9px 16px;border-radius:10px;font-weight:700;transition:all .15s ease}
+.btn:hover{background:var(--pri2)}.btn:disabled{opacity:.5}
+.btn.o{background:transparent;color:var(--pri2);border:1px solid var(--pri)}.btn.o:hover{background:var(--soft)}
+.tabs{display:flex;gap:6px;overflow-x:auto;padding:2px 0 10px}
+.tabs button{border:1px solid var(--line);background:var(--soft);color:var(--mut);border-radius:99px;padding:6px 14px;font-size:13px;font-weight:600;white-space:nowrap}
+.tabs button.on{background:var(--pri);color:#fff;border-color:var(--pri)}
+.tabs em{font-style:normal;opacity:.75;margin-left:4px}
+.lay{display:grid;grid-template-columns:250px 1fr;gap:16px;align-items:start}
+.fl{position:sticky;top:70px;display:grid;gap:10px}
+.fl label{display:grid;gap:3px;font-size:12px;font-weight:700;color:var(--mut)}
+.fl select,.dg select,.dg input,.dg textarea{padding:8px 10px;border-radius:10px;border:1px solid var(--line);background:var(--card);font-weight:600}
+.fb2{display:none}
+.qk{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-bottom:16px}
+.qk button{text-align:left;border:1px solid var(--line);background:var(--card);border-radius:14px;padding:12px;font-weight:700}
+.qk button:hover{border-color:var(--pri);background:var(--soft)}.qk small{display:block;color:var(--mut);font-weight:500}
+.nvr{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.nvb{width:34px;height:34px;border-radius:9px;border:1px solid var(--line);background:var(--card);font-weight:700;font-size:12px;position:relative}
+.nvb.ok{background:var(--pri2);color:#fff;border-color:var(--pri2)}.nvb.bad{background:var(--bad);color:#fff;border-color:var(--bad)}.nvb.rv{box-shadow:inset 0 -4px 0 var(--warn)}.nvb.sv:after{content:"";position:absolute;top:2px;right:3px;width:6px;height:6px;border-radius:50%;background:var(--pri)}.nvb.cur{outline:2px solid var(--pri)}
+.qc{margin-bottom:14px;display:grid;gap:10px}
+.qt{margin:0;font-weight:700;font-size:15px}
+.tags{display:flex;gap:6px;flex-wrap:wrap}
+.tag{font-size:11px;font-weight:700;padding:2px 8px;border-radius:99px;background:var(--soft);color:var(--pri2)}
+.tag.D2,.tag.D3{background:#dc3d4b22;color:var(--bad)}.tag.D1{background:#e29a0b26;color:#9a6700}
+.op{display:block;width:100%;text-align:left;padding:11px 14px;border-radius:12px;border:1px solid var(--line);background:var(--card);font-weight:600;margin-bottom:6px;min-height:44px}
+.op:hover:not(:disabled){border-color:var(--pri)}.op.pk{border-color:var(--pri);background:var(--soft)}.op.ok{background:#00897b22;border-color:var(--pri2)}.op.bad{background:#dc3d4b1f;border-color:var(--bad)}.op:disabled{cursor:default;color:var(--ink)}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.sm{border:1px solid var(--line);background:var(--card);border-radius:9px;padding:6px 11px;font-size:12px;font-weight:700;color:var(--mut)}
+.sm:hover{background:var(--soft);color:var(--ink)}.sm.is{background:var(--soft);color:var(--pri2);border-color:var(--pri)}
+.res{border-radius:12px;padding:12px 14px;background:var(--soft);border-left:5px solid var(--pri2)}.res.bad{border-left-color:var(--bad)}
+.sol{border:1px solid var(--line);border-radius:12px;padding:12px 14px}.sol ol{margin:4px 0 8px;padding-left:20px}.sol p{margin:4px 0;color:var(--mut)}
+.ai{background:var(--soft);border-radius:12px;padding:10px 12px;font-weight:600}
+.pp{display:flex;flex-direction:column;gap:10px}.hd{display:flex;gap:12px;align-items:center}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+.pdf{flex:none;width:44px;height:54px;border-radius:8px;background:linear-gradient(150deg,var(--pri),var(--pri2));color:#fff;font-size:12px;font-weight:800;display:grid;place-items:end center;padding-bottom:6px}
+.bw{margin:9px 0}.bw .r{display:flex;justify-content:space-between;font-weight:600;margin-bottom:3px}.bt{height:9px;background:var(--soft);border-radius:9px;overflow:hidden}.bt i{display:block;height:100%;border-radius:9px;background:linear-gradient(90deg,var(--pri),var(--pri2))}
+.g3{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;margin-bottom:14px}
+.empty{text-align:center;padding:40px 10px;color:var(--mut)}.empty h3{color:var(--ink)}
+dialog{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:0;width:min(640px,95vw);max-height:92vh;color:var(--ink);box-shadow:0 20px 50px rgba(18,52,59,.25)}
+dialog::backdrop{background:rgba(18,52,59,.45)}
+.dg{padding:18px;display:grid;gap:10px}.dg label{display:grid;gap:3px;font-size:12px;font-weight:700;color:var(--mut)}.dg textarea{min-height:110px}
+#vd{width:min(860px,96vw);height:min(90vh,820px)}#vd[open]{display:flex;flex-direction:column}
+.dv{flex:1;min-height:0;margin:0 18px;border:1px solid var(--line);border-radius:12px;overflow:auto;background:#fff;color:#12343B}.dv object{width:100%;height:100%;display:block}
+.fb{padding:18px;line-height:1.6}.fb h4{margin:0 0 4px;font-size:20px}.fb .q{font-weight:700;margin:14px 0 4px}.fb .o{margin-left:16px}.fb .s,.fb .p{color:#335961;margin:2px 0}.fb hr{border:0;border-top:1px dashed #B2EBF2;margin:16px 0}
+.toast{position:fixed;left:50%;bottom:calc(30px + env(safe-area-inset-bottom,0px));transform:translate(-50%,20px);background:var(--ink);color:var(--bg2);padding:10px 18px;border-radius:12px;opacity:0;pointer-events:none;transition:.25s;z-index:60;font-weight:600}.toast.show{opacity:1;transform:translate(-50%,0)}
+.bn{display:none}
+@media(max-width:900px){.lay{grid-template-columns:1fr}.fl{position:static;display:none}.fl.open{display:grid}.fb2{display:inline-block}}
+@media(max-width:760px){.app{grid-template-columns:1fr}aside.sb{display:none}main{padding:0 14px 90px}.chip.hide{display:none}.menu{right:14px}
+.bn{display:flex;position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--line);justify-content:space-around;padding:8px 0 calc(8px + env(safe-area-inset-bottom,0px));z-index:10}
+.bn a{text-decoration:none;color:var(--mut);font-size:11px;text-align:center;font-weight:600}.bn a.on{color:var(--pri2)}.toast{bottom:calc(90px + env(safe-area-inset-bottom,0px))}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+/* dark-theme fixes */
+[data-theme=dark] .tag.D1{color:#e29a0b}
+/* dark: flat classic finish */
+html[data-theme=dark] .logo i{background:var(--pri)!important}
+html[data-theme=dark] .av,html[data-theme=dark] .fab,html[data-theme=dark] .avatar{background:var(--pri)!important;box-shadow:none!important}
+html[data-theme=dark] .bar b{background:var(--pri)!important}
+html[data-theme=dark] .pdf,html[data-theme=dark] .bt i{background:var(--pri)!important}
+html[data-theme=dark] .op.ok{background:rgba(0,229,255,.14)}
+html[data-theme=dark] .btn:hover{color:#000000}
+html[data-theme=dark] .nvb.ok{color:#000000}
+</style>
+<script>
+/* PrepSphere theme: apply the saved theme before first paint; keep all pages in sync */
+(function(){var r=document.documentElement;function a(){var d=false;try{d=localStorage.getItem("ps_theme")==="dark"}catch(e){}r.dataset.theme=d?"dark":"light"}a();addEventListener("pageshow",a);addEventListener("storage",function(e){if(e.key==="ps_theme")a()})})();
+</script>
+</head>
+<body>
+<div class="app">
+<aside class="sb">
+ <div class="logo"><i></i>PrepSphere</div>
+ <nav class="nav" id="nav"></nav>
+ <div class="sp"></div>
+ <nav class="nav"><a href="section.html?s=settings"> Settings</a><a href="section.html?s=premium"> Premium</a><a href="section.html?s=help"> Help</a></nav>
+</aside>
+<main>
+ <div class="top">
+  <div class="search"><input id="q" type="search" placeholder="Search questions, topics, chapters or concepts…" aria-label="Search questions"><button id="qc" aria-label="Clear search" hidden>×</button></div>
+  <span class="chip" title="Study streak">🔥 12</span><a class="chip" href="notifications.html" title="Notifications" aria-label="Notifications" style="text-decoration:none">🔔 3</a>
+  <button class="av" id="avb" aria-label="Profile menu">A</button>
+  <div class="menu" id="menu"><a href="section.html?s=settings">My Profile</a><a href="section.html?s=settings">My Target</a><a href="analysis.html">Progress</a><a href="section.html?s=premium">Subscription</a><a href="section.html?s=settings">Settings</a><a href="#">Logout</a></div>
+ </div>
+ <div class="hero">
+  <div><h1> Previous Year Questions</h1><p>Practice real exam questions, understand patterns and improve your preparation.</p></div>
+  <label class="lab">Select Examination<br><select class="sel" id="exam"></select></label>
+ </div>
+ <div class="stats" id="stats"></div>
+ <div class="card snap"><h2 id="sn"></h2><p id="sp"></p></div>
+ <div class="tabs" id="views" role="group" aria-label="View"></div>
+ <div class="lay">
+  <aside class="fl card" id="fl">
+   <h2 style="margin:0">Filters</h2>
+   <label>Year<select id="fy"></select></label>
+   <label>Attempt status<select id="fa"><option>All</option><option>Unattempted</option><option>Attempted</option><option>Correct</option><option>Incorrect</option><option>Marked for Review</option></select></label>
+   <label>Question status<select id="fq"><option>All</option><option>Saved</option><option>Important</option><option>Revision Required</option></select></label>
+   <label>Sort by<select id="so"><option value="y">Newest year</option><option value="o">Oldest year</option><option value="d">Difficulty</option><option value="i">Most important</option><option value="s">Saved first</option><option value="u">Unattempted first</option></select></label>
+   <button class="btn o" id="rs">Reset filters</button>
+  </aside>
+  <section id="main" aria-live="polite"></section>
+ </div>
+</main>
+</div>
+<nav class="bn"><a href="home.html"><br>Home</a><a href="study-books.html"><br>Books</a><a href="PYQ.html" class="on"><br>PYQ</a><a href="notes.html"><br>Notes</a><a href="analysis.html"><br>Analysis</a><a href="section.html?s=settings"><br>Settings</a></nav>
+
+<dialog id="vd"><div class="dg" style="grid-template-columns:1fr auto;align-items:start"><div><h2 id="vt" style="margin:0"></h2><div class="tags" id="vm" style="margin-top:6px"></div></div><button class="btn o" id="vx">Close</button></div><div class="dv" id="dv"></div><div class="dg" style="grid-template-columns:1fr auto;align-items:center"><span class="lab">This PDF stays inside PrepSphere. It is not downloaded to your device.</span><button class="btn" id="vs"></button></div></dialog>
+<dialog id="cd"><div class="dg"><h2 style="margin:0">Start PYQ practice</h2><p class="lab" id="cs" style="margin:0"></p>
+ <label>Number of questions<select id="cn"><option>10</option><option>20</option><option>30</option></select></label>
+ <label>Difficulty<select id="cf"><option>Mixed</option><option>Easy</option><option>Medium</option><option>Hard</option></select></label>
+ <label>Time limit<select id="ct"><option value="0">No limit</option><option value="15">15 minutes</option><option value="30">30 minutes</option><option value="60">60 minutes</option></select></label>
+ <label>Question selection<select id="cm"><option value="s">Sequential</option><option value="r">Random</option><option value="i">Important questions</option><option value="w">Weak topics</option></select></label>
+ <div class="row" style="justify-content:flex-end"><button class="btn o" id="cx">Cancel</button><button class="btn" id="cg">Start practice</button></div></div></dialog>
+<dialog id="pd" style="width:min(900px,96vw)"><div class="dg"><div class="row" style="justify-content:space-between;align-items:center"><h2 style="margin:0" id="ph"></h2><b id="pt"></b></div><div id="pb"></div></div></dialog>
+<dialog id="nd"><div class="dg"><h2 style="margin:0">Add to notes</h2>
+ <label>Title<input id="nt" maxlength="80"></label>
+ <label>Add as<select id="nk"><option>Personal explanation</option><option>Formula</option><option>Shortcut</option><option>Revision point</option></select></label>
+ <label>Folder<select id="nf"><option>Revision</option><option>Important Formulas</option><option>Doubts</option></select></label>
+ <label>Note<textarea id="nb"></textarea></label>
+ <div class="row" style="justify-content:flex-end"><button class="btn o" id="nx">Cancel</button><button class="btn" id="ns">Save note</button></div></div></dialog>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+const $=i=>document.getElementById(i),esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const PCM=["Physics","Chemistry","Mathematics"],SSC=["Quant","Reasoning","English","General Awareness"],TET=["Child Pedagogy","Mathematics","EVS","English"];
+const SUBJ={"JEE Main":PCM,"JEE Advanced":PCM,"WBJEE":PCM,"NEET":["Physics","Chemistry","Biology"],"UPSC":["History","Geography","Polity","Economics","Environment","Current Affairs"],"NDA":["Mathematics","General Ability","English"],"JENPAS-UG":PCM,"CAT":["Quant","Verbal Ability","DILR"],"SSC CGL":SSC,"SSC CHSL":SSC,"CTET":TET,"TET":TET,"GATE":["Engineering Mathematics","Core Engineering","General Aptitude"],"Other":["General Studies","Aptitude"]};
+const MK={"JEE Main":[4,1],"JEE Advanced":[3,1],"WBJEE":[1,.25],"NEET":[4,1],"UPSC":[2,.67],"NDA":[2.5,.83],"JENPAS-UG":[1,.25],"CAT":[3,1],"SSC CGL":[2,.5],"SSC CHSL":[2,.5],"CTET":[1,0],"TET":[1,0],"GATE":[1,.33],"Other":[1,.25]};
+const INFO={"JEE Main":["JEE Main pattern","Computer-based, 3 hours, 300 marks, +4 / -1. High-weightage: Current Electricity, Modern Physics, Mechanics, Coordinate Geometry, Organic Chemistry."],"JEE Advanced":["JEE Advanced pattern","Two papers of 3 hours each. Marking and question types change every year. High-weightage: Mechanics, Electrostatics, Calculus."],"WBJEE":["WBJEE pattern","Maths 100 marks, Physics 50, Chemistry 50. Some questions carry 2 marks and some allow more than one correct option."],"NEET":["NEET pattern","720 marks in 3 hours 20 minutes, +4 / -1. High-weightage: Human Physiology, Genetics, Ecology, Organic Chemistry."],"UPSC":["UPSC Prelims pattern","GS Paper I: 100 questions, 200 marks, negative marking. High-weightage: Polity, Environment, Modern History, Economy."],"GATE":["GATE pattern","65 questions, 100 marks, 3 hours. MCQ, MSQ and numerical answer types."],"CAT":["CAT pattern","120 minutes in three sections: VARC, DILR and Quant. Wrong MCQ answers lose 1 mark."]};
+const DEF=["Exam pattern","Pattern differs by year. Confirm the marking scheme on the official site."];
+const SB=(c,t,q,o,a,d,s)=>[c,t,q,o,a,d,s];
+
+/* folders inside each year, taken from your EXAMINATION structure */
+const STR={
+ "JEE Main":["Session 1","Session 2"],
+ "JEE Advanced":["Paper 1","Paper 2"],
+ "WBJEE":[],"NEET":[],"JENPAS-UG":[],"TET":[],"Other":[],
+ "UPSC":["Preliminary Examination","General Studies Paper I","General Studies Paper II"],
+ "NDA":["NDA I","NDA II"],
+ "CAT":["Slot 1","Slot 2","Slot 3"],
+ "SSC CGL":["Tier-I","Tier-II"],
+ "SSC CHSL":["Tier-I","Tier-II"],
+ "CTET":["Paper I","Paper II"],
+ "GATE":["Session 1","Session 2"]
+};
+const FOLD=e=>[...(STR[e]||[]),"Question Sets"];
+
+const BANK={
+Physics:{tip:"Draw the diagram and write units before substituting.",mis:"Mixing up mass and weight, or skipping unit conversion.",qs:[SB("Laws of Motion","Newton's second law","A body of mass 2 kg is acted on by a net force of 10 N. Its acceleration is:",["2 m/s^2","5 m/s^2","10 m/s^2","20 m/s^2"],1,0,"Given: m = 2 kg, F = 10 N|Formula: a = F/m|Calculation: 10/2 = 5|Answer: 5 m/s^2"),SB("Laws of Motion","Impulse","The SI unit of impulse is:",["N","N s","J","W"],1,0,"Impulse = force x time|Units: N x s, same as kg m/s|Answer: N s")]},
+Chemistry:{tip:"Count sigma bonds and lone pairs first.",mis:"Using pH = log[H+] without the negative sign.",qs:[SB("Chemical Bonding","Hybridisation","The hybridisation of carbon in methane is:",["sp","sp2","sp3","sp3d"],2,0,"Concept: steric number = sigma bonds + lone pairs|Methane: 4 + 0 = 4|Answer: sp3"),SB("Equilibrium","pH of strong acids","The pH of 0.01 M HCl is:",["1","2","7","12"],1,1,"Given: HCl is a strong acid, so [H+] = 0.01 = 10^-2|Formula: pH = -log[H+]|Answer: 2")]},
+Mathematics:{tip:"Check the answer by differentiating or substituting back.",mis:"Forgetting the constant C, or using the wrong sign of b.",qs:[SB("Calculus","Integration","The integral of 2x dx is:",["x^2 + C","2x^2 + C","x + C","2 + C"],0,0,"Formula: integral of x^n = x^(n+1)/(n+1)|Calculation: 2 x x^2/2 = x^2|Answer: x^2 + C"),SB("Algebra","Quadratic equations","The sum of the roots of x^2 - 5x + 6 = 0 is:",["-5","5","6","-6"],1,0,"Formula: sum of roots = -b/a|Calculation: -(-5)/1 = 5|Check: roots are 2 and 3|Answer: 5")]},
+Biology:{tip:"Link each structure to its one key function.",mis:"Confusing the F1 and F2 ratios.",qs:[SB("Cell Biology","Cell organelles","The powerhouse of the cell is the:",["Ribosome","Golgi body","Mitochondrion","Lysosome"],2,0,"Concept: mitochondria make ATP by respiration|Other options: ribosomes make proteins, Golgi packages, lysosomes digest|Answer: Mitochondrion"),SB("Genetics","Dihybrid cross","The phenotypic ratio in a Mendelian dihybrid F2 cross is:",["3:1","1:2:1","9:3:3:1","1:1"],2,1,"Concept: independent assortment|Two genes give 4 phenotypes|Answer: 9:3:3:1")]},
+History:{tip:"Anchor each event to a century, then a ruler.",mis:"Mixing up the Non-Cooperation (1920) and Quit India (1942) movements.",qs:[SB("Ancient India","Mauryan Empire","Who founded the Maurya Empire?",["Ashoka","Bindusara","Chandragupta Maurya","Samudragupta"],2,0,"Concept: Mauryan dynasty, about 321 BCE|Ashoka was the third ruler, Samudragupta was a Gupta|Answer: Chandragupta Maurya"),SB("Modern History","Quit India Movement","The Quit India Movement was launched in:",["1930","1940","1942","1946"],2,0,"Concept: launched at the Bombay session, August 1942|Answer: 1942")]},
+Geography:{tip:"Use a map sketch to place rivers and lines.",mis:"Mixing up west-flowing and east-flowing rivers.",qs:[SB("Indian Geography","Rivers","The longest river of peninsular India is the:",["Godavari","Krishna","Narmada","Kaveri"],0,1,"Concept: Godavari is about 1,465 km long|Answer: Godavari"),SB("Physical Geography","Latitudes","The Tropic of Cancer passes through how many Indian states?",["6","7","8","9"],2,1,"Concept: it crosses Gujarat, Rajasthan, MP, Chhattisgarh, Jharkhand, West Bengal, Tripura and Mizoram|Answer: 8")]},
+Polity:{tip:"Memorise key Articles with their one-line purpose.",mis:"Confusing Article 32 with Article 226.",qs:[SB("Constitution","Fundamental Rights","Article 21 of the Constitution deals with:",["Equality before law","Freedom of speech","Protection of life and personal liberty","Right to property"],2,0,"Concept: Article 21 is in Part III|Article 14 is equality, Article 19 is freedoms|Answer: life and personal liberty"),SB("Constitution","Writs","Who can issue writs for Fundamental Rights under Article 32?",["President","Parliament","Supreme Court","Attorney General"],2,1,"Concept: Article 32 is the right to constitutional remedies|Answer: Supreme Court")]},
+Economics:{tip:"Separate monetary policy (RBI) from fiscal policy (Government).",mis:"Treating borrowings as receipts when computing fiscal deficit.",qs:[SB("Monetary Policy","RBI","Which body regulates monetary policy in India?",["SEBI","Reserve Bank of India","NITI Aayog","Finance Commission"],1,0,"Concept: the RBI Monetary Policy Committee sets the repo rate|Answer: Reserve Bank of India"),SB("Fiscal Policy","Fiscal deficit","Fiscal deficit equals total expenditure minus:",["Revenue receipts only","Total receipts excluding borrowings","Tax revenue","Capital receipts"],1,2,"Formula: fiscal deficit = total expenditure - (revenue receipts + non-debt capital receipts)|Answer: total receipts excluding borrowings")]},
+Quant:{tip:"Turn percentages into fractions for faster mental maths.",mis:"Applying a percentage on the wrong base.",qs:[SB("Arithmetic","Percentage","15% of 240 is:",["24","32","36","40"],2,0,"Formula: 15/100 x 240|Calculation: 0.15 x 240 = 36|Answer: 36"),SB("Arithmetic","Averages","The average of 10, 20 and 30 is:",["15","20","25","60"],1,0,"Formula: sum / count|Calculation: 60/3 = 20|Answer: 20")]},
+Reasoning:{tip:"Write differences between terms before guessing a rule.",mis:"Assuming the pattern after only two terms.",qs:[SB("Series","Number series","Find the next number: 2, 6, 12, 20, ?",["28","30","32","36"],1,1,"Differences: 4, 6, 8|Next difference: 10|Calculation: 20 + 10 = 30|Answer: 30"),SB("Direction Sense","Directions","A is east of B and B is east of C. C is to the ___ of A.",["East","West","North","South"],1,0,"Order west to east: C, B, A|Answer: West")]},
+English:{tip:"Read the full sentence before choosing.",mis:"Ignoring the subject's number in verb questions.",qs:[SB("Vocabulary","Synonyms","Choose the synonym of 'abundant':",["Scarce","Plentiful","Rare","Tiny"],1,0,"Meaning: existing in large quantities|Answer: Plentiful"),SB("Grammar","Subject-verb agreement","Choose the correct word: She ___ to school every day.",["go","going","goes","gone"],2,0,"Rule: a singular subject takes 'goes' in the simple present|Answer: goes")]},
+"General Awareness":{tip:"Revise static GK in small daily sets.",mis:"Mixing a state's capital with its largest city.",qs:[SB("Static GK","State capitals","The capital of Rajasthan is:",["Jodhpur","Udaipur","Jaipur","Ajmer"],2,0,"Fact: Jaipur is the capital|Answer: Jaipur"),SB("Static GK","National symbols","The national animal of India is the:",["Lion","Tiger","Elephant","Leopard"],1,0,"Fact: the Bengal tiger is the national animal|Answer: Tiger")]},
+Environment:{tip:"Link each convention to its theme and year.",mis:"Mixing up Ramsar (wetlands) and CITES (trade in species).",qs:[SB("Climate Change","Greenhouse gases","Which gas contributes most to the enhanced greenhouse effect?",["Oxygen","Nitrogen","Carbon dioxide","Argon"],2,0,"Concept: burning fossil fuels adds CO2|Answer: Carbon dioxide"),SB("Biodiversity","Conventions","The Ramsar Convention is related to:",["Wetlands","Whales","Deserts","Glaciers"],0,1,"Concept: it protects wetlands of international importance|Answer: Wetlands")]}};
+const bank=s=>BANK[s]||(/Math/.test(s)?BANK.Mathematics:/Quant/.test(s)?BANK.Quant:/Reason|DILR/.test(s)?BANK.Reasoning:/English|Verbal/.test(s)?BANK.English:BANK["General Awareness"]);
+const YEARS=[2026,2025,2024,2023,2022],DN=["Easy","Medium","Hard","Very Hard"];
+const memo={};
+function Q(ex){if(memo[ex])return memo[ex];const out=[],FD=FOLD(ex);
+ YEARS.forEach(y=>SUBJ[ex].forEach((s,si)=>{const b=bank(s);b.qs.forEach((x,i)=>{const r=(y+i)%4;
+  out.push({id:ex+"|"+y+"|"+s+"|"+i,ex,yr:y,ses:FD[(y+i+si)%FD.length],subj:s,ch:x[0],tp:x[1],q:x[2],o:x[3].map((_,k)=>x[3][(k+r)%4]),a:(x[4]-r+4)%4,d:Math.min(3,x[5]+((y+i)%5==0?1:0)),m:MK[ex][0],n:MK[ex][1],imp:3+(y+i)%3,sol:x[6],tip:b.tip,mis:b.mis})})}));
+ return memo[ex]=out}
+/* state kept in this page's storage */
+let ST={a:{},s:{},r:{}};try{ST=Object.assign(ST,JSON.parse(localStorage.getItem("ps_pyq_state")||"{}"))}catch(e){}
+let sv={};try{sv=JSON.parse(localStorage.getItem("ps_pyq_pdfs")||"{}")}catch(e){}
+const put=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v));return true}catch(e){return false}};
+const save=()=>put("ps_pyq_state",ST);
+let ex="JEE Main";try{ex=localStorage.getItem("ps_exam")||ex}catch(e){}if(!SUBJ[ex])ex="JEE Main";
+const F0={y:"",s:"",c:"",t:"",d:"",ses:"",pp:"",a:"All",q:"All",so:"y",k:""};
+let F={...F0},view="pr",sel={},T0={},aiT={},aiOn={},lim=10,rnd=false,tt,P=null,pint=0,cur=null,url=null;
+const toast=m=>{const t=$("toast");t.textContent=m;t.classList.add("show");clearTimeout(tt);tt=setTimeout(()=>t.classList.remove("show"),2000)};
+const opts=(a,s,all)=>(all?'<option value="">'+all+"</option>":"")+a.map(x=>"<option "+(String(x)===String(s)?"selected":"")+">"+esc(x)+"</option>").join("");
+/* papers added later (kept in this page's storage) */
+let PAP={};try{PAP=JSON.parse(localStorage.getItem("ps_pyq_papers")||"{}")}catch(e){}
+let PC={};
+const mapQ=(e,p,x,i)=>({id:e+"|"+p.id+"|"+i,pid:p.id,ex:e,yr:p.yr,ses:p.ses,subj:x.subject||"General",ch:x.chapter||"General",tp:x.topic||"General",q:x.question,o:x.options,a:x.answer,d:Math.min(3,Math.max(0,x.difficulty|0)),m:MK[e][0],n:MK[e][1],imp:x.importance||3,sol:Array.isArray(x.solution)?x.solution.join("|"):(x.solution||"Re-check the concept and the answer key."),tip:x.tip||"Re-read the question before choosing.",mis:x.mistake||"Rushing without checking all options."});
+function papers(e){const g={};Q(e).forEach(q=>{const k=q.yr+"|"+q.ses;q.pid="seed|"+k;(g[k]=g[k]||{id:q.pid,yr:q.yr,ses:q.ses,name:"Sample practice set",seed:1,qs:[]}).qs.push(q)});
+ return Object.values(g).concat((PAP[e]||[]).map(p=>({...p,qs:p.qs.map((x,i)=>mapQ(e,p,x,i))})))}
+const pap=()=>(PC[ex]=PC[ex]||papers(ex)),pool=()=>pap().flatMap(p=>p.qs),mine=()=>pool().filter(q=>ST.a[q.id]);
+const acc=l=>l.length?Math.round(l.filter(q=>ST.a[q.id].ok).length/l.length*100):null;
+function group(l,k){const g={};l.forEach(q=>(g[q[k]]=g[q[k]]||[]).push(q));return Object.entries(g).map(([n,v])=>[n,acc(v),v.length])}
+[[" Home","home.html"],[" Study Books","study-books.html"],[" Analysis","analysis.html"],[" Notes","notes.html"],[" Previous Year Questions","PYQ.html",1],[" Mock Test","mock-test.html"],[" Wishlist","wishlist.html"],[" History","history.html"],[" Achievements","achievement.html"],[" Downloads","section.html?s=downloads"]].forEach(x=>$("nav").insertAdjacentHTML("beforeend",'<a href="'+x[1]+'"'+(x[2]?' class="on" aria-current="page"':"")+">"+x[0]+"</a>"));
+$("exam").innerHTML=opts(Object.keys(SUBJ),ex);
+
+function filt(){let l=pool().filter(q=>{const a=ST.a[q.id];
+ return(!F.y||q.yr==F.y)&&(!F.ses||q.ses===F.ses)&&(!F.pp||q.pid===F.pp)&&(!F.s||q.subj===F.s)&&(!F.c||q.ch===F.c)&&(!F.t||q.tp===F.t)&&(!F.d||DN[q.d]===F.d)
+ &&(F.a==="All"||(F.a==="Unattempted"?!a:F.a==="Attempted"?!!a:F.a==="Correct"?a&&a.ok:F.a==="Incorrect"?a&&!a.ok:!!ST.r[q.id]))
+ &&(F.q==="All"||(F.q==="Saved"?ST.s[q.id]:F.q==="Important"?q.imp>=5:ST.r[q.id]))
+ &&(!F.k||(q.q+q.ch+q.tp+q.subj+q.yr+q.ex).toLowerCase().includes(F.k))});
+ const c={y:(a,b)=>b.yr-a.yr,o:(a,b)=>a.yr-b.yr,d:(a,b)=>a.d-b.d,i:(a,b)=>b.imp-a.imp,s:(a,b)=>!!ST.s[b.id]-!!ST.s[a.id],u:(a,b)=>!!ST.a[a.id]-!!ST.a[b.id]}[F.so];
+ l.sort(c);if(rnd)l.sort(()=>Math.random()-.5);return l}
+function head(){const l=pool(),m=mine(),sa=group(m,"subj").filter(x=>x[1]!==null).sort((a,b)=>b[1]-a[1]);
+ $("stats").innerHTML=[["Total PYQs",l.length],["Attempted",m.length],["Accuracy",m.length?acc(m)+"%":"-"],["Saved",Object.keys(ST.s).filter(i=>i.startsWith(ex+"|")).length],["Revision",Object.keys(ST.r).filter(i=>i.startsWith(ex+"|")).length],["Strongest",sa.length?sa[0][0]:"-"],["Weakest",sa.length>1?sa[sa.length-1][0]:"-"]].map(x=>'<div class="card"><div class="lab">'+x[0]+'</div><div class="n">'+esc(x[1])+"</div></div>").join("");
+ const i=INFO[ex]||DEF,mk=MK[ex];$("sn").textContent=i[0];$("sp").textContent=i[1]+" Sample marking here: +"+mk[0]+" / -"+mk[1]+".";
+ const n=Object.keys(sv).length;
+ $("views").innerHTML=[["pr","Practice"],["pp","Papers (PDF)"],["lb","PDF library",n],["sd","Saved"],["rv","Revision"],["an","Analysis"]].map(x=>'<button class="'+(x[0]===view?"on":"")+'" data-v="'+x[0]+'">'+x[1]+(x[2]!==undefined?"<em>"+x[2]+"</em>":"")+"</button>").join("");
+
+ $("fy").innerHTML=opts(YEARS,F.y,"All years");
+ ["fa","fq","so"].forEach(k=>$(k).value={fa:F.a,fq:F.q,so:F.so}[k])}
+
+function card(q,i){const a=ST.a[q.id],p=sel[q.id];T0[q.id]=T0[q.id]||Date.now();
+ return'<article class="card qc" id="c'+i+'"><div class="lab">Question '+String(i+1).padStart(2,"0")+" | "+q.ex+" | "+q.yr+" | "+q.ses+" | "+q.subj+" | "+q.ch+" | "+q.tp+'</div><div class="tags"><span class="tag D'+q.d+'">'+DN[q.d]+'</span><span class="tag">MCQ</span><span class="tag">+'+q.m+" / -"+q.n+'</span><span class="tag">'+(a?a.ok?"Correct":"Incorrect":"Unattempted")+'</span><span class="tag">'+"★".repeat(q.imp)+'</span></div><p class="qt">Q'+(i+1)+". "+esc(q.q)+"</p><div>"
+ +q.o.map((o,j)=>'<button class="op '+(a?j===q.a?"ok":j===a.s?"bad":"":p===j?"pk":"")+'" data-a="op" data-i="'+q.id+'" data-j="'+j+'"'+(a?" disabled":"")+">"+"ABCD"[j]+". "+esc(o)+"</button>").join("")+"</div>"
+ +'<div class="row">'+(a?"":'<button class="btn" data-a="sub" data-i="'+q.id+'">Submit answer</button>')+'<button class="sm '+(ST.s[q.id]?"is":"")+'" data-a="sav" data-i="'+q.id+'">'+(ST.s[q.id]?"Saved":"Save")+'</button><button class="sm '+(ST.r[q.id]?"is":"")+'" data-a="rev" data-i="'+q.id+'">'+(ST.r[q.id]?"In revision":"Mark for revision")+'</button><button class="sm" data-a="note" data-i="'+q.id+'">Add to notes</button><button class="sm" data-a="ai" data-i="'+q.id+'">🤖 Ask AI</button><button class="sm" data-a="rep" data-i="'+q.id+'">Report question</button></div>'
+ +(aiOn[q.id]?'<div class="ai"><div class="row"><button class="sm" data-a="h1" data-i="'+q.id+'">Give me a hint</button><button class="sm" data-a="h2" data-i="'+q.id+'">Explain the concept</button>'+(a?'<button class="sm" data-a="h3" data-i="'+q.id+'">Why is my answer wrong?</button>':"")+"</div>"+(aiT[q.id]?"<p style='margin:8px 0 0'>"+esc(aiT[q.id])+"</p>":"")+"</div>":"")
+ +(a?'<div class="res '+(a.ok?"":"bad")+'"><b>'+(a.ok?"🎉 Correct answer!":"✗ Incorrect answer")+"</b><br>Your answer: "+("ABCD"[a.s])+" | Correct answer: "+"ABCD"[q.a]+" | Marks: "+(a.ok?"+"+q.m:"-"+q.n)+" | Time: "+a.t+'s</div><div class="sol"><b>Detailed explanation</b><ol>'+q.sol.split("|").map(s=>"<li>"+esc(s)+"</li>").join("")+"</ol><p> Concept used: "+esc(q.tp)+"</p><p> Exam tip: "+esc(q.tip)+"</p><p>⚠ Common mistake: "+esc(q.mis)+'</p></div><div class="row"><button class="sm" data-a="sim" data-i="'+q.id+'">Practice similar questions</button><button class="sm" data-a="shr" data-i="'+q.id+'">Share</button></div>':"")+"</article>"}
+function paperQs(id){const[e,y,s]=id.split("|");return Q(e).filter(q=>q.yr==y&&(s==="Full Paper"||q.subj===s))}
+function pcard(id){const[e,y,s]=id.split("|"),n=paperQs(id).length,v=!!sv[id];return'<article class="card pp"><div class="hd"><div class="pdf">PDF</div><div><h3>'+y+" - "+esc(s)+'</h3><span class="lab">'+esc(e)+" | "+n+' questions | answer key included</span></div></div>'+(v?'<div class="tags"><span class="tag">In library</span></div>':"")+'<div class="row"><button class="btn" data-a="pv" data-i="'+id+'">Open PDF</button><button class="sm '+(v?"is":"")+'" data-a="ps" data-i="'+id+'">'+(v?"Remove":"Save to library")+"</button></div></article>"}
+const emp=(t,m)=>'<div class="card empty"><h3>'+t+"</h3><p>"+m+"</p></div>";
+const bars=(g)=>g.length?g.map(x=>'<div class="bw"><div class="r"><span>'+esc(x[0])+"</span><span>"+(x[1]===null?"-":x[1]+"%")+'</span></div><div class="bt"><i style="width:'+(x[1]||0)+'%"></i></div></div>').join(""):'<p class="lab">Attempt questions to see this.</p>';
+
+/* folder browser: Year > Session / Paper / Tier / Slot / Question Sets > paper */
+function folders(){const n=(y,s)=>pool().filter(q=>(!y||q.yr==y)&&(!s||q.ses===s)).length,t=(y,s,l,c)=>'<button data-a="fgo" data-y="'+y+'" data-s="'+esc(s)+'">'+l+"<small>"+c+" questions</small></button>";
+ let h='<div class="card" style="margin-bottom:16px"><h2 style="margin:0">📁 '+esc(ex)+' PYQ folders</h2><div class="row" style="margin:8px 0"><button class="sm" data-a="fgo" data-y="" data-s="">All years</button>'+(F.y?'<button class="sm" data-a="fgo" data-y="'+F.y+'" data-s="">'+esc(ex)+" "+F.y+"</button>":"")+(F.ses?'<span class="sm">'+esc(F.ses)+"</span>":"")+'</div><div class="qk" style="margin:0">';
+ if(!F.y)h+=YEARS.map(y=>t(y,"","📁 "+esc(ex)+" "+y,n(y))).join("");
+ else if(!F.ses)h+=FOLD(ex).map(s=>t(F.y,s,"📁 "+esc(s),n(F.y,s))).join("");
+ else{const L=pap().filter(p=>p.yr==F.y&&p.ses===F.ses);h+=L.length?L.map(p=>'<button style="width:100%'+(F.pp===p.id?";border-color:var(--pri)":"")+'" data-a="fpp" data-p="'+p.id+'">📄 '+esc(p.name)+"<small>"+p.qs.length+" questions</small></button>").join(""):'<p class="lab">No papers in this folder yet.</p>'}
+ return h+"</div></div>"}
+
+function render(){head();const M=$("main"),l=filt();$("qc").hidden=!F.k;let h="";
+ if(view==="pr"){
+  h=folders()
+  +'<div class="row" style="justify-content:space-between;align-items:center;margin-bottom:10px"><b>'+l.length+" question"+(l.length===1?"":"s")+' in this selection</b><span class="row"><button class="btn o fb2" data-a="flt">Filters</button><button class="btn" data-a="start">Start PYQ practice</button></span></div>'
+  +(l.length?"":emp("No questions match","Clear a filter or search to see more."))}
+ else if(view==="pp"){h='<p class="lab">Every paper is a PDF. Open it here and save it to your PrepSphere library. Nothing goes to your device.</p><div class="grid">'+YEARS.flatMap(y=>["Full Paper",...SUBJ[ex]].map(s=>pcard(ex+"|"+y+"|"+s))).join("")+"</div>"}
+ else if(view==="lb"){const k=Object.keys(sv).sort((a,b)=>sv[b].ts-sv[a].ts);h=k.length?'<div class="grid">'+k.map(pcard).join("")+"</div>":emp("Your PDF library is empty","Open a paper under Papers (PDF) and choose Save to library.")}
+ else if(view==="sd"||view==="rv"){const k=view==="sd"?ST.s:ST.r,x=pool().filter(q=>k[q.id]);h=x.length?x.map((q,i)=>card(q,i)).join(""):emp(view==="sd"?"No saved questions":"Nothing to revise","Use "+(view==="sd"?"Save":"Mark for revision")+" on any question.")}
+ else{const m=mine(),w=group(m,"tp").filter(x=>x[1]!==null).sort((a,b)=>a[1]-b[1]),top=Object.entries(pool().reduce((g,q)=>(g[q.tp]=(g[q.tp]||0)+q.imp,g),{})).sort((a,b)=>b[1]-a[1]).slice(0,5);
+  h=m.length?'<div class="g3"><div class="card"><h2> Subject performance</h2>'+bars(group(m,"subj"))+'</div><div class="card"><h2>Difficulty performance</h2>'+bars(group(m.map(q=>({...q,dn:DN[q.d]})),"dn"))+'</div><div class="card"><h2>Year-wise performance</h2>'+bars(group(m,"yr").sort((a,b)=>a[0]-b[0]))+'</div></div><div class="card"><h2>Your topic performance</h2>'+bars(w)+(w.length&&w[0][1]<70?'<p><b>You should revise '+esc(w[0][0])+' before attempting more PYQs.</b></p><button class="btn" data-a="wk" data-i="'+esc(w[0][0])+'">Practice weak topic</button>':"")+"</div>":emp("No attempts yet","Solve a few questions and your analysis will appear here.");
+  h+='<div class="card" style="margin-top:14px"><h2> PYQ trend for '+esc(ex)+"</h2><p class='lab'>Most asked topics, weighted by importance</p><ol style='margin:0;padding-left:20px'>"+top.map(x=>"<li>"+esc(x[0])+"</li>").join("")+"</ol></div>"}
+ M.innerHTML=h}
+
+/* PDF writer (Helvetica, A4) */
+function doc(id){const[e,y,s]=id.split("|"),qs=paperQs(id),d=[["h",e+" - "+y+" - "+s],["s",qs.length+" questions | PrepSphere practice set in previous-year format"],["p","Choose one option for each question. Answers and explanations are on the last page."]];
+ qs.forEach((x,i)=>{d.push(["q","Q"+(i+1)+". ["+x.subj+" | "+x.ch+"] "+x.q]);x.o.forEach((o,j)=>d.push(["o","("+"ABCD"[j]+") "+o]))});
+ d.push(["pb"],["h2","Answer key"]);qs.forEach((x,i)=>d.push(["p","Q"+(i+1)+": ("+"ABCD"[x.a]+") "+x.o[x.a]+" - "+x.sol.replace(/\|/g,"; ")]));return{d,e,y}}
+function mkpdf(id){const{d,e,y}=doc(id),z=t=>String(t).replace(/[^\x20-\x7E]/g,"").replace(/[\\()]/g,"\\$&"),SZ={h:18,h2:15,s:10,p:10,q:11,o:11},pg=[[]];let yy=790;
+ const wrap=(t,s,b,w)=>{const m=Math.floor(w/(s*(b?.56:.5))),o=[];let c="";t.split(" ").forEach(k=>{if((c+" "+k).trim().length>m&&c){o.push(c);c=k}else c=(c+" "+k).trim()});o.push(c);return o};
+ d.forEach(([k,t])=>{if(k==="pb"){pg.push([]);yy=790;return}const s=SZ[k],b=/h|q/.test(k),x=k==="o"?70:50;wrap(t,s,b,495-(x-50)).forEach(l=>{if(yy-s<60){pg.push([]);yy=790}pg[pg.length-1].push("BT /F"+(b?2:1)+" "+s+" Tf "+x+" "+yy+" Td ("+z(l)+") Tj ET");yy-=s*1.45});yy-=k==="q"?2:k==="o"?0:6});
+ const n=pg.length,ob=["<</Type/Catalog/Pages 2 0 R>>","<</Type/Pages/Kids["+pg.map((_,i)=>(6+2*i)+" 0 R").join(" ")+"]/Count "+n+">>","<</Type/Font/Subtype/Type1/BaseFont/Helvetica/Encoding/WinAnsiEncoding>>","<</Type/Font/Subtype/Type1/BaseFont/Helvetica-Bold/Encoding/WinAnsiEncoding>>"];
+ pg.forEach((p,i)=>{const c=p.join("\n")+"\nBT /F1 8 Tf 50 30 Td (PrepSphere | "+z(e+" "+y)+" | Page "+(i+1)+" of "+n+") Tj ET";ob.push("<</Length "+c.length+">>\nstream\n"+c+"\nendstream","<</Type/Page/Parent 2 0 R/MediaBox[0 0 595 842]/Resources<</Font<</F1 3 0 R/F2 4 0 R>>>>/Contents "+(5+2*i)+" 0 R>>")});
+ let s="%PDF-1.4\n";const off=[];ob.forEach((o,i)=>{off.push(s.length);s+=(i+1)+" 0 obj\n"+o+"\nendobj\n"});const xr=s.length;
+ return s+"xref\n0 "+(ob.length+1)+"\n0000000000 65535 f \n"+off.map(o=>String(o).padStart(10,"0")+" 00000 n \n").join("")+"trailer\n<</Size "+(ob.length+1)+"/Root 1 0 R>>\nstartxref\n"+xr+"\n%%EOF"}
+const fallback=id=>'<div class="fb">'+doc(id).d.map(([k,t])=>k==="pb"?"<hr>":/^h/.test(k)?"<h4>"+esc(t)+"</h4>":'<div class="'+(k==="q"?"q":k==="o"?"o":k==="s"?"s":"p")+'">'+esc(t)+"</div>").join("")+"</div>";
+function togPdf(id){if(sv[id]){delete sv[id];put("ps_pyq_pdfs",sv);toast("Removed from library");return}
+ sv[id]={b:btoa(mkpdf(id)),ts:Date.now()};if(!put("ps_pyq_pdfs",sv)){delete sv[id];toast("Library is full. Remove a PDF first.");return}toast("Saved to your PDF library")}
+const vl=()=>{$("vs").textContent=sv[cur]?"Remove from library":"Save to library"};
+function openPdf(id){cur=id;const s=sv[id]?atob(sv[id].b):mkpdf(id);if(url)URL.revokeObjectURL(url);url=URL.createObjectURL(new Blob([Uint8Array.from(s,c=>c.charCodeAt(0))],{type:"application/pdf"}));
+ const p=id.split("|");$("vt").textContent=p[0]+" - "+p[1]+" - "+p[2];$("vm").innerHTML='<span class="tag">'+paperQs(id).length+" questions</span>";
+ $("dv").innerHTML='<object data="'+url+'#toolbar=0&navpanes=0" type="application/pdf">'+fallback(id)+"</object>";vl();$("vd").showModal()}
+$("vx").onclick=()=>$("vd").close();$("vs").onclick=()=>{togPdf(cur);vl()};
+$("vd").onclose=()=>{$("dv").innerHTML="";if(url){URL.revokeObjectURL(url);url=null}render()};
+
+/* actions */
+const byId=id=>pool().find(q=>q.id===id);
+const flag=(k,id,a,b)=>{ST[k][id]?delete ST[k][id]:ST[k][id]=1;save();render();toast(ST[k][id]?a:b)};
+function submit(id,j,t){const q=byId(id);ST.a[id]={s:j,ok:j===q.a,t:t||Math.max(1,Math.round((Date.now()-T0[id])/1e3)),ts:Date.now()};save()}
+function ask(id,k){const q=byId(id),a=ST.a[id];aiT[id]=k==="h1"?"Hint: this is a "+q.tp+" question in "+q.ch+". "+q.tip:k==="h2"?"Concept: "+q.tp+". "+q.sol.split("|")[0]+".":"Your answer "+"ABCD"[a.s]+" does not fit the concept of "+q.tp+". Common mistake: "+q.mis;render()}
+let ni=null;
+$("main").onclick=e=>{const b=e.target.closest("[data-a]");if(!b)return;const a=b.dataset.a,id=b.dataset.i;
+ if(a==="op"){sel[id]=+b.dataset.j;render()}
+ else if(a==="sub"){if(sel[id]===undefined)return toast("Choose an option first");submit(id,sel[id]);render();toast(ST.a[id].ok?"Correct":"Incorrect")}
+ else if(a==="sav")flag("s",id,"Saved","Removed from saved");
+ else if(a==="rev")flag("r",id,"Marked for revision","Removed from revision");
+ else if(a==="ai"){aiOn[id]=!aiOn[id];render()}
+ else if(/^h\d$/.test(a))ask(id,a);
+ else if(a==="rep")toast("Thanks, the question has been reported");
+ else if(a==="shr"){const q=byId(id),t=q.ex+" "+q.yr+": "+q.q;navigator.clipboard?.writeText(t).then(()=>toast("Question copied"),()=>toast("Could not copy"))}
+ else if(a==="sim"){const q=byId(id);view="pr";F={...F0,s:q.subj,c:q.ch,a:"Unattempted"};render();toast("Similar questions from "+q.ch)}
+ else if(a==="note"){ni=byId(id);$("nt").value=ni.tp+" - "+ni.ex+" "+ni.yr;$("nb").value="Q: "+ni.q+"\nAnswer: "+ni.o[ni.a]+"\n"+ni.sol.replace(/\|/g,"\n");$("nd").showModal()}
+ else if(a==="flt")$("fl").classList.toggle("open")
+ else if(a==="start")opencfg()
+ else if(a==="pv")openPdf(id)
+ else if(a==="ps"){togPdf(id);render()}
+ else if(a==="wk"){view="pr";F={...F0,k:id.toLowerCase()};$("q").value=id;render()}
+ else if(a==="fgo"){F.y=b.dataset.y||"";F.ses=b.dataset.s||"";F.pp="";lim=10;render()}
+ else if(a==="fpp"){F.pp=F.pp===b.dataset.p?"":b.dataset.p;lim=10;render()}
+};
+$("nx").onclick=()=>$("nd").close();
+$("ns").onclick=()=>{const t=$("nt").value.trim();if(!t)return toast("Add a title");let n=[];try{n=JSON.parse(localStorage.getItem("ps_pyq_notes")||"[]")}catch(e){}
+ n.push({id:"pyq"+Date.now(),ex,subj:ni.subj,ch:ni.ch,title:t,body:"["+$("nk").value+"]\n"+$("nb").value,folder:$("nf").value,fav:false,saved:true,ts:Date.now(),hls:[]});
+ if(!put("ps_pyq_notes",n))return toast("Could not save the note");$("nd").close();toast("Saved to notes")};
+
+/* practice mode (questions appear only here, in the popup) */
+function opencfg(){$("cs").textContent=ex+(F.s?" | "+F.s:"")+(F.c?" | "+F.c:"")+(F.y?" | "+F.y:"")+(F.ses?" | "+F.ses:"")+" ("+filt().length+" questions available)";$("cd").showModal()}
+$("cx").onclick=()=>$("cd").close();
+$("cg").onclick=()=>{let l=filt();const d=$("cf").value;if(d!=="Mixed")l=l.filter(q=>DN[q.d]===d);const m=$("cm").value;
+ if(m==="r")l.sort(()=>Math.random()-.5);if(m==="i")l.sort((a,b)=>b.imp-a.imp);
+ if(m==="w"){const w=Object.fromEntries(group(mine(),"tp").map(x=>[x[0],x[1]===null?100:x[1]]));l.sort((a,b)=>(w[a.tp]??100)-(w[b.tp]??100))}
+ l=l.slice(0,+$("cn").value);if(!l.length)return toast("No questions match. Change the filters or difficulty.");
+ const mn=+$("ct").value;P={qs:l,i:0,ans:{},mk:{},end:mn?Date.now()+mn*6e4:0,t0:Date.now(),done:false};$("cd").close();$("pd").showModal();clearInterval(pint);pint=setInterval(tick,1000);prender()};
+function tick(){if(!P||P.done)return clearInterval(pint);const s=P.end?Math.max(0,Math.round((P.end-Date.now())/1e3)):Math.round((Date.now()-P.t0)/1e3),f=n=>String(n).padStart(2,"0");
+ $("pt").textContent="⏱ "+f(Math.floor(s/3600))+":"+f(Math.floor(s/60)%60)+":"+f(s%60);if(P.end&&s===0)pfin()}
+function prender(){if(P.done)return;const q=P.qs[P.i];$("ph").textContent=ex+" PYQ Practice | Question "+(P.i+1)+" / "+P.qs.length;tick();
+ $("pb").innerHTML='<div class="lab">'+q.yr+" | "+esc(q.ses)+" | "+q.subj+" | "+q.ch+" | "+DN[q.d]+'</div><p class="qt">Q'+(P.i+1)+". "+esc(q.q)+"</p>"+q.o.map((o,j)=>'<button class="op '+(P.ans[P.i]===j?"pk":"")+'" data-p="o" data-j="'+j+'">'+"ABCD"[j]+". "+esc(o)+"</button>").join("")
+ +'<div class="row"><button class="sm" data-p="prev">Previous</button><button class="sm" data-p="next">Next</button><button class="sm" data-p="clr">Clear answer</button><button class="sm '+(P.mk[P.i]?"is":"")+'" data-p="mk">Mark for review</button><button class="sm '+(ST.s[q.id]?"is":"")+'" data-p="sv">Save question</button></div><h2 style="margin-top:14px">Question navigator</h2><div class="nvr">'+P.qs.map((_,i)=>'<button class="nvb '+(P.ans[i]!==undefined?"ok":"")+(P.mk[i]?" rv":"")+(i===P.i?" cur":"")+'" data-p="go" data-j="'+i+'">'+(i+1)+"</button>").join("")+'</div><div class="row" style="justify-content:flex-end"><button class="btn" data-p="fin">Submit practice</button></div>'}
+function pfin(){if(P.done)return;P.done=true;clearInterval(pint);const tm=Math.round((Date.now()-P.t0)/1e3),per=Math.max(1,Math.round(tm/P.qs.length));let sc=0,c=0,w=0,mx=0;
+ P.qs.forEach((q,i)=>{mx+=q.m;if(P.ans[i]!==undefined){const ok=P.ans[i]===q.a;ok?(c++,sc+=q.m):(w++,sc-=q.n);ST.a[q.id]={s:P.ans[i],ok,t:per,ts:Date.now()}}});save();
+ const n=P.qs.length,at=c+w;$("ph").textContent="🎉 PYQ practice completed!";$("pt").textContent="";
+ $("pb").innerHTML='<div class="stats">'+[["Score",Math.round(sc*100)/100+" / "+mx],["Accuracy",at?Math.round(c/at*100)+"%":"-"],["Attempted",at+" / "+n],["Correct",c],["Incorrect",w],["Skipped",n-at],["Time",Math.floor(tm/60)+"m "+tm%60+"s"],["Avg per question",per+"s"]].map(x=>'<div class="card"><div class="lab">'+x[0]+'</div><div class="n">'+x[1]+"</div></div>").join("")+'</div><div class="row" style="justify-content:flex-end"><button class="btn" data-p="close">Close</button></div>'}
+$("pb").onclick=e=>{const b=e.target.closest("[data-p]");if(!b||!P)return;const k=b.dataset.p,j=+b.dataset.j;
+ if(k==="o")P.ans[P.i]=j;else if(k==="prev")P.i=Math.max(0,P.i-1);else if(k==="next")P.i=Math.min(P.qs.length-1,P.i+1);else if(k==="clr")delete P.ans[P.i];
+ else if(k==="mk")P.mk[P.i]=!P.mk[P.i];else if(k==="go")P.i=j;else if(k==="sv"){const id=P.qs[P.i].id;ST.s[id]?delete ST.s[id]:ST.s[id]=1;save();toast("Updated saved list")}
+ else if(k==="fin"){if(confirm("Submit this practice set?"))pfin();return}else if(k==="close"){$("pd").close();view="pr";render();return}prender()};
+$("pd").onclose=()=>{clearInterval(pint);if(P&&!P.done)P.done=true;render()};
+
+/* filters */
+const bind=(i,k,r)=>$(i).onchange=e=>{F[k]=e.target.value;if(r)r.forEach(x=>F[x]="");lim=10;rnd=false;render()};
+bind("fy","y",["ses","pp"]);bind("fa","a");bind("fq","q");bind("so","so");
+$("rs").onclick=()=>{F={...F0};$("q").value="";rnd=false;render()};
+$("q").oninput=e=>{F.k=e.target.value.trim().toLowerCase();view="pr";lim=10;render()};$("qc").onclick=()=>{$("q").value="";F.k="";render()};
+$("views").onclick=e=>{const v=e.target.closest("button")?.dataset.v;if(v){view=v;render()}};
+$("exam").onchange=e=>{ex=e.target.value;try{localStorage.setItem("ps_exam",ex)}catch(_){}F={...F0};sel={};aiT={};aiOn={};lim=10;render();toast("Questions updated for "+ex)};
+$("avb").onclick=()=>$("menu").classList.toggle("open");
+document.addEventListener("click",e=>{if(!e.target.closest("#menu,#avb"))$("menu").classList.remove("open")});
+const setTheme=d=>{document.documentElement.dataset.theme=d?"dark":"light";try{localStorage.setItem("ps_theme",d?"dark":"light")}catch(e){}};
+try{if(localStorage.getItem("ps_theme")==="dark")setTheme(true)}catch(e){}
+render();
+</script>
+  <script src="../assets/js/navigation-fix.js"></script>
+</body>
+</html>

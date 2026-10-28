@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>PrepSphere — Wishlist</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#ffffff; --card:#FFFFFF; --ink:#12343B; --mut:#335961; --line:#B2EBF2;
+  --pri:#00BFA5; --pri2:#00897B; --soft:#E0F7FA; --ok:#00897B; --warn:#e29a0b; --bad:#dc3d4b;
+  --heart:#e5486a; --heartsoft:#fde8ed;
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px);background:#FFFFFF;scrollbar-gutter:stable}
+*{box-sizing:border-box}
+body{margin:0;background:#FFFFFF;color:var(--ink);font:500 14px/1.5 Manrope,system-ui,sans-serif}
+button,select,input{font:inherit;color:inherit}button{cursor:pointer}
+:focus-visible{outline:2px solid var(--pri);outline-offset:2px}
+.back-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--pri2);font:700 13px/1.2 Manrope,system-ui,sans-serif;cursor:pointer;text-decoration:none;white-space:nowrap;flex-shrink:0;transition:all .15s ease;box-shadow:0 1px 3px rgba(18,52,59,.04)}
+.back-btn:hover{background:var(--soft);border-color:var(--pri);color:var(--ink)}
+
+/* ===== Shell (same as Home) ===== */
+.app{display:grid;grid-template-columns:232px 1fr;min-height:100vh;background:#FFFFFF}
+aside{background:var(--card);border-right:1px solid var(--line);padding:18px 12px;position:sticky;top:0;height:100vh;display:flex;flex-direction:column;gap:2px;overflow:auto}
+.logo{display:flex;gap:10px;align-items:center;font-weight:800;font-size:18px;padding:4px 10px 16px;color:var(--ink)}
+.logo i{width:30px;height:30px;border-radius:50%;background:conic-gradient(from 200deg,var(--pri),var(--pri2),var(--line),var(--pri));display:block}
+.nav a{display:flex;gap:10px;align-items:center;padding:9px 12px;border-radius:10px;color:var(--mut);text-decoration:none;font-weight:600;transition:all .15s ease}
+.nav a:hover{background:var(--soft);color:var(--ink)}
+.nav a.on{background:var(--pri);color:#fff}
+.nav a .cnt{margin-left:auto;font-size:11px;font-weight:800;padding:1px 8px;border-radius:99px;background:var(--soft);color:var(--pri2)}
+.nav a.on .cnt{background:#ffffff33;color:#fff}
+.sp{flex:1}
+main{padding:0 24px 40px;min-width:0;background:#FFFFFF}
+.top{display:flex;gap:14px;align-items:center;padding:14px 0;position:sticky;top:env(safe-area-inset-top,0px);background:#FFFFFF;z-index:5}
+.search{flex:1;max-width:460px;margin:0 auto;display:flex}
+.search input{width:100%;padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:var(--soft);color:var(--ink)}
+.search input:focus{background:#fff;border-color:var(--pri);outline:none}
+.chip{display:flex;gap:6px;align-items:center;padding:7px 11px;border-radius:99px;background:var(--soft);border:1px solid var(--line);font-weight:700;color:var(--ink)}
+.av{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--pri),var(--pri2));color:#fff;display:grid;place-items:center;font-weight:800;border:0}
+.menu{position:absolute;right:24px;top:58px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:6px;display:none;min-width:170px;box-shadow:0 12px 30px rgba(18,52,59,.12);z-index:30}
+.menu.open{display:block}
+.menu a{display:block;padding:8px 12px;border-radius:8px;color:var(--ink);text-decoration:none}
+.menu a:hover{background:var(--soft);color:var(--pri2)}
+h1{font-size:26px;margin:6px 0 2px;letter-spacing:-.4px;color:var(--ink)}
+h2{font-size:16px;margin:0 0 12px;color:var(--ink)}
+.sub{color:var(--mut);margin:0 0 16px}
+.grid{display:grid;gap:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;min-width:0;box-shadow:0 2px 10px rgba(18,52,59,.04)}
+.lab{color:var(--mut);font-size:12px;font-weight:600}
+.big{font-size:22px;font-weight:800;color:var(--ink)}
+.bar{height:8px;border-radius:9px;background:var(--soft);overflow:hidden}
+.bar b{display:block;height:100%;border-radius:9px;background:linear-gradient(90deg,var(--pri),var(--pri2))}
+.btn{border:0;background:var(--pri);color:#fff;padding:8px 14px;border-radius:10px;font-weight:700;transition:all .15s ease;text-decoration:none;display:inline-block;font-size:13px}
+.btn:hover{background:var(--pri2)}
+.btn.o{background:transparent;color:var(--pri2);border:1px solid var(--pri)}
+.btn.o:hover{background:var(--soft)}
+.btn.rm{background:transparent;color:var(--heart);border:1px solid #f3b8c5}
+.btn.rm:hover{background:var(--heartsoft)}
+.btn.sm{padding:6px 11px;font-size:12px}
+.row{display:flex;justify-content:space-between;gap:10px;align-items:center;margin:0 0 6px}
+.tag{font-size:11px;font-weight:700;padding:2px 8px;border-radius:99px;background:var(--soft);color:var(--pri2);white-space:nowrap}
+.tag.h{background:#dc3d4b22;color:var(--bad)}
+.tag.prem{background:#fff3d6;color:#9a6a00}
+.tag.free{background:var(--soft);color:var(--pri2)}
+.tag.ok{background:#00897b22;color:var(--ok)}
+.li{display:flex;gap:10px;align-items:center;padding:9px 0;border-bottom:1px solid var(--line)}
+.li:last-child{border:0}
+
+/* ===== Wishlist page ===== */
+.head{display:flex;justify-content:space-between;align-items:flex-end;gap:14px;flex-wrap:wrap}
+.head h1 .hrt{color:var(--heart)}
+.examsel{display:flex;gap:8px;align-items:center}
+.examsel select{padding:9px 12px;border-radius:12px;border:1px solid var(--line);background:var(--soft);font-weight:700;color:var(--ink)}
+.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin:14px 0}
+.stat{padding:14px 16px}
+.stat .n{font-size:26px;font-weight:800;letter-spacing:-.5px;line-height:1.2}
+.stat.hs .n{color:var(--heart)}
+.wsearch{display:flex;gap:10px;margin-bottom:12px}
+.wsearch input{flex:1;padding:11px 14px;border-radius:12px;border:1px solid var(--line);background:var(--soft);color:var(--ink)}
+.wsearch input:focus{background:#fff;border-color:var(--pri);outline:none}
+.fbtn{display:none}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.tabs button{border:1px solid var(--line);background:var(--soft);color:var(--mut);border-radius:99px;padding:6px 13px;font-size:12px;font-weight:700;transition:all .15s ease;white-space:nowrap}
+.tabs button:hover{color:var(--ink)}
+.tabs button.on{background:var(--pri);color:#fff;border-color:var(--pri)}
+.tabs button small{opacity:.75;margin-left:4px;font-weight:700}
+.filters{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end;padding:14px 16px;margin-bottom:16px}
+.filters label{display:flex;flex-direction:column;gap:3px;font-size:11px;font-weight:700;color:var(--mut)}
+.filters select{padding:7px 10px;border-radius:10px;border:1px solid var(--line);background:var(--soft);font-weight:600;color:var(--ink);min-width:130px}
+.filters .clr{margin-left:auto}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.rc{display:flex;flex-direction:column;gap:10px;position:relative;transition:transform .15s ease,box-shadow .15s ease;animation:in .25s ease both}
+.rc:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(18,52,59,.09)}
+@keyframes in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.rc .top2{display:flex;gap:12px;align-items:flex-start}
+.thumb{flex:none;width:52px;height:64px;border-radius:10px;display:grid;place-items:center;font-size:24px;background:var(--soft);border:1px solid var(--line)}
+.thumb.round{height:52px;border-radius:14px}
+.rc h3{margin:0;font-size:15px;line-height:1.3;color:var(--ink)}
+.rc .meta{color:var(--mut);font-size:12px;font-weight:600}
+.rc .kv{display:grid;grid-template-columns:1fr 1fr;gap:4px 10px;font-size:12px}
+.rc .kv span{color:var(--mut);font-weight:600}
+.rc .kv b{color:var(--ink);font-weight:700}
+.rc .badges{display:flex;gap:6px;flex-wrap:wrap}
+.rc .acts{display:flex;gap:6px;flex-wrap:wrap;margin-top:auto;padding-top:4px}
+.hbtn{flex:none;margin-left:auto;width:32px;height:32px;border-radius:50%;border:1px solid #f3b8c5;background:var(--heartsoft);color:var(--heart);display:grid;place-items:center;font-size:16px;line-height:1}
+.hbtn:hover{background:#fbd3dc}
+.hbtn.pop{animation:pop .45s ease}
+@keyframes pop{30%{transform:scale(1.4)}60%{transform:scale(.9)}100%{transform:scale(1)}}
+.hbtn.add{background:#fff;color:var(--mut);border-color:var(--line)}
+.hbtn.add:hover{color:var(--heart);border-color:#f3b8c5}
+.date{font-size:11px;color:var(--mut);font-weight:600}
+.skel{height:230px;border-radius:16px;background:linear-gradient(90deg,var(--soft) 25%,#fff 50%,var(--soft) 75%);background-size:200% 100%;animation:sh 1.1s infinite}
+@keyframes sh{to{background-position:-200% 0}}
+.empty{text-align:center;padding:44px 18px}
+.empty .ic{font-size:44px;color:var(--heart)}
+.empty h2{font-size:20px;margin:6px 0}
+.empty p{max-width:420px;margin:0 auto 16px;color:var(--mut)}
+.empty .acts{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.sech{display:flex;justify-content:space-between;align-items:baseline;margin:26px 0 10px;gap:10px;flex-wrap:wrap}
+.sech h2{margin:0}
+.recs{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.rec{display:flex;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.rec:last-child{border:0}
+.rec .thumb{width:40px;height:40px;height:40px;font-size:18px;border-radius:10px}
+.rec .tx{flex:1;min-width:0}
+.rec .tx b{display:block;line-height:1.3}
+.prem-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.pbox{border:1px solid #f1d58a;background:#fffaf0;border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:8px}
+html[data-theme=dark] .pbox{background:#000000;border-color:rgba(237,238,234,.2)}
+html[data-theme=dark] .tag.prem{background:#FF4081;color:#000000}
+.pbox h3{margin:0;font-size:15px}
+
+/* ===== Book Store: rating ===== */
+.rate{display:flex;align-items:center;gap:2px}
+.rate button{border:0;background:none;font-size:20px;line-height:1;padding:0 1px;color:var(--line)}
+.rate button.on{color:var(--warn)}
+.rate small{margin-left:6px;color:var(--mut);font-weight:600;font-size:12px}
+#storeBox h2{margin:18px 0 10px}
+
+/* ===== Overlays ===== */
+.ov{position:fixed;inset:0;background:rgba(18,52,59,.45);display:none;align-items:center;justify-content:center;z-index:40;padding:16px}
+.ov.open{display:flex}
+.dlg{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;width:420px;max-width:100%;box-shadow:0 20px 50px rgba(18,52,59,.25);animation:in .2s ease both}
+.dlg h2{font-size:18px;margin-bottom:6px}
+.dlg p{color:var(--mut);margin:0 0 14px}
+.dlg ul{margin:0 0 14px;padding-left:18px;color:var(--ink)}
+.dlg .acts{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap}
+.price{font-size:26px;font-weight:800;margin:4px 0 10px}
+.price small{font-size:12px;color:var(--mut);font-weight:600}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translate(-50%,20px);background:var(--ink);color:#fff;padding:10px 18px;border-radius:99px;font-weight:700;opacity:0;pointer-events:none;transition:all .25s ease;z-index:50}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+html[data-theme=dark] .toast{background:var(--pri);color:#000000}
+
+/* ===== AI chat (same as Home) ===== */
+.fab{position:fixed;right:20px;bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:20;border-radius:99px;padding:13px 18px;background:linear-gradient(135deg,var(--pri),var(--pri2));color:#fff;border:0;font-weight:700;box-shadow:0 10px 26px rgba(0,191,165,.35)}
+.chat{position:fixed;right:20px;bottom:80px;width:340px;max-width:calc(100vw - 32px);background:var(--card);border:1px solid var(--line);border-radius:16px;display:none;flex-direction:column;z-index:20;box-shadow:0 16px 40px rgba(18,52,59,.18)}
+.chat.open{display:flex}
+.chat h3{margin:0;padding:14px 16px;border-bottom:1px solid var(--line);font-size:15px;color:var(--ink)}
+.msgs{padding:14px;display:flex;flex-direction:column;gap:8px;max-height:260px;overflow:auto}
+.msgs p{margin:0;padding:8px 12px;border-radius:12px;background:var(--soft);color:var(--ink);max-width:88%}
+.msgs p.me{align-self:flex-end;background:var(--pri);color:#fff}
+.chat form{display:flex;gap:6px;padding:10px;border-top:1px solid var(--line)}
+.chat input{flex:1;padding:8px 10px;border-radius:10px;border:1px solid var(--line);background:#FFFFFF;color:var(--ink)}
+.bn{display:none}
+
+/* ===== Responsive ===== */
+@media(max-width:1100px){.cards{grid-template-columns:repeat(2,1fr)}.stats{grid-template-columns:repeat(3,1fr)}.prem-strip{grid-template-columns:1fr}}
+@media(max-width:1000px){.recs{grid-template-columns:1fr}}
+@media(max-width:760px){
+  .app{grid-template-columns:1fr}aside{display:none}main{padding:0 14px 90px}
+  .chip.hide{display:none}
+  .cards{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}
+  .tabs{flex-wrap:nowrap;overflow-x:auto;padding-bottom:4px}
+  .fbtn{display:inline-block}
+  .filters{display:none}.filters.open{display:flex}
+  .filters label,.filters select{width:100%}.filters .clr{margin-left:0}
+  .bn{display:flex;position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--line);justify-content:space-around;padding:8px 0 calc(8px + env(safe-area-inset-bottom,0px));z-index:10}
+  .bn a{text-decoration:none;color:var(--mut);font-size:11px;text-align:center;font-weight:600}
+  .bn a.on{color:var(--pri2)}
+  .fab{bottom:calc(76px + env(safe-area-inset-bottom,0px))}.chat{bottom:130px}
+  .toast{bottom:calc(84px + env(safe-area-inset-bottom,0px))}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+/* ===== Dark theme (shared with Home via ps_theme) ===== */
+html[data-theme=dark]{--bg:#000000;--card:#000000;--ink:#EDEEEA;--mut:rgba(237,238,234,.66);--line:rgba(237,238,234,.2);--soft:rgba(237,238,234,.08);--pri:#7C4DFF;--pri2:#00E5FF;--acc:#FF4081;--ok:#00E5FF;--heartsoft:#000000;--heart:#FF4081;color-scheme:dark}
+html[data-theme=dark],html[data-theme=dark] body,html[data-theme=dark] .app,html[data-theme=dark] main,html[data-theme=dark] .top{background:var(--bg)}
+html[data-theme=dark] .search input:focus,html[data-theme=dark] .wsearch input:focus,html[data-theme=dark] .chat input,html[data-theme=dark] .hbtn.add{background:var(--card)}
+/* dark: flat classic finish */
+html[data-theme=dark] .logo i{background:var(--pri)!important}
+html[data-theme=dark] .av,html[data-theme=dark] .fab,html[data-theme=dark] .avatar{background:var(--pri)!important;box-shadow:none!important}
+html[data-theme=dark] .bar b{background:var(--pri)!important}
+html[data-theme=dark] .tag.ok{background:rgba(0,229,255,.14)}
+html[data-theme=dark] .btn.rm{border-color:var(--line)}
+html[data-theme=dark] .btn:hover{color:#000000}
+</style>
+<script>
+(function(){var r=document.documentElement;function a(){var d=false;try{d=localStorage.getItem("ps_theme")==="dark"}catch(e){}r.dataset.theme=d?"dark":"light"}a();addEventListener("pageshow",a);addEventListener("storage",function(e){if(e.key==="ps_theme")a()})})();
+</script>
+</head>
+<body>
+<div class="app">
+<aside>
+ <div class="logo"><i></i>PrepSphere</div>
+ <nav class="nav" id="nav"></nav>
+ <div class="sp"></div>
+ <nav class="nav"><a href="section.html?s=settings">Settings</a><a href="section.html?s=premium">Premium</a><a href="section.html?s=help">Help</a></nav>
+</aside>
+
+<main>
+ <div class="top">
+  <div class="search"><input placeholder="Search books, concepts, questions, topics…" aria-label="Search"></div>
+  <span class="chip" title="Study streak">🔥 12</span><a class="chip" href="notifications.html" title="Notifications" aria-label="Notifications" style="text-decoration:none">🔔 3</a>
+  <button class="av" id="avb" aria-label="Profile menu">A</button>
+  <div class="menu" id="menu"><a href="section.html?s=settings">My Profile</a><a href="section.html?s=settings">My Target</a><a href="analysis.html">Progress</a><a href="section.html?s=premium">Subscription</a><a href="section.html?s=settings">Settings</a><a href="#">Logout</a></div>
+ </div>
+
+ <div class="head">
+  <div>
+   <h1><span class="hrt"></span> My Wishlist</h1>
+   <p class="sub">Save books, study materials, questions, mock tests and courses for later.</p>
+  </div>
+  <div class="examsel"><span class="lab">Preparing for</span><select id="exam" aria-label="Select your exam"></select></div>
+ </div>
+
+ <div class="stats" id="stats"></div>
+
+ <div class="wsearch">
+  <input id="q" type="search" placeholder="Search your wishlist..." aria-label="Search your wishlist">
+  <button class="btn o fbtn" id="fbtn">Filters</button>
+ </div>
+
+ <div class="tabs" id="tabs" role="tablist" aria-label="Wishlist categories"></div>
+
+ <div class="card filters" id="filters">
+  <label>Exam<select id="fExam"></select></label>
+  <label>Subject<select id="fSub"></select></label>
+  <label>Difficulty<select id="fDiff"><option value="">All</option><option>Easy</option><option>Medium</option><option>Hard</option></select></label>
+  <label>Access<select id="fAcc"><option value="">Free and premium</option><option value="free">Free</option><option value="prem">Premium</option></select></label>
+  <label>Status<select id="fStat"><option value="">All</option><option value="done">Completed</option><option value="todo">Not completed</option></select></label>
+  <label>Sort by<select id="fSort">
+   <option value="rel">Most relevant</option><option value="new">Recently added</option><option value="old">Oldest added</option><option value="diff">Difficulty</option><option value="az">Alphabetical</option>
+  </select></label>
+  <button class="btn o clr" id="clr">Clear filters</button>
+ </div>
+
+ <div class="row" style="margin-bottom:10px"><span class="lab" id="resInfo"></span></div>
+ <div class="cards" id="grid" aria-live="polite"></div>
+ <div class="card empty" id="empty" hidden></div>
+ <div id="storeBox" hidden></div>
+
+ <div class="sech"><h2> Recommended for you</h2><span class="lab" id="recWhy"></span></div>
+ <div class="card"><div class="recs" id="recs"></div></div>
+
+ <div class="sech"><h2>💎 Premium picks</h2><a class="lab" href="section.html?s=premium" style="color:var(--pri2);font-weight:700">View premium plans</a></div>
+ <div class="prem-strip" id="prem"></div>
+</main>
+</div>
+
+<nav class="bn"><a href="home.html">Home</a><a href="study-books.html">Books</a><a href="mock-test.html">Mock</a><a href="wishlist.html" class="on">Wishlist</a><a href="section.html?s=settings">More</a></nav>
+
+<!-- Remove confirmation -->
+<div class="ov" id="ovRm" role="dialog" aria-modal="true" aria-labelledby="rmT">
+ <div class="dlg">
+  <h2 id="rmT">Remove from Wishlist?</h2>
+  <p>Are you sure you want to remove <b id="rmN"></b> from your wishlist?</p>
+  <div class="acts"><button class="btn o" id="rmNo">Cancel</button><button class="btn" id="rmYes" style="background:var(--heart)">Remove</button></div>
+ </div>
+</div>
+
+<!-- Premium unlock -->
+<div class="ov" id="ovPr" role="dialog" aria-modal="true" aria-labelledby="prT">
+ <div class="dlg">
+  <span class="tag prem"> PREMIUM</span>
+  <h2 id="prT" style="margin-top:8px">Unlock Premium Resource</h2>
+  <p id="prN"></p>
+  <div class="price" id="prP"></div>
+  <ul><li>Full access to this resource, online and offline</li><li>Detailed solutions and explanations</li><li>Progress tracking and analysis</li><li>Included with Pro and Premium plans</li></ul>
+  <div class="acts"><button class="btn o" id="prNo">Not now</button><a class="btn o" href="section.html?s=premium">View Premium Plans</a><button class="btn" id="prYes">Purchase Now</button></div>
+ </div>
+</div>
+
+<div class="toast" id="toast" role="status"></div>
+
+<button class="fab" id="fab">Ask AI</button>
+<div class="chat" id="chat" role="dialog" aria-label="PrepSphere AI Tutor">
+ <h3>PrepSphere AI Tutor</h3>
+ <div class="msgs" id="msgs"><p>Hi! I can suggest what to read first from your wishlist. What are you stuck on?</p></div>
+ <form id="cf"><input id="ci" placeholder="Ask a doubt…" aria-label="Message"><button class="btn">Send</button></form>
+</div>
+
+<script src="../assets/js/ps-data.js"></script>
+<script>
+const $=id=>document.getElementById(id);
+const store={get(k,d){try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v)}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+
+/* ---------- Navigation (same links as Home) ---------- */
+const NAV=[["Home","home.html"],["Study Books","study-books.html"],["Analysis","analysis.html"],["Notes","notes.html"],["Previous Year Questions","PYQ.html"],["Mock Test","mock-test.html"],["Wishlist","wishlist.html"],["History","history.html"],["Achievements","achievement.html"],["Downloads","section.html?s=downloads"]];
+$("nav").innerHTML=NAV.map(([t,u])=>`<a href="${u}" class="${t==="Wishlist"?"on":""}">${t}${t==="Wishlist"?'<span class="cnt" id="navCnt">0</span>':""}</a>`).join("");
+
+/* ---------- Exam list ---------- */
+const EXAMS=["JEE Main","JEE Advanced","WBJEE","NEET","UPSC","NDA","JENPAS-UG","CAT","SSC CGL","SSC CHSL","CTET","TET","GATE","Other"];
+const exam=$("exam");EXAMS.forEach(k=>exam.add(new Option(k,k)));
+let curExam=store.get("ps_exam","JEE Main");if(!EXAMS.includes(curExam))curExam="JEE Main";exam.value=curExam;
+$("fExam").innerHTML='<option value="">All exams</option><option value="__cur">Selected exam only</option>';
+
+/* ---------- Resource catalogue (replace with API data later) ---------- */
+const J=["JEE Main","JEE Advanced","WBJEE"],N=["NEET"],U=["UPSC"],G=["GATE"],C=["CAT"],S=["SSC CGL","SSC CHSL","NDA","CTET","TET"];
+const T={book:{ic:"",nm:"Books"},note:{ic:"",nm:"Notes"},test:{ic:"",nm:"Mock Tests"},pyq:{ic:"",nm:"Previous Year Questions"},concept:{ic:"",nm:"Concepts"},material:{ic:"",nm:"Study Materials"},course:{ic:"",nm:"Courses"}};
+const CAT=[
+ {id:"b1",type:"book",title:"Concepts of Physics",by:"H.C. Verma",ex:J,sub:"Physics",topic:"Full syllabus",diff:"Medium",prem:1,rating:4.8,prog:42,price:499},
+ {id:"b2",type:"book",title:"NCERT Physics Class 11",by:"NCERT",ex:[...J,...N],sub:"Physics",topic:"Class 11",diff:"Easy",prem:0,rating:4.7,prog:100},
+ {id:"b3",type:"book",title:"NCERT Biology Class 12",by:"NCERT",ex:N,sub:"Biology",topic:"Class 12",diff:"Easy",prem:0,rating:4.9,prog:65},
+ {id:"b4",type:"book",title:"Indian Polity",by:"M. Laxmikanth",ex:U,sub:"Polity",topic:"Constitution",diff:"Medium",prem:1,rating:4.8,prog:20,price:549},
+ {id:"b5",type:"book",title:"Organic Chemistry Made Simple",by:"PrepSphere Faculty",ex:[...J,...N],sub:"Chemistry",topic:"Organic Chemistry",diff:"Hard",prem:1,rating:4.6,prog:0,price:399},
+ {id:"t1",type:"test",title:"Physics Chapter Test: Kinematics",ex:J,sub:"Physics",topic:"Kinematics",diff:"Medium",prem:0,q:30,mins:60,marks:120,last:"72%",prog:0},
+ {id:"t2",type:"test",title:"JEE Main Full Syllabus Mock 07",ex:["JEE Main"],sub:"All subjects",topic:"Full syllabus",diff:"Hard",prem:1,q:90,mins:180,marks:300,last:"186 / 300",prog:100,price:149},
+ {id:"t3",type:"test",title:"NEET Biology Subject Test",ex:N,sub:"Biology",topic:"Genetics",diff:"Medium",prem:0,q:45,mins:50,marks:180,last:null,prog:0},
+ {id:"t4",type:"test",title:"GATE Engineering Maths Mock",ex:G,sub:"Engg. Mathematics",topic:"Linear Algebra",diff:"Hard",prem:1,q:35,mins:90,marks:65,last:null,prog:0,price:99},
+ {id:"p1",type:"pyq",title:"JEE Main 2025 — Physics",ex:["JEE Main"],sub:"Physics",topic:"Kinematics",diff:"Medium",prem:0,year:2025,q:25,prog:40},
+ {id:"p2",type:"pyq",title:"NEET 2024 — Chemistry",ex:N,sub:"Chemistry",topic:"Chemical Bonding",diff:"Medium",prem:0,year:2024,q:45,prog:0},
+ {id:"p3",type:"pyq",title:"UPSC Prelims 2023 — Polity",ex:U,sub:"Polity",topic:"Fundamental Rights",diff:"Hard",prem:0,year:2023,q:28,prog:100},
+ {id:"p4",type:"pyq",title:"JEE Main 2024 — Kinematics (50 key questions)",ex:J,sub:"Physics",topic:"Kinematics",diff:"Medium",prem:0,year:2024,q:50,prog:0},
+ {id:"c1",type:"concept",title:"Rotational Motion",ex:J,sub:"Physics",topic:"Mechanics",diff:"Hard",prem:0,imp:5,acc:54,prog:30},
+ {id:"c2",type:"concept",title:"Genetics: Inheritance Patterns",ex:N,sub:"Biology",topic:"Genetics",diff:"Medium",prem:0,imp:5,acc:60,prog:0},
+ {id:"c3",type:"concept",title:"Fiscal Policy",ex:U,sub:"Economics",topic:"Public Finance",diff:"Medium",prem:0,imp:4,acc:52,prog:10},
+ {id:"c4",type:"concept",title:"Newton's Laws of Motion",ex:[...J,...N],sub:"Physics",topic:"Mechanics",diff:"Easy",prem:0,imp:5,acc:81,prog:100},
+ {id:"m1",type:"material",title:"Mechanics Revision Notes",ex:J,sub:"Physics",topic:"Mechanics",diff:"Medium",prem:0,file:"PDF",size:"3.2 MB",prog:0},
+ {id:"m2",type:"material",title:"Important Formulas: Calculus",ex:[...J,...G],sub:"Mathematics",topic:"Calculus",diff:"Medium",prem:0,file:"PDF",size:"1.1 MB",prog:100},
+ {id:"m3",type:"material",title:"Modern History Timeline",ex:U,sub:"History",topic:"Modern India",diff:"Easy",prem:0,file:"PDF",size:"2.4 MB",prog:0},
+ {id:"n1",type:"note",title:"My Notes: Thermodynamics",ex:J,sub:"Physics",topic:"Thermodynamics",diff:"Medium",prem:0,file:"Note",size:"12 KB",prog:100},
+ {id:"k1",type:"course",title:"Complete Physics for JEE",by:"Dr. R. Sen",ex:J,sub:"Physics",topic:"Full syllabus",diff:"Medium",prem:1,rating:4.7,lessons:120,prog:25,price:1499},
+ {id:"k2",type:"course",title:"NEET Biology Crash Course",by:"Dr. A. Mehta",ex:N,sub:"Biology",topic:"Full syllabus",diff:"Medium",prem:1,rating:4.8,lessons:80,prog:0,price:999},
+ {id:"k3",type:"course",title:"Quant Foundations for CAT",by:"S. Kapoor",ex:C,sub:"Quant",topic:"Arithmetic",diff:"Medium",prem:0,rating:4.5,lessons:40,prog:60},
+ {id:"k4",type:"course",title:"Reasoning Basics for SSC",by:"P. Roy",ex:S,sub:"Reasoning",topic:"Puzzles",diff:"Easy",prem:0,rating:4.4,lessons:30,prog:0}
+];
+const byId=Object.fromEntries(CAT.map(r=>[r.id,r]));
+const DAY=864e5;
+/* wishlist = [{id, added(timestamp)}], saved in localStorage so other pages can share it */
+let WL=store.get("ps_wishlist",null);
+if(!WL){const seed=[["b1",2],["t1",3],["p1",5],["c1",6],["m1",7],["k1",9],["b2",11],["t2",12],["b3",14],["p3",16],["c2",18],["b4",20]];
+ WL=seed.map(([id,d])=>({id,added:Date.now()-d*DAY}));store.set("ps_wishlist",WL)}
+const unlocked=new Set(store.get("ps_unlocked",[]));
+/* Book Store (favourite books) + ratings, shared with View.html */
+let ST=store.get("ps_store",[]),RT=store.get("ps_ratings",{}),pendingStore=false;
+const saveS=()=>store.set("ps_store",ST),inST=id=>ST.some(s=>s.id===id);
+const inWL=id=>WL.some(w=>w.id===id);
+const save=()=>store.set("ps_wishlist",WL);
+/* Other pages: PSWishlist.toggle("b1") etc. */
+window.PSWishlist={ids:()=>WL.map(w=>w.id),has:inWL,toggle(id){if(inWL(id))WL=WL.filter(w=>w.id!==id);else WL.unshift({id,added:Date.now()});save();render()}};
+
+/* ---------- State ---------- */
+let cat="all",loading=false;
+const DR={Easy:1,Medium:2,Hard:3};
+const matchExam=r=>r.ex.includes(curExam)||curExam==="Other";
+const accNum=r=>r.prem&&!unlocked.has(r.id);
+const when=ts=>{const d=Math.floor((Date.now()-ts)/DAY);return d<=0?"Today":d===1?"Yesterday":d<30?d+" days ago":Math.round(d/30)+" mo ago"};
+const stars=n=>"★".repeat(n)+"☆".repeat(5-n);
+let toastT;function toast(m){const t=$("toast");t.textContent=m;t.classList.add("show");clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove("show"),2200)}
+
+/* ---------- Filters ---------- */
+function items(){
+ const q=$("q").value.trim().toLowerCase(),fe=$("fExam").value,fs=$("fSub").value,fd=$("fDiff").value,fa=$("fAcc").value,fst=$("fStat").value,so=$("fSort").value;
+ let L=WL.map(w=>({r:byId[w.id],added:w.added})).filter(x=>x.r);
+ const base=L;
+ return {base,list:(()=>{
+  L=L.filter(({r})=>{
+   if(cat==="prem"){if(!r.prem)return false}else if(cat!=="all"&&r.type!==cat)return false;
+   if(q&&!(r.title+" "+r.sub+" "+r.topic+" "+(r.by||"")+" "+T[r.type].nm).toLowerCase().includes(q))return false;
+   if(fe==="__cur"&&!matchExam(r))return false;
+   if(fs&&r.sub!==fs)return false;
+   if(fd&&r.diff!==fd)return false;
+   if(fa==="free"&&r.prem)return false;if(fa==="prem"&&!r.prem)return false;
+   if(fst==="done"&&r.prog<100)return false;if(fst==="todo"&&r.prog>=100)return false;
+   return true});
+  const cmp={new:(a,b)=>b.added-a.added,old:(a,b)=>a.added-b.added,az:(a,b)=>a.r.title.localeCompare(b.r.title),diff:(a,b)=>DR[b.r.diff]-DR[a.r.diff],
+   rel:(a,b)=>(matchExam(b.r)-matchExam(a.r))||(b.added-a.added)}[so];
+  return L.sort(cmp)})()};
+}
+
+/* ---------- Card rendering ---------- */
+function kv(r){
+ const k=(a,b)=>`<span>${a}</span><b>${b}</b>`;
+ const ex=r.ex.length>2?r.ex.slice(0,2).join(" / ")+" +":r.ex.join(" / ");
+ const m={
+  book:k("Author",r.by)+k("Subject",r.sub)+k("Exam",ex)+k("Rating","⭐ "+r.rating),
+  course:k("Instructor",r.by)+k("Subject",r.sub)+k("Lessons",r.lessons)+k("Rating","⭐ "+r.rating),
+  test:k("Questions",r.q)+k("Duration",r.mins+" min")+k("Total marks",r.marks)+k("Last attempt",r.last||"Not attempted"),
+  pyq:k("Exam",r.ex[0])+k("Year",r.year)+k("Subject",r.sub)+k("Chapter",r.topic)+k("Questions",r.q)+k("Difficulty",r.diff),
+  concept:k("Subject",r.sub)+k("Chapter",r.topic)+k("Importance",`<span style="color:var(--warn)">${stars(r.imp)}</span>`)+k("Your accuracy",r.acc+"%"),
+  material:k("File type",r.file)+k("Subject",r.sub)+k("Topic",r.topic)+k("Size",r.size),
+  note:k("File type",r.file)+k("Subject",r.sub)+k("Topic",r.topic)+k("Size",r.size)
+ };return m[r.type];
+}
+function acts(r){
+ const lock=accNum(r);
+ const go=(l,u,cls="")=>lock?`<button class="btn sm ${cls}" data-lock="${r.id}">${l}</button>`:`<a class="btn sm ${cls}" href="${u}">${l}</a>`;
+ const rm=`<button class="btn sm rm" data-rm="${r.id}">Remove</button>`;
+ const A={
+  book:go("Read now","View.html?id="+r.id+"&mode=read")+go("Download","section.html?s=downloads","o")+rm,
+  test:go("Start test","mock-test.html")+go("View details","mock-test.html","o")+rm,
+  pyq:go("Practice now","PYQ.html")+go("View questions","PYQ.html","o")+rm,
+  concept:go("Study concept","analysis.html")+go("Practice questions","PYQ.html","o")+rm,
+  material:go("Open","study-books.html")+go("Download","section.html?s=downloads","o")+rm,
+  note:go("Open","notes.html")+go("Download","section.html?s=downloads","o")+rm,
+  course:go(r.prog?"Continue":"Start course","study-books.html")+go("View course","study-books.html","o")+rm
+ };return A[r.type];
+}
+function card({r,added}){
+ const prog=r.prog>0?`<div><div class="row" style="margin:0 0 4px"><span class="lab">Progress</span><b style="font-size:12px">${r.prog===100?"Completed":r.prog+"%"}</b></div><div class="bar"><b style="width:${r.prog}%"></b></div></div>`:"";
+ return `<article class="card rc" data-id="${r.id}">
+  <div class="top2">
+   <div class="thumb ${r.type==="book"||r.type==="course"?"":"round"}" aria-hidden="true">${T[r.type].ic}</div>
+   <div style="min-width:0"><h3>${r.title}</h3><div class="meta">${T[r.type].nm.replace(/s$/,"")} · ${r.topic}</div></div>
+   <button class="hbtn" data-heart="${r.id}" aria-label="Remove ${r.title} from wishlist" title="Saved to wishlist">❤️</button>
+  </div>
+  <div class="badges">
+   <span class="tag ${r.prem?"prem":"free"}">${r.prem?(unlocked.has(r.id)?"💎 Unlocked":"💎 PREMIUM"):"Free"}</span>
+   <span class="tag">${r.diff}</span>
+   ${matchExam(r)?`<span class="tag ok">Fits ${curExam}</span>`:`<span class="tag">${r.ex[0]}</span>`}
+  </div>
+  <div class="kv">${kv(r)}</div>
+  ${prog}
+  <div class="date">Added ${when(added)}</div>
+  <div class="acts">${acts(r)}</div>
+ </article>`;
+}
+
+/* ---------- Main render ---------- */
+function render(){
+ const {base,list}=items();
+ // counters
+ $("navCnt").textContent=base.length;
+ const c=t=>base.filter(({r})=>r.type===t).length;
+ $("stats").innerHTML=[["Total saved",base.length,1],["Books saved",c("book")],["Tests saved",c("test")],["Study materials",c("material")+c("note")],["Premium items",base.filter(({r})=>r.prem).length]]
+  .map(([a,b,h])=>`<div class="card stat ${h?"hs":""}"><div class="lab">${a}</div><div class="n">${b}</div></div>`).join("");
+ // tabs
+ const tabs=[["all"," All",base.length],["book"," Books",c("book")],["note"," Notes",c("note")],["test"," Mock Tests",c("test")],["pyq"," PYQ",c("pyq")],["concept"," Concepts",c("concept")],["material"," Study Materials",c("material")],["course"," Courses",c("course")],["store"," Store",ST.length],["prem"," Premium",base.filter(({r})=>r.prem).length]];
+ $("tabs").innerHTML=tabs.map(([k,l,n])=>`<button role="tab" aria-selected="${k===cat}" class="${k===cat?"on":""}" data-cat="${k}">${l}<small>${n}</small></button>`).join("");
+ // Store tab: show book store instead of the normal grid
+ const stv=cat==="store";$("storeBox").hidden=!stv;$("filters").style.display=stv?"none":"";
+ if(stv){$("grid").hidden=true;$("empty").hidden=true;$("resInfo").textContent="";renderStore();recs();return}
+ // subject filter options (kept selection)
+ const subs=[...new Set(base.map(({r})=>r.sub))].sort(),cur=$("fSub").value;
+ $("fSub").innerHTML='<option value="">All subjects</option>'+subs.map(s=>`<option ${s===cur?"selected":""}>${s}</option>`).join("");
+ // grid or empty
+ const g=$("grid"),e=$("empty");
+ $("resInfo").textContent=base.length?`Showing ${list.length} of ${base.length} saved items`:"";
+ if(!base.length){
+  g.hidden=true;e.hidden=false;
+  e.innerHTML=`<div class="ic">❤️</div><h2>Your wishlist is empty</h2><p>Save books, mock tests, concepts and study materials here so you can easily access them later.</p><div class="acts"><a class="btn" href="study-books.html">Explore study books</a><a class="btn o" href="mock-test.html">Explore mock tests</a><a class="btn o" href="study-books.html">Explore study materials</a></div>`;
+ }else if(!list.length){
+  g.hidden=true;e.hidden=false;
+  e.innerHTML=`<div class="ic" style="color:var(--mut)"></div><h2>No saved items match</h2><p>Try a different search or clear the filters to see everything you saved.</p><div class="acts"><button class="btn" id="clr2">Clear filters</button></div>`;
+  $("clr2").onclick=clearF;
+ }else{
+  e.hidden=true;g.hidden=false;
+  g.innerHTML=loading?'<div class="skel"></div>'.repeat(3):list.map(card).join("");
+ }
+ recs();
+}
+
+/* ---------- Book Store ---------- */
+function rateHTML(id){const v=RT[id]||0;
+ return `<div class="rate" role="group" aria-label="Rate this book">${[1,2,3,4,5].map(n=>`<button data-rate="${id}" data-v="${n}" class="${n<=v?"on":""}" aria-label="${n} star${n>1?"s":""}">★</button>`).join("")}<small>${v?"Your rating: "+v+"/5":"Rate this book"}</small></div>`}
+function sCard(r,on){
+ const lock=accNum(r);
+ const prog=r.prog>0?`<div><div class="row" style="margin:0 0 4px"><span class="lab">Progress</span><b style="font-size:12px">${r.prog===100?"Completed":r.prog+"%"}</b></div><div class="bar"><b style="width:${r.prog}%"></b></div></div>`:"";
+ const read=lock?`<button class="btn sm" data-lock="${r.id}">Read now</button>`:`<a class="btn sm" href="View.html?id=${r.id}&mode=read">Read now</a>`;
+ const dl=lock?`<button class="btn sm o" data-lock="${r.id}">Download</button>`:`<button class="btn sm o" data-dl="${r.id}">Download</button>`;
+ const view=`<a class="btn sm o" href="View.html?id=${r.id}&mode=view">View</a>`;
+ const a=on?read+dl+view+`<button class="btn sm rm" data-srm="${r.id}">Remove</button>`:`<button class="btn sm" data-sadd="${r.id}">♡ Add to Store</button>`+view;
+ return `<article class="card rc" data-id="${r.id}">
+  <div class="top2"><div class="thumb" aria-hidden="true">${T.book.ic}</div><div style="min-width:0"><h3>${r.title}</h3><div class="meta">Book · ${r.topic}</div></div></div>
+  <div class="badges"><span class="tag ${r.prem?"prem":"free"}">${r.prem?(unlocked.has(r.id)?"💎 Unlocked":"💎 PREMIUM"):"Free"}</span><span class="tag">${r.diff}</span>${matchExam(r)?`<span class="tag ok">Fits ${curExam}</span>`:`<span class="tag">${r.ex[0]}</span>`}</div>
+  <div class="kv">${kv(r)}</div>${prog}${rateHTML(r.id)}
+  <div class="acts">${a}</div></article>`}
+function renderStore(){
+ const books=CAT.filter(r=>r.type==="book"),mine=ST.map(s=>byId[s.id]).filter(Boolean),rest=books.filter(b=>!inST(b.id));
+ $("storeBox").innerHTML=`<h2>❤️ My Book Store <span class="lab">(${mine.length} saved)</span></h2>`+
+  (mine.length?`<div class="cards">${mine.map(r=>sCard(r,1)).join("")}</div>`:`<div class="card empty"><div class="ic">❤️</div><h2>Your store is empty</h2><p>Add your favourite books from the list below.</p></div>`)+
+  (rest.length?`<h2>All books</h2><div class="cards">${rest.map(r=>sCard(r,0)).join("")}</div>`:"")}
+
+/* ---------- Recommendations ---------- */
+function recs(){
+ const weak="Physics";
+ const cand=CAT.filter(r=>!inWL(r.id)&&matchExam(r));
+ const pick=[...cand.filter(r=>r.sub===weak),...cand.filter(r=>r.sub!==weak)].slice(0,4);
+ $("recWhy").textContent=`Based on ${curExam}, your target score and weak topic: ${weak} — Mechanics`;
+ const row=r=>`<div class="rec"><div class="thumb round" aria-hidden="true">${T[r.type].ic}</div><div class="tx"><b>${r.title}</b><span class="lab">${T[r.type].nm.replace(/s$/,"")} · ${r.sub}${r.sub===weak?" · improves your weak area":""}</span></div><button class="hbtn add" data-add="${r.id}" aria-label="Add ${r.title} to wishlist" title="Add to Wishlist">♡</button></div>`;
+ $("recs").innerHTML=pick.length?pick.map(row).join(""):'<p class="lab" style="margin:0">You have saved everything we would suggest for this exam. Nice work.</p>';
+ const pm=CAT.filter(r=>r.prem&&!inWL(r.id)&&matchExam(r)).slice(0,3);
+ $("prem").innerHTML=pm.length?pm.map(r=>`<div class="pbox"><span class="tag prem" style="align-self:flex-start">💎 PREMIUM</span><h3>${r.title}</h3><span class="lab">${T[r.type].nm.replace(/s$/,"")} · ${r.sub} · ₹${r.price}</span><div style="display:flex;gap:6px;margin-top:4px"><button class="btn sm" data-lock="${r.id}">Unlock</button><button class="btn sm o" data-add="${r.id}">♡ Add to Wishlist</button></div></div>`).join(""):'<div class="card lab" style="grid-column:1/-1">No more premium picks for this exam right now.</div>';
+}
+
+/* ---------- Events ---------- */
+function clearF(){["q","fExam","fSub","fDiff","fAcc","fStat"].forEach(i=>$(i).value="");$("fSort").value="rel";cat="all";soft()}
+function soft(){loading=true;render();setTimeout(()=>{loading=false;render()},260)}
+$("tabs").onclick=e=>{const b=e.target.closest("[data-cat]");if(b){cat=b.dataset.cat;soft()}};
+["fExam","fSub","fDiff","fAcc","fStat","fSort"].forEach(i=>$(i).onchange=soft);
+$("q").oninput=render;
+$("clr").onclick=clearF;
+$("fbtn").onclick=()=>$("filters").classList.toggle("open");
+exam.onchange=()=>{curExam=exam.value;store.set("ps_exam",curExam);toast("Showing "+curExam+" picks first");soft()};
+
+let pending=null;
+function openOv(id){$(id).classList.add("open")}function closeOv(id){$(id).classList.remove("open")}
+document.addEventListener("click",e=>{
+ const rm=e.target.closest("[data-rm]"),hr=e.target.closest("[data-heart]"),ad=e.target.closest("[data-add]"),lk=e.target.closest("[data-lock]");
+ if(rm||hr){pendingStore=false;pending=(rm||hr).dataset.rm||(rm||hr).dataset.heart;$("rmN").textContent=byId[pending].title;openOv("ovRm")}
+ if(ad){const id=ad.dataset.add;if(!inWL(id)){ad.textContent="❤️";ad.classList.add("pop");WL.unshift({id,added:Date.now()});save();toast("Added to your wishlist ❤️");setTimeout(render,450)}}
+ if(lk){const r=byId[lk.dataset.lock];pending=r.id;$("prN").textContent=r.title+" is a premium resource.";$("prP").innerHTML=`₹${r.price} <small>one-time, or included in Pro and Premium plans</small>`;openOv("ovPr")}
+ const sa=e.target.closest("[data-sadd]"),sr=e.target.closest("[data-srm]"),rt=e.target.closest("[data-rate]"),dl=e.target.closest("[data-dl]");
+ if(sa&&!inST(sa.dataset.sadd)){ST.unshift({id:sa.dataset.sadd,added:Date.now()});saveS();toast("Added to your store ❤️");render()}
+ if(sr){pending=sr.dataset.srm;pendingStore=true;$("rmN").textContent=byId[pending].title;openOv("ovRm")}
+ if(rt){RT[rt.dataset.rate]=+rt.dataset.v;store.set("ps_ratings",RT);toast("Thanks for rating!");render()}
+ if(dl){const r=byId[dl.dataset.dl],ok=PSData.addDownload({id:"wl-"+r.id,kind:r.type==="book"?"book":"other",title:r.title,sub:r.by||"",text:r.title+" — "+r.by+"\n(Demo file. Connect your real file URL here.)"});toast(ok?"Saved to Downloads":"Storage is full. Remove a download first")}
+});
+$("rmNo").onclick=()=>closeOv("ovRm");
+$("rmYes").onclick=()=>{const id=pending;
+ if(pendingStore){pendingStore=false;closeOv("ovRm");ST=ST.filter(s=>s.id!==id);saveS();render();toast("Removed from your store");return}
+ const card=document.querySelector(`.rc[data-id="${id}"]`);closeOv("ovRm");
+ const done=()=>{WL=WL.filter(w=>w.id!==id);save();render();toast("Removed from your wishlist")};
+ if(card){card.style.transition="all .25s ease";card.style.opacity="0";card.style.transform="scale(.96)";setTimeout(done,240)}else done()};
+$("prNo").onclick=()=>closeOv("ovPr");
+$("prYes").onclick=()=>{unlocked.add(pending);store.set("ps_unlocked",[...unlocked]);closeOv("ovPr");render();toast("Unlocked (demo). Connect payments to make this live.")};
+document.querySelectorAll(".ov").forEach(o=>o.addEventListener("click",e=>{if(e.target===o)o.classList.remove("open")}));
+addEventListener("keydown",e=>{if(e.key==="Escape")document.querySelectorAll(".ov.open").forEach(o=>o.classList.remove("open"))});
+
+/* ---------- Shared shell behaviour (same as Home) ---------- */
+$("avb").onclick=()=>$("menu").classList.toggle("open");
+const setTheme=d=>{document.documentElement.dataset.theme=d?"dark":"light";try{localStorage.setItem("ps_theme",d?"dark":"light")}catch(e){}};
+const tog=e=>{e&&e.preventDefault();$("chat").classList.toggle("open")};$("fab").onclick=tog;
+$("cf").onsubmit=e=>{e.preventDefault();const v=$("ci").value.trim();if(!v)return;const m=$("msgs");m.insertAdjacentHTML("beforeend",'<p class="me"></p>');m.lastChild.textContent=v;
+ m.insertAdjacentHTML("beforeend",`<p>This is a demo reply. Connect the AI backend to get study suggestions for ${curExam}.</p>`);$("ci").value="";m.scrollTop=m.scrollHeight};
+
+/* first load: short skeleton, then content */
+loading=true;render();setTimeout(()=>{loading=false;render()},350);
+</script>
+  <script src="../assets/js/navigation-fix.js"></script>
+</body>
+</html>

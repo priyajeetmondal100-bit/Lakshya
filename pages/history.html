@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>PrepSphere — Analysis</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--mint:#E0F7FA;--teal:#00BFA5;--dteal:#00897B;--white:#FFFFFF;--navy:#12343B;--aqua:#B2EBF2;--muted:#4d6a70;--line:#d4eef1;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scrollbar-gutter:stable}
+html[data-theme="dark"]{
+  --white:#000000;--navy:#EDEEEA;--muted:rgba(237,238,234,.66);--line:rgba(237,238,234,.2);
+  --mint:rgba(237,238,234,.08);--aqua:#7C4DFF;--teal:#7C4DFF;--dteal:#00E5FF;--pri:#7C4DFF;--pri2:#00E5FF;color-scheme:dark;
+}
+html[data-theme="dark"],html[data-theme="dark"] body{background:#000000;color:var(--navy)}
+html[data-theme="dark"] aside,html[data-theme="dark"] .card,html[data-theme="dark"] select,html[data-theme="dark"] .btn.ghost,html[data-theme="dark"] .lo,html[data-theme="dark"] .bk.keep,html[data-theme="dark"] .nav-m{background:var(--white);color:var(--navy)}
+html[data-theme="dark"] .btn.ghost:hover{background:var(--mint)}
+html[data-theme="dark"] .top{background:#000000}
+html[data-theme="dark"] .btn.ghost,html[data-theme="dark"] .lo,html[data-theme="dark"] .kpi .d,html[data-theme="dark"] .sec,html[data-theme="dark"] .bk b,html[data-theme="dark"] .nav-m a.on{color:var(--dteal)}
+html[data-theme="dark"] .lo{border-color:var(--dteal)}
+html[data-theme="dark"] .tt{color:var(--white)}
+/* chart colours that are written straight into the SVG markup */
+html[data-theme="dark"] svg text[fill="#4d6a70"]{fill:var(--muted)}
+html[data-theme="dark"] svg text[fill="#12343B"]{fill:var(--navy)}
+html[data-theme="dark"] svg line[stroke="#E0F7FA"]{stroke:var(--line)}
+html[data-theme="dark"] svg polygon[fill="#E0F7FA"]{fill:var(--dteal);opacity:.14}
+html[data-theme="dark"] svg circle[fill="#fff"]{fill:var(--white)}
+html[data-theme="dark"] svg path[stroke="#fff"]{stroke:var(--white)}
+html[data-theme="dark"] svg path[fill="#12343B"]{fill:#FF4081}
+html[data-theme="dark"] .lg i[style*="12343B"]{background:#FF4081!important}
+
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:#fff;color:var(--navy);font:15px/1.5 'Plus Jakarta Sans',system-ui,sans-serif}
+.app{display:grid;grid-template-columns:232px minmax(0,1fr);min-height:100vh}
+aside{display:flex;flex-direction:column;overflow:auto;width:232px;border-right:1px solid var(--line);padding:18px 12px;position:sticky;top:0;height:100vh;flex-shrink:0;gap:2px;background:var(--white);font-family:'Manrope',system-ui,sans-serif}
+.logo{display:flex;gap:10px;align-items:center;font-weight:800;font-size:18px;padding:4px 10px 16px;color:var(--navy)}
+.logo i{width:30px;height:30px;border-radius:50%;background:conic-gradient(from 200deg,var(--teal),var(--dteal),var(--aqua),var(--teal));display:block;flex-shrink:0}
+aside .sp{flex:1;min-height:24px}
+.nav{display:flex;flex-direction:column;gap:2px}
+.nav a, aside a{display:flex;gap:10px;align-items:center;padding:9px 12px;border-radius:10px;color:var(--muted);text-decoration:none;font-weight:600;font-size:14px;transition:all .15s ease}
+.nav a:hover, aside a:hover{background:var(--mint);color:var(--navy)}
+.nav a.on, aside a.on{background:var(--teal);color:#fff;font-weight:600}
+main{padding:0 24px 40px;min-width:0}
+h1{font-size:26px;margin:0 0 2px;font-weight:800}
+h2{font-size:17px;margin:0 0 4px;font-weight:700}
+.sub{color:var(--muted);margin:0}
+.top{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;align-items:center;padding:14px 0;position:sticky;top:env(safe-area-inset-top,0px);background:#fff;z-index:5}
+.back-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:10px;border:1px solid var(--line);background:var(--white);color:var(--dteal);font:700 13px/1.2 Manrope,system-ui,sans-serif;cursor:pointer;text-decoration:none;white-space:nowrap;flex-shrink:0;transition:all .15s ease;box-shadow:0 1px 3px rgba(18,52,59,.04)}
+.back-btn:hover{background:var(--mint);color:var(--navy)}
+.ctrl{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+select,button{font:inherit;color:var(--navy)}
+select{border:1.5px solid var(--aqua);border-radius:10px;padding:8px 12px;background:#fff;font-weight:600}
+.seg{display:flex;background:var(--mint);border-radius:10px;padding:3px;flex-wrap:wrap}
+.seg button{border:0;background:none;padding:6px 12px;border-radius:8px;cursor:pointer;font-weight:600;font-size:13px}
+.seg button.on{background:var(--teal);color:#fff}
+.btn{background:var(--dteal);color:#fff;border:0;border-radius:10px;padding:9px 16px;font-weight:700;cursor:pointer}
+.btn:hover{background:var(--teal)}
+.btn.ghost{background:#fff;color:var(--dteal);border:1.5px solid var(--teal)}
+.btn.ghost:hover{background:var(--mint)}
+:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px;min-width:0}
+.grid{display:grid;gap:16px;margin-bottom:16px}
+.g4{grid-template-columns:repeat(4,1fr)}.g2{grid-template-columns:3fr 2fr}.g2e{grid-template-columns:1fr 1fr}
+.kpi .lab{color:var(--muted);font-size:13px;font-weight:600}
+.kpi .val{font-size:30px;font-weight:800;line-height:1.2}
+.kpi .d{font-size:12.5px;font-weight:700;color:var(--dteal)}
+.kpi svg{width:100%;height:34px;margin-top:6px}
+.insight{background:var(--mint);border-radius:12px;padding:12px 14px;font-weight:600;margin-top:12px}
+.hd{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+.chip{display:inline-block;padding:3px 10px;border-radius:99px;font-size:12px;font-weight:700;background:var(--aqua);color:var(--navy)}
+.bar{margin:11px 0}.bar .r{display:flex;justify-content:space-between;font-weight:600;font-size:14px;margin-bottom:4px}
+.track{height:10px;background:var(--mint);border-radius:9px;overflow:hidden}
+.fill{height:100%;background:linear-gradient(90deg,var(--teal),var(--dteal));border-radius:9px;transition:width .7s}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:10px 0}
+.stats div{background:var(--mint);border-radius:10px;padding:10px}
+.stats b{display:block;font-size:19px}.stats span{font-size:12px;color:var(--muted);font-weight:600}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{text-align:left;color:var(--muted);font-size:12.5px;font-weight:600;padding:6px 8px;border-bottom:1px solid var(--line)}
+td{padding:9px 8px;border-bottom:1px solid var(--line)}
+.pill{padding:2px 9px;border-radius:99px;font-size:12px;font-weight:700}
+.hi{background:var(--teal);color:#fff}.md{background:var(--aqua)}.lo{background:#fff;border:1.5px solid var(--dteal);color:var(--dteal)}
+.ov{overflow-x:auto}
+.tt{position:fixed;pointer-events:none;background:var(--navy);color:#fff;padding:5px 9px;border-radius:8px;font-size:12px;display:none;z-index:9}
+.nav-m{display:none}
+.pie{display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin:8px 0 14px}.pie svg{width:190px;height:190px;flex-shrink:0}
+.lg{flex:1;min-width:150px;font-size:13px}.lg div{display:flex;align-items:center;gap:7px;margin:3px 0;font-weight:600}.lg i{width:11px;height:11px;border-radius:3px;display:inline-block}
+.bk{display:flex;gap:8px;align-items:flex-start;margin-top:8px;font-size:13.5px;background:var(--mint);border-radius:10px;padding:8px 10px}.bk b{color:var(--dteal)}
+.bk.keep{background:#fff;border:1px solid var(--line)}
+.sec{font-size:14px;font-weight:700;margin:16px 0 4px;color:var(--dteal)}
+@media(max-width:900px){aside{display:none}.g4{grid-template-columns:1fr 1fr}.g2,.g2e{grid-template-columns:1fr}.nav-m{display:flex;overflow-x:auto;gap:4px;justify-content:flex-start;position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--line);justify-content:space-around;padding:8px 4px calc(8px + env(safe-area-inset-bottom,0px));z-index:5}.nav-m a{white-space:nowrap;padding:2px 10px;font-size:11.5px;color:var(--navy);text-decoration:none;font-weight:600}.nav-m a.on{color:var(--dteal)}main{padding-bottom:80px}}
+@media(max-width:480px){.g4{grid-template-columns:1fr}h1{font-size:22px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+.bell{display:inline-flex;align-items:center;gap:6px;padding:7px 11px;border-radius:99px;background:var(--mint);border:1px solid var(--line);font-weight:700;color:var(--navy)}
+.av{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--teal),var(--dteal));color:#fff;display:grid;place-items:center;font-weight:800;border:0;cursor:pointer;font-family:inherit}
+.menu{position:absolute;right:0;top:100%;background:var(--white);border:1px solid var(--line);border-radius:12px;padding:6px;display:none;min-width:170px;box-shadow:0 12px 30px rgba(18,52,59,.12);z-index:30}
+.menu.open{display:block}.menu a{display:block;padding:8px 12px;border-radius:8px;color:var(--navy);text-decoration:none;font-weight:600}.menu a:hover{background:var(--mint);color:var(--dteal)}
+.hs{margin-bottom:22px}
+.hs-h{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.hs-h h2{margin:0;font-size:18px}
+.hrow{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x proximity;padding:2px 2px 12px;-webkit-overflow-scrolling:touch;margin-top:12px}
+.hs-h+.hrow{margin-top:0}
+.hc{flex:0 0 230px;scroll-snap-align:start;background:var(--white);border:1px solid var(--line);border-radius:14px;overflow:hidden;display:flex;flex-direction:column}
+.hc-t{height:104px;background:var(--mint);display:grid;place-items:center;text-align:center;font-size:32px;line-height:1.1;padding:6px}
+.hc-t small{display:block;font-size:12px;font-weight:700;color:var(--muted);margin-top:4px}
+.hc-b{padding:10px 12px 12px;display:flex;flex-direction:column;gap:4px;flex:1}
+.hc-b b{font-size:14px;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.hc-m{color:var(--muted);font-size:12px}
+.hc-a{display:flex;gap:6px;flex-wrap:wrap;margin-top:auto;padding-top:8px}
+.hc-a .btn{padding:5px 10px;font-size:12px;border-radius:8px}
+.hc .track{margin-top:4px}
+.hs-e{color:var(--muted);margin:0;padding:14px 4px}
+@media(max-width:600px){.hc{flex-basis:78%}}
+</style>
+<script>
+/* PrepSphere theme: apply the saved theme before first paint; keep all pages in sync */
+(function(){var r=document.documentElement;function a(){var d=false;try{d=localStorage.getItem("ps_theme")==="dark"}catch(e){}r.dataset.theme=d?"dark":"light"}a();addEventListener("pageshow",a);addEventListener("storage",function(e){if(e.key==="ps_theme")a()})})();
+</script>
+<style>
+.rv{border:1px solid var(--line);border-left:6px solid var(--teal);border-radius:12px;padding:12px;margin:8px 0}
+.rv.no{border-left-color:#d64545}.rv.sk{border-left-color:#e8a317}
+td .btn,td a.btn{padding:5px 10px;font-size:12px;display:inline-block;text-decoration:none;margin:0 2px 2px 0}
+.kpi .val{font-size:26px}
+/* dark: flat classic finish */
+html[data-theme=dark] .logo i{background:var(--pri)!important}
+html[data-theme=dark] .av,html[data-theme=dark] .fab{background:var(--pri)!important;box-shadow:none!important}
+html[data-theme=dark] .fill{background:var(--teal)}
+html[data-theme=dark] svg polyline[stroke="#00BFA5"]{stroke:#00E5FF}
+html[data-theme=dark] svg circle[stroke="#00897B"]{stroke:#00E5FF}
+html[data-theme=dark] svg rect[fill="#00BFA5"]{fill:#7C4DFF}
+html[data-theme=dark] svg rect[fill="#00897B"]{fill:#00E5FF}
+html[data-theme=dark] svg path[fill="#00897B"]{fill:#7C4DFF}
+html[data-theme=dark] svg path[fill="#00BFA5"]{fill:#00E5FF}
+html[data-theme=dark] svg path[fill="#B2EBF2"]{fill:#EDEEEA}
+html[data-theme=dark] svg path[fill="#4DB6AC"]{fill:#e29a0b}
+html[data-theme=dark] svg path[fill="#80CBC4"]{fill:#8A8B89}
+html[data-theme=dark] .lg i[style*="00897B"]{background:#7C4DFF!important}
+html[data-theme=dark] .lg i[style*="00BFA5"]{background:#00E5FF!important}
+html[data-theme=dark] .lg i[style*="B2EBF2"]{background:#EDEEEA!important}
+html[data-theme=dark] .lg i[style*="4DB6AC"]{background:#e29a0b!important}
+html[data-theme=dark] .lg i[style*="80CBC4"]{background:#8A8B89!important}
+html[data-theme=dark] .btn:not(.ghost){background:var(--teal)}
+</style>
+</head><body>
+<div class="app">
+<aside>
+ <div class="logo"><i></i>PrepSphere</div>
+ <nav class="nav" id="nav" aria-label="Main"></nav>
+ <div class="sp"></div>
+ <nav class="nav" id="nav2" aria-label="Secondary"></nav>
+</aside>
+<main>
+<div class="top">
+<div><h1>History</h1><p class="sub" id="lead"></p></div>
+<div class="ctrl"><a class="btn" href="mock-test.html">Take a mock test</a><a class="bell" href="notifications.html" title="Notifications" aria-label="Notifications" style="text-decoration:none">🔔 3</a><button class="av" id="avb" aria-label="Profile menu" type="button">A</button><div class="menu" id="menu"><a href="section.html?s=settings">My Profile</a><a href="section.html?s=settings">My Target</a><a href="analysis.html">Progress</a><a href="section.html?s=premium">Subscription</a><a href="section.html?s=settings">Settings</a><a href="#">Logout</a></div></div></div>
+
+<section class="hs" id="sTests" aria-labelledby="hTests">
+ <div class="hs-h"><h2 id="hTests">🧪 Tests</h2>
+  <div class="ctrl"><select id="fe" aria-label="Exam"></select><select id="fs" aria-label="Subject"></select>
+  <select id="fd" aria-label="Date"><option value="">All time</option><option value="7">Last 7 days</option><option value="30">Last 30 days</option></select>
+  <a class="btn ghost" href="analysis.html">View analysis</a><button class="btn ghost" id="clr">Clear history</button></div></div>
+ <div class="grid g4" id="kp"></div>
+ <div class="hrow" id="rows" tabindex="0" aria-label="Tests you started"></div>
+</section>
+<div class="card" id="det" style="margin:0 0 22px;display:none"></div>
+
+<section class="hs" id="sBooks" aria-labelledby="hBooks">
+ <div class="hs-h"><h2 id="hBooks">📘 Books</h2><div class="ctrl"><a class="btn ghost" href="study-books.html">Browse books</a><button class="btn ghost" id="clrB">Clear</button></div></div>
+ <div class="hrow" id="bk" tabindex="0" aria-label="Books you opened"></div>
+</section>
+
+<section class="hs" id="sNotes" aria-labelledby="hNotes">
+ <div class="hs-h"><h2 id="hNotes">📝 Notes</h2><div class="ctrl"><a class="btn ghost" href="notes.html">Open notes</a><button class="btn ghost" id="clrN">Clear</button></div></div>
+ <div class="hrow" id="nt" tabindex="0" aria-label="Notes you read"></div>
+</section>
+</main></div>
+<nav class="nav-m" id="navm" aria-label="Mobile"></nav>
+<script src="../assets/js/ps-data.js"></script>
+<script>
+const LK={"Home":"home.html","Study Books":"study-books.html","Books":"study-books.html","Analysis":"analysis.html","Notes":"notes.html","Previous Year Questions":"PYQ.html","PYQ":"PYQ.html","Mock Test":"mock-test.html","Mock":"mock-test.html","Wishlist":"wishlist.html","History":"history.html","Achievements":"achievement.html","Downloads":"section.html?s=downloads","Settings":"section.html?s=settings","More":"section.html?s=settings","Help":"section.html?s=help","Premium":"section.html?s=premium","Purchase / Premium":"section.html?s=premium","My Profile":"section.html?s=settings","My Target":"section.html?s=settings","Subscription":"section.html?s=premium"};
+const lbl=t=>t.replace(/^[^A-Za-z]+/,"").trim();
+const $=id=>document.getElementById(id);
+const NV=[[" Home","home.html"],[" Study Books","study-books.html"],[" Analysis","analysis.html"],[" Notes","notes.html"],[" Previous Year Questions","PYQ.html"],[" Mock Test"],[" Wishlist"],[" History","history.html",1],[" Achievements"],[" Downloads"]];
+const NV2=[[" Settings"],[" Premium","section.html?s=premium"],[" Help","section.html?s=help"]];
+const lk=a=>a.map(x=>`<a href="${x[1]||LK[lbl(x[0])]||'#'}"${x[2]?' class="on" aria-current="page"':''}${x[3]?` id="${x[3]}"`:''}>${x[0]}</a>`).join("");
+$("nav").innerHTML=lk(NV);$("nav2").innerHTML=lk(NV2);$("navm").innerHTML=lk(NV.concat(NV2));
+const G=()=>{try{return JSON.parse(localStorage.getItem("ps_mock_history")||"[]")}catch(e){return[]}};
+const put=l=>{try{localStorage.setItem("ps_mock_history",JSON.stringify(l))}catch(e){}};
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const SN={PYQ:"Previous year",Book:"Study books",Mock:"Practice set"},T=s=>Math.floor(s/60)+"m "+s%60+"s";
+let F={e:"",s:"",d:""},open="";
+const bar=(n,v)=>{const p=Math.round(v[0]/v[1]*100);return `<div class="bar"><div class="r"><span>${esc(n)}</span><span>${v[0]}/${v[1]} · ${p}%</span></div><div class="track"><div class="fill" style="width:${p}%"></div></div></div>`};
+const H=()=>window.PSData?PSData.hist():{books:[],notes:[],tests:[]};
+const dt=ts=>new Date(ts).toLocaleDateString("en-IN",{day:"numeric",month:"short",year:"numeric"})+", "+new Date(ts).toLocaleTimeString("en-IN",{hour:"numeric",minute:"2-digit"});
+const saved=(ok)=>PSData.notify(ok?"Saved to Downloads":"Storage is full. Remove a download first");
+function items(){
+ const res=G(),h=H(),used=new Set(),out=[];
+ h.tests.forEach(a=>{const r=a.rid&&res.find(x=>x.id==a.rid)||null;if(r)used.add(r.id);out.push({id:a.id,a,r,ts:a.ts,exam:r?r.exam:a.exam,title:r?r.title:a.title,code:r?r.code:a.code})});
+ res.filter(r=>!used.has(r.id)).forEach(r=>out.push({id:"r"+r.id,a:null,r,ts:r.ts,exam:r.exam,title:r.title,code:r.code}));
+ return out.sort((x,y)=>y.ts-x.ts);
+}
+const card=(th,body,acts)=>`<article class="hc"><div class="hc-t">${th}</div><div class="hc-b">${body}<div class="hc-a">${acts}</div></div></article>`;
+function draw(){
+ const all=items(),h=H(),ex=[...new Set(all.map(r=>r.exam).filter(Boolean))],sb=[...new Set(all.flatMap(r=>Object.keys(r.r&&r.r.subs||{})))];
+ $("fe").innerHTML='<option value="">All exams</option>'+ex.map(x=>`<option ${x==F.e?"selected":""}>${esc(x)}</option>`).join("");
+ $("fs").innerHTML='<option value="">All subjects</option>'+sb.map(x=>`<option ${x==F.s?"selected":""}>${esc(x)}</option>`).join("");
+ $("fd").value=F.d;
+ const l=all.filter(r=>(!F.e||r.exam==F.e)&&(!F.s||(r.r&&r.r.subs&&r.r.subs[F.s]))&&(!F.d||Date.now()-r.ts<=F.d*864e5));
+ $("lead").textContent=`${all.length} test${all.length==1?"":"s"} · ${h.books.length} book${h.books.length==1?"":"s"} · ${h.notes.length} note${h.notes.length==1?"":"s"}`;
+ const done=l.filter(x=>x.r).map(x=>x.r),n=done.length,avg=n?Math.round(done.reduce((a,r)=>a+r.acc,0)/n):0,best=n?Math.max(...done.map(r=>Math.max(0,Math.round(r.score/r.max*100)))):0,tm=done.reduce((a,r)=>a+r.used,0);
+ $("kp").innerHTML=[["Tests taken",n],["Average accuracy",avg+"%"],["Best score",best+"%"],["Time spent",T(tm)]].map(x=>`<div class="card kpi"><div class="lab">${x[0]}</div><div class="val">${x[1]}</div></div>`).join("");
+ /* Tests */
+ $("rows").innerHTML=l.length?l.map(x=>{const r=x.r;
+  const th=r?`${r.score}/${r.max}<small>${r.acc}% accuracy</small>`:`🧪<small>Started · not submitted</small>`;
+  const body=`<b>${esc(x.title)}</b><span class="hc-m">${esc(x.code)} · ${esc(x.exam||"")}</span><span class="hc-m">${dt(x.ts)}${r?" · "+T(r.used):""}</span>`;
+  const acts=r?`<button class="btn ghost" data-a="v" data-i="${r.id}">View</button><a class="btn" href="mock-test.html?retake=${r.id}">Retake</a><button class="btn ghost" data-a="dl" data-i="${r.id}">Download</button><button class="btn ghost" data-a="d" data-i="${x.id}">Delete</button>`
+   :`<a class="btn" href="mock-test.html">Take again</a><button class="btn ghost" data-a="d" data-i="${x.id}">Delete</button>`;
+  return card(th,body,acts)}).join(""):`<p class="hs-e">${all.length?"No tests match these filters.":"No tests yet. Start a mock test and it will appear here."}</p>`;
+ const r=all.map(x=>x.r).find(x=>x&&x.id==open);$("det").style.display=r?"block":"none";
+ if(r)$("det").innerHTML=`<div class="hd"><div><button class="back-btn" data-a="x" type="button" style="margin-bottom:10px">← Back</button><h2>${esc(r.title)}</h2><p class="sub">${esc(r.exam)} · ${esc(r.code)} · ${esc(r.type)}</p></div><div class="ctrl"><button class="btn ghost" data-a="dl" data-i="${r.id}">Download</button><button class="btn ghost" data-a="x">Close</button></div></div>
+ <div class="stats" style="grid-template-columns:repeat(auto-fit,minmax(120px,1fr))">${[[r.score+"/"+r.max,"Score"],[r.acc+"%","Accuracy"],[r.c,"Correct"],[r.w,"Wrong"],[r.k,"Skipped"],[r.pct,"Percentile (est.)"]].map(x=>`<div><b>${x[0]}</b><span>${x[1]}</span></div>`).join("")}</div>
+ <div class="grid g2e"><div><h2 style="font-size:15px">By subject</h2>${Object.entries(r.subs||{}).map(([k,v])=>bar(k,v)).join("")}</div><div><h2 style="font-size:15px">By question source</h2>${Object.entries(r.srcs||{}).map(([k,v])=>bar(SN[k]||k,v)).join("")}<p><b>Needs revision:</b> ${esc((r.weak||[]).join(", "))||"None"}</p></div></div>
+ <h2 style="font-size:15px">Answer review</h2>${(r.rev||[]).map((q,i)=>`<div class="rv ${q[2]<0?"sk":q[2]==q[3]?"":"no"}"><b>Q${i+1}. ${esc(q[0])}</b><br>Your answer: ${q[2]<0?"Skipped":esc(q[1][q[2]])}<br>Correct answer: ${esc(q[1][q[3]])}<br><small>${esc(q[4])} · ${esc(q[5])} · ${esc(q[6])} · ${SN[q[7]]||""}</small></div>`).join("")}`;
+ /* Books: pages read out of total, with a progress bar */
+ $("bk").innerHTML=h.books.length?h.books.map(b=>{const tot=b.total||0,rd=Math.min(b.read||0,tot),p=tot?Math.round(rd/tot*100):0;
+  const body=`<b>${esc(b.title)}</b><span class="hc-m">${esc(b.author||"")}${b.author&&b.subject?" · ":""}${esc(b.subject||"")}</span><span class="hc-m">${rd} of ${tot} pages read · ${p}%</span><div class="track" role="progressbar" aria-valuemin="0" aria-valuemax="${tot}" aria-valuenow="${rd}" aria-label="Pages read"><div class="fill" style="width:${p}%"></div></div><span class="hc-m">Opened ${dt(b.ts)}</span>`;
+  return card(`📘<small>${b.page?"Page "+b.page:"Not started"}</small>`,body,`<a class="btn" href="View.html?${esc(b.q||"id="+encodeURIComponent(b.id)+"&mode=read")}">Continue</a><button class="btn ghost" data-a="rb" data-i="${esc(b.id)}">Remove</button>`)}).join(""):`<p class="hs-e">No books yet. Open a book from Study Books and it will appear here.</p>`;
+ /* Notes */
+ $("nt").innerHTML=h.notes.length?h.notes.map(n=>{
+  const body=`<b>${esc(n.title)}</b><span class="hc-m">${esc([n.subj,n.ch].filter(Boolean).join(" · "))}</span><span class="hc-m">${esc(n.folder||"")}${n.folder?" · ":""}Read ${n.count||1} time${(n.count||1)==1?"":"s"}</span><span class="hc-m">Last read ${dt(n.ts)}</span>`;
+  return card("📝<small>"+esc(n.folder||"Note")+"</small>",body,`<a class="btn" href="notes.html?open=${encodeURIComponent(n.id)}">Open</a><button class="btn ghost" data-a="rn" data-i="${esc(n.id)}">Remove</button>`)}).join(""):`<p class="hs-e">No notes yet. Read a note and it will appear here.</p>`;
+}
+$("fe").onchange=e=>{F.e=e.target.value;draw()};$("fs").onchange=e=>{F.s=e.target.value;draw()};$("fd").onchange=e=>{F.d=e.target.value;draw()};
+function dlTest(id){const r=G().find(x=>x.id==id);if(!r)return;saved(PSData.addDownload({id:r.id,kind:"test",title:r.title+" · "+r.code,sub:r.exam+" · "+r.score+"/"+r.max,text:PSData.testText(r)}))}
+$("rows").onclick=e=>{const b=e.target.closest("button[data-a]");if(!b)return;const a=b.dataset.a,i=b.dataset.i;
+ if(a=="v"){open=i;draw();$("det").scrollIntoView({behavior:"smooth"})}
+ else if(a=="dl")dlTest(i);
+ else if(confirm("Delete this test from your history?")){const it=items().find(x=>x.id==i);if(it){if(it.r)put(G().filter(r=>r.id!=it.r.id));if(it.a)PSData.removeHistory("tests",it.a.id)}if(it&&it.r&&open==it.r.id)open="";draw()}};
+$("det").onclick=e=>{const b=e.target.closest("[data-a]");if(!b)return;if(b.dataset.a=="x"){open="";draw()}else if(b.dataset.a=="dl")dlTest(b.dataset.i)};
+$("bk").onclick=e=>{const b=e.target.closest("button[data-a=rb]");if(b&&confirm("Remove this book from your history?")){PSData.removeHistory("books",b.dataset.i);draw()}};
+$("nt").onclick=e=>{const b=e.target.closest("button[data-a=rn]");if(b&&confirm("Remove this note from your history?")){PSData.removeHistory("notes",b.dataset.i);draw()}};
+$("clr").onclick=()=>{if(items().length&&confirm("Delete all test history?")){put([]);PSData.clearHistory("tests");open="";draw()}};
+$("clrB").onclick=()=>{if(H().books.length&&confirm("Delete all book history?")){PSData.clearHistory("books");draw()}};
+$("clrN").onclick=()=>{if(H().notes.length&&confirm("Delete all notes history?")){PSData.clearHistory("notes");draw()}};
+const setTheme=d=>{document.documentElement.dataset.theme=d?"dark":"light";try{localStorage.setItem("ps_theme",d?"dark":"light")}catch(e){}};
+draw();
+</script>
+  <script src="../assets/js/navigation-fix.js"></script>
+<script>(function(){var b=document.getElementById("avb"),m=document.getElementById("menu");if(!b||!m)return;b.addEventListener("click",function(e){e.stopPropagation();m.classList.toggle("open")});document.addEventListener("click",function(e){if(!m.contains(e.target))m.classList.remove("open")})})();</script>
+</body>
+</html>

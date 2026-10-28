@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Notifications | PrepSphere</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* === Specified Palette Placements === */
+  --bg: #ffffff;              /* Pure White Background */
+  --card: #FFFFFF;            /* White Cards */
+  --ink: #12343B;             /* Dark Navy Text */
+  --mut: #335961;             /* Navy Muted / Labels */
+  --line: #B2EBF2;            /* Soft Aqua (Borders & Dividers) */
+  --pri: #00BFA5;             /* Primary Teal (Buttons, Active Tabs, Highlights) */
+  --pri2: #00897B;            /* Dark Teal (Gradients & Accents) */
+  --acc: #00BFA5;             /* Primary Teal Accent */
+  --soft: #E0F7FA;            /* Light Mint (Pills, Inputs, Progress Tracks) */
+  --ok: #00897B;              /* Dark Teal for Success / Highest Score */
+  --warn: #e29a0b;            /* Warning */
+  --bad: #dc3d4b;             /* Urgent / Needs Improvement */
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px)
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px);background:#FFFFFF;scrollbar-gutter:stable}
+*{box-sizing:border-box}body{margin:0;background:#FFFFFF;color:var(--ink);font:500 14px/1.5 Manrope,system-ui,sans-serif}
+button,select{font:inherit;color:inherit}button{cursor:pointer}
+:focus-visible{outline:2px solid var(--pri);outline-offset:2px}
+.back-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--pri2);font:700 13px/1.2 Manrope,system-ui,sans-serif;cursor:pointer;text-decoration:none;white-space:nowrap;flex-shrink:0;transition:all .15s ease;box-shadow:0 1px 3px rgba(18,52,59,.04)}
+.back-btn:hover{background:var(--soft);border-color:var(--pri);color:var(--ink)}
+.app{display:grid;grid-template-columns:232px 1fr;min-height:100vh;background:#FFFFFF}
+aside{background:var(--card);border-right:1px solid var(--line);padding:18px 12px;position:sticky;top:0;height:100vh;display:flex;flex-direction:column;gap:2px;overflow:auto}
+.logo{display:flex;gap:10px;align-items:center;font-weight:800;font-size:18px;padding:4px 10px 16px;color:var(--ink)}
+.logo i{width:30px;height:30px;border-radius:50%;background:conic-gradient(from 200deg,var(--pri),var(--pri2),var(--line),var(--pri));display:block}
+.nav a{display:flex;gap:10px;align-items:center;padding:9px 12px;border-radius:10px;color:var(--mut);text-decoration:none;font-weight:600;transition:all .15s ease}
+.nav a:hover{background:var(--soft);color:var(--ink)}.nav a.on{background:var(--pri);color:#fff}
+.sp{flex:1}
+main{padding:0 24px 40px;min-width:0;background:#FFFFFF}
+.top{display:flex;gap:14px;align-items:center;padding:14px 0;position:sticky;top:env(safe-area-inset-top,0px);background:#FFFFFF;z-index:5}
+.search{flex:1;max-width:460px;margin:0 auto;display:flex}
+.search input{width:100%;padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:var(--soft);color:var(--ink);font:inherit}
+.search input:focus{background:#fff;border-color:var(--pri);outline:none}
+.chip{display:flex;gap:6px;align-items:center;padding:7px 11px;border-radius:99px;background:var(--soft);border:1px solid var(--line);font-weight:700;color:var(--ink)}
+.av{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--pri),var(--pri2));color:#fff;display:grid;place-items:center;font-weight:800;border:0}
+.menu{position:absolute;right:24px;top:58px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:6px;display:none;min-width:170px;box-shadow:0 12px 30px rgba(18,52,59,.12)}
+.menu.open{display:block}.menu a{display:block;padding:8px 12px;border-radius:8px;color:var(--ink);text-decoration:none}.menu a:hover{background:var(--soft);color:var(--pri2)}
+h1{font-size:26px;margin:6px 0 2px;letter-spacing:-.4px;color:var(--ink)}h2{font-size:16px;margin:0 0 12px;color:var(--ink)}
+.sub{color:var(--mut);margin:0 0 16px}
+.grid{display:grid;gap:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;min-width:0;box-shadow:0 2px 10px rgba(18,52,59,0.04)}
+.hero{display:grid;grid-template-columns:1fr 1.5fr;gap:16px}
+.sel{width:100%;padding:12px;border-radius:12px;border:1px solid var(--line);background:var(--soft);font-weight:700;font-size:16px;color:var(--ink)}
+.lab{color:var(--mut);font-size:12px;font-weight:600}
+.big{font-size:22px;font-weight:800;color:var(--ink)}
+.tg{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:14px 0}
+.bar{height:9px;border-radius:9px;background:var(--soft);overflow:hidden}.bar b{display:block;height:100%;border-radius:9px;background:linear-gradient(90deg,var(--pri),var(--pri2));width:0;transition:width .8s ease}
+.btn{border:0;background:var(--pri);color:#fff;padding:9px 16px;border-radius:10px;font-weight:700;transition:all .15s ease}
+.btn:hover{background:var(--pri2)}
+.btn.o{background:transparent;color:var(--pri2);border:1px solid var(--pri)}
+.btn.o:hover{background:var(--soft)}
+.m4{grid-template-columns:repeat(4,1fr)}
+.met .n{font-size:28px;font-weight:800;letter-spacing:-.5px;color:var(--ink)}.up{color:var(--ok);font-weight:700;font-size:12px}
+.two{grid-template-columns:1.6fr 1fr}.three{grid-template-columns:repeat(3,1fr)}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+.tabs button{border:1px solid var(--line);background:var(--soft);color:var(--mut);border-radius:99px;padding:4px 12px;font-size:12px;font-weight:600;transition:all .15s ease}
+.tabs button:hover{background:var(--soft);color:var(--ink)}
+.tabs button.on{background:var(--pri);color:#fff;border-color:var(--pri)}
+svg text{fill:var(--mut);font:600 10px Manrope,sans-serif}
+.row{display:flex;justify-content:space-between;gap:10px;align-items:center;margin:0 0 6px}
+.subj{margin-bottom:14px}
+.tag{font-size:11px;font-weight:700;padding:2px 8px;border-radius:99px;background:var(--soft);color:var(--pri2)}
+.tag.h{background:#dc3d4b22;color:var(--bad)}
+.li{display:flex;gap:10px;align-items:center;padding:9px 0;border-bottom:1px solid var(--line)}.li:last-child{border:0}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--pri);flex:none}
+.badge{text-align:center;padding:10px;border-radius:12px;background:var(--soft);border:1px solid var(--line);font-size:12px}.badge.lk{opacity:.5}.badge span{font-size:24px;display:block}
+.fab{position:fixed;right:20px;bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:20;border-radius:99px;padding:13px 18px;background:linear-gradient(135deg,var(--pri),var(--pri2));color:#fff;border:0;font-weight:700;box-shadow:0 10px 26px rgba(0,191,165,.35)}
+.chat{position:fixed;right:20px;bottom:80px;width:340px;max-width:calc(100vw - 32px);background:var(--card);border:1px solid var(--line);border-radius:16px;display:none;flex-direction:column;z-index:20;box-shadow:0 16px 40px rgba(18,52,59,.18)}
+.chat.open{display:flex}.chat h3{margin:0;padding:14px 16px;border-bottom:1px solid var(--line);font-size:15px;color:var(--ink)}
+.msgs{padding:14px;display:flex;flex-direction:column;gap:8px;max-height:260px;overflow:auto}
+.msgs p{margin:0;padding:8px 12px;border-radius:12px;background:var(--soft);color:var(--ink);max-width:88%}.msgs p.me{align-self:flex-end;background:var(--pri);color:#fff}
+.chat form{display:flex;gap:6px;padding:10px;border-top:1px solid var(--line)}.chat input{flex:1;padding:8px 10px;border-radius:10px;border:1px solid var(--line);background:#FFFFFF;color:var(--ink);font:inherit}
+.news{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:6px 12px;margin:0 0 14px;overflow:hidden}
+.live{flex:none;display:flex;gap:6px;align-items:center;font-weight:800;font-size:12px;color:var(--bad)}.live i{width:8px;height:8px;border-radius:50%;background:var(--bad);animation:pulse 1.4s infinite}
+@keyframes pulse{50%{opacity:.25}}
+.tick{flex:1;overflow:hidden;white-space:nowrap}.trk{display:inline-flex;gap:34px;padding-right:34px;animation:scr 60s linear infinite}.tick:hover .trk{animation-play-state:paused}
+@keyframes scr{to{transform:translateX(-50%)}}
+.trk a{color:var(--ink);text-decoration:none;font-weight:600}.trk a:hover{color:var(--pri);text-decoration:underline}.trk b{color:var(--pri2)}.trk em{font-style:normal;color:var(--ok);font-weight:700}
+.bn{display:none}
+@media(max-width:1000px){.hero,.two{grid-template-columns:1fr}.m4{grid-template-columns:repeat(2,1fr)}.three{grid-template-columns:1fr}}
+@media(max-width:760px){.app{grid-template-columns:1fr}aside{display:none}main{padding:0 14px 90px}.tg{grid-template-columns:repeat(2,1fr)}.chip.hide{display:none}
+.bn{display:flex;position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--line);justify-content:space-around;padding:8px 0 calc(8px + env(safe-area-inset-bottom,0px));z-index:10}.bn a{text-decoration:none;color:var(--mut);font-size:11px;text-align:center;font-weight:600}.bn a:hover{color:var(--pri)}.fab{bottom:calc(76px + env(safe-area-inset-bottom,0px))}.chat{bottom:130px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+/* === Dark theme (sidebar "Toggle theme") === */
+html[data-theme=dark]{--bg:#000000;--card:#000000;--ink:#EDEEEA;--mut:rgba(237,238,234,.66);--line:rgba(237,238,234,.2);--soft:rgba(237,238,234,.08);--pri:#7C4DFF;--pri2:#00E5FF;--acc:#FF4081;--ok:#00E5FF;--bad:#FF4081;--warn:#e29a0b;color-scheme:dark}
+html[data-theme=dark],html[data-theme=dark] body,html[data-theme=dark] .app,html[data-theme=dark] main,html[data-theme=dark] .top{background:var(--bg)}
+html[data-theme=dark] .search input:focus,html[data-theme=dark] .chat input{background:var(--card)}
+/* dark: flat classic finish */
+html[data-theme=dark] .logo i{background:var(--pri)!important}
+html[data-theme=dark] .av,html[data-theme=dark] .fab,html[data-theme=dark] .avatar{background:var(--pri)!important;box-shadow:none!important}
+html[data-theme=dark] .bar b{background:var(--pri)!important}
+html[data-theme=dark] .btn:hover{color:#000000}
+.nlist{margin:0;padding-left:22px}.nlist li{margin:0 0 10px;line-height:1.55}.nlist li:last-child{margin-bottom:0}.nlist b{color:var(--ink)}.nlist a{color:var(--pri2);text-decoration:none;font-weight:700}.nlist a:hover{text-decoration:underline}.nlist li::marker{color:var(--pri)}
+.ngrid{display:grid;gap:16px;max-width:860px}
+</style>
+<script>
+/* PrepSphere theme: apply the saved theme before first paint; keep all pages in sync */
+(function(){var r=document.documentElement;function a(){var d=false;try{d=localStorage.getItem("ps_theme")==="dark"}catch(e){}r.dataset.theme=d?"dark":"light"}a();addEventListener("pageshow",a);addEventListener("storage",function(e){if(e.key==="ps_theme")a()})})();
+</script>
+</head>
+<body>
+<div class="app">
+<aside>
+ <div class="logo"><i></i>PrepSphere</div>
+ <nav class="nav">
+  <a href="home.html"> Home</a><a href="study-books.html"> Study Books</a><a href="analysis.html"> Analysis</a><a href="notes.html"> Notes</a><a href="PYQ.html"> Previous Year Questions</a><a href="mock-test.html"> Mock Test</a><a href="wishlist.html"> Wishlist</a><a href="history.html"> History</a><a href="achievement.html"> Achievements</a><a href="section.html?s=downloads"> Downloads</a>
+ </nav>
+ <div class="sp"></div>
+ <nav class="nav"><a href="section.html?s=settings"> Settings</a><a href="section.html?s=premium"> Premium</a><a href="section.html?s=help"> Help</a></nav>
+</aside>
+<main>
+ <div class="top">
+  <div class="search"><input placeholder="Search books, concepts, questions, topics…" aria-label="Search"></div>
+  <span class="chip" title="Study streak">🔥 12</span><a class="chip" href="notifications.html" title="Notifications" aria-label="Notifications" style="text-decoration:none">🔔 3</a>
+  <button class="av" id="avb" aria-label="Profile menu" type="button">A</button>
+  <div class="menu" id="menu"><a href="section.html?s=settings">My Profile</a><a href="section.html?s=settings">My Target</a><a href="analysis.html">Progress</a><a href="section.html?s=premium">Subscription</a><a href="section.html?s=settings">Settings</a><a href="#">Logout</a></div>
+ </div>
+
+ <button class="back-btn" id="nBack" type="button" aria-label="Go back">← Back</button>
+ <h1>Notifications</h1>
+ <p class="sub">Updates, upcoming events and new tests for your preparation.</p>
+
+ <div class="ngrid">
+  <div class="card"><h2>What's new</h2>
+   <ul class="nlist">
+    <li><b>Daily Challenge</b> — 5 quick questions to keep your streak alive. <a href="mock-test.html">Try it</a></li>
+    <li><b>JEE Main 2026 papers</b> added to Previous Year Questions. <a href="PYQ.html">Open PYQ</a></li>
+    <li><b>Dark mode</b> is available in Settings → Appearance. <a href="section.html?s=settings">Open settings</a></li>
+    <li><b>New study books</b> added to your library. <a href="study-books.html">Browse books</a></li>
+   </ul>
+  </div>
+
+  <div class="card"><h2>Upcoming</h2>
+   <ul class="nlist">
+    <li><b>Friday</b> — Weekly analysis is ready to view.</li>
+    <li><b>Sunday</b> — Full syllabus mock test.</li>
+    <li><b>15 Oct</b> — Revision reminder.</li>
+    <li>Daily revision at 7:00 PM.</li>
+   </ul>
+  </div>
+
+  <div class="card"><h2>New tests</h2>
+   <ul class="nlist">
+    <li><b>Full Syllabus Test</b> — all subjects and chapters in one exam-style paper. <a href="mock-test.html">Start test</a></li>
+    <li><b>Chapter Test</b> — Rotational Motion (Physics).</li>
+    <li><b>Subject Test</b> — Organic Chemistry.</li>
+   </ul>
+  </div>
+
+  <div class="card"><h2>Reminders &amp; achievements</h2>
+   <ul class="nlist">
+    <li>Your 14-day streak unlocks in 2 days — keep going!</li>
+    <li>160 XP to reach Level 13. <a href="achievement.html">View achievements</a></li>
+    <li>Revise your weakest topic before the next full mock. <a href="analysis.html">View analysis</a></li>
+   </ul>
+  </div>
+ </div>
+</main>
+</div>
+<nav class="bn"><a href="home.html"><br>Home</a><a href="study-books.html"><br>Books</a><a href="PYQ.html"><br>PYQ</a><a href="notes.html"><br>Notes</a><a href="analysis.html"><br>Analysis</a><a href="section.html?s=settings"><br>Settings</a></nav>
+<script>
+document.getElementById("nBack").onclick=function(){history.length>1&&document.referrer?history.back():location.href="home.html"};
+(function(){var b=document.getElementById("avb"),m=document.getElementById("menu");b.addEventListener("click",function(e){e.stopPropagation();m.classList.toggle("open")});document.addEventListener("click",function(e){if(!m.contains(e.target))m.classList.remove("open")})})();
+</script>
+<script src="../assets/js/navigation-fix.js"></script>
+</body>
+</html>

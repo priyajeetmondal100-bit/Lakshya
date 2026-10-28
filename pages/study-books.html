@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Study Books · PrepSphere</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --mint:#E0F7FA;
+  --teal:#00BFA5;
+  --dteal:#00897B;
+  --bg:#FFFFFF;          /* Pure White Background */
+  --card:#FFFFFF;        /* White Cards */
+  --ink:#12343B;
+  --aqua:#B2EBF2;
+  --mut:#4F7077;
+  --line:#CBEAEE;
+  --onteal:#073b36;
+  --warn:#B26A00;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px)
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px);background:#FFFFFF;scrollbar-gutter:stable}
+html[data-theme="dark"]{
+  --bg:#000000;--card:#000000;--ink:#EDEEEA;--mut:rgba(237,238,234,.66);--line:rgba(237,238,234,.2);
+  --mint:rgba(237,238,234,.08);--aqua:#7C4DFF;--teal:#7C4DFF;--dteal:#00E5FF;--pri:#7C4DFF;--pri2:#00E5FF;--warn:#e29a0b;color-scheme:dark;
+}
+html[data-theme="dark"],html[data-theme="dark"] body,html[data-theme="dark"] .app,
+html[data-theme="dark"] main{background:var(--bg)}
+html[data-theme="dark"] aside{background:var(--card)}
+html[data-theme="dark"] .top{background:var(--bg)}
+html[data-theme="dark"] .toast{color:var(--bg)}
+html[data-theme="dark"] .tag.free{background:#00E5FF;color:#000000}
+html[data-theme="dark"] .cover,html[data-theme="dark"] .cr .mini{box-shadow:inset 0 0 0 1px rgba(237,238,234,.28)}
+
+*{box-sizing:border-box}
+body{margin:0;background:#FFFFFF;color:var(--ink);font:15px/1.5 Figtree,system-ui,sans-serif}
+h1,h2,h3{font-family:'Bricolage Grotesque',Figtree,sans-serif;margin:0;line-height:1.15}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+.app{display:grid;grid-template-columns:232px minmax(0,1fr);min-height:100vh;background:#FFFFFF}
+aside{background:var(--card);border-right:1px solid var(--line);padding:18px 12px;position:sticky;top:0;height:100vh;display:flex;flex-direction:column;gap:2px;overflow:auto;font-family:'Manrope',system-ui,sans-serif;font-size:14px}
+.logo{display:flex;gap:10px;align-items:center;font-weight:800;font-size:18px;padding:4px 10px 16px;color:var(--ink)}
+.logo i{width:30px;height:30px;border-radius:50%;background:conic-gradient(from 200deg,var(--teal),var(--dteal),var(--aqua),var(--teal));display:block}
+nav a, .nav a{display:flex;gap:10px;align-items:center;padding:9px 12px;border-radius:10px;color:var(--mut);text-decoration:none;font-weight:600;font-size:14px;transition:all .15s ease}
+nav a:hover, .nav a:hover{background:var(--mint);color:var(--ink)}
+nav a.on, .nav a.on{background:var(--teal);color:#fff;font-weight:700}
+.sp{flex:1;min-height:24px}
+main{padding:0 24px 40px;min-width:0;background:#FFFFFF}
+.top{display:flex;gap:14px;align-items:center;padding:14px 0;position:sticky;top:env(safe-area-inset-top,0px);background:#FFFFFF;z-index:5}
+.back-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--dteal);font:700 13px/1.2 'Manrope',system-ui,sans-serif;cursor:pointer;text-decoration:none;white-space:nowrap;flex-shrink:0;transition:all .15s ease;box-shadow:0 1px 3px rgba(18,52,59,.04)}
+.back-btn:hover{background:var(--mint);border-color:var(--teal);color:var(--ink)}
+.search{flex:1;max-width:520px;position:relative}
+.search input{width:100%;padding:11px 14px 11px 38px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit}
+.search input:focus{outline:none;border-color:var(--teal)}
+.search span{position:absolute;left:13px;top:10px;color:var(--mut)}
+.pill{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:7px 13px;font-weight:600;white-space:nowrap;color:var(--ink)}
+.top .sp{flex:1}
+.hero{background:var(--mint);border:1px solid var(--aqua);border-radius:20px;padding:24px 26px;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:flex-end}
+.hero h1{font-size:clamp(26px,4vw,36px);color:var(--ink)}
+.hero p{margin:6px 0 0;color:var(--mut);max-width:46ch}
+.exam{display:grid;gap:4px;font-weight:600;font-size:13px;color:var(--mut)}
+.exam select{padding:11px 14px;border-radius:12px;border:2px solid var(--teal);background:var(--card);color:var(--ink);font:600 15px Figtree,sans-serif;min-width:190px}
+.cont{margin:20px 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
+.cr{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;display:flex;gap:14px;align-items:center;box-shadow:0 2px 8px rgba(18,52,59,0.03)}
+.cr .mini{width:46px;height:62px;border-radius:6px;flex:none}
+.cr b{display:block;color:var(--ink)}.cr small{color:var(--mut)}
+.bar{height:6px;background:var(--aqua);border-radius:9px;margin:7px 0 0;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--dteal);border-radius:9px}
+.tabs{display:flex;gap:8px;overflow-x:auto;padding:4px 0 10px}
+.tabs button{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:8px 16px;white-space:nowrap;font-weight:600;color:var(--mut);transition:all .15s ease}
+.tabs button:hover{background:var(--mint);color:var(--ink)}
+.tabs button[aria-pressed=true]{background:var(--dteal);border-color:var(--dteal);color:#fff}
+.filters{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:6px 0 18px}
+.filters select{padding:8px 12px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit}
+.count{margin-left:auto;color:var(--mut)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:18px}
+.book{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px;display:flex;flex-direction:column;gap:10px;transition:transform .18s,border-color .18s;box-shadow:0 2px 8px rgba(18,52,59,0.04)}
+.book:hover{transform:translateY(-3px);border-color:var(--teal)}
+.cover{aspect-ratio:3/3.6;border-radius:10px;padding:14px;display:flex;flex-direction:column;justify-content:space-between;color:#fff;position:relative;overflow:hidden}
+.cover b{font:700 18px/1.15 'Bricolage Grotesque',sans-serif}
+.cover small{opacity:.9;font-weight:600}
+.cover:after{content:"";position:absolute;right:-30px;bottom:-30px;width:110px;height:110px;border-radius:50%;background:rgba(255,255,255,.13)}
+.tag{position:absolute;top:10px;right:10px;font-size:12px;font-weight:700;border-radius:999px;padding:3px 10px;z-index:1}
+.tag.free{background:var(--aqua);color:#12343B}.tag.pro{background:#12343B;color:#B2EBF2}
+.book h3{font-size:16px;color:var(--ink)}
+.meta{color:var(--mut);font-size:13px;display:flex;justify-content:space-between;gap:6px}
+.stars{color:var(--warn);font-weight:600}
+.acts{display:flex;gap:6px;margin-top:auto}
+.acts button{border-radius:10px;padding:9px 6px;border:1px solid var(--line);background:var(--card);font-weight:600;font-size:13px;color:var(--ink)}
+.acts .read{flex:1.4;background:var(--teal);border-color:var(--teal);color:var(--onteal)}
+.acts .read:hover{background:var(--dteal);color:#fff}
+.acts .dl{flex:1}
+.acts .wl{width:40px;font-size:16px;line-height:1}
+.acts .wl[aria-pressed=true]{background:var(--mint);color:#d6336c;border-color:var(--aqua)}
+.empty{grid-column:1/-1;text-align:center;padding:50px 10px;color:var(--mut)}
+.toast{position:fixed;left:50%;bottom:calc(84px + env(safe-area-inset-bottom,0px));transform:translate(-50%,20px);background:var(--ink);color:#FFFFFF;padding:10px 18px;border-radius:12px;opacity:0;pointer-events:none;transition:.25s;z-index:30;font-weight:600}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.fab{position:fixed;right:20px;bottom:calc(20px + env(safe-area-inset-bottom,0px));background:var(--dteal);color:#fff;border:0;border-radius:999px;padding:13px 18px;font-weight:600;box-shadow:0 6px 18px rgba(0,137,123,.4);z-index:20}
+.bn{display:none}
+@media(max-width:860px){
+.app{display:block}aside{display:none}main{padding:16px 16px 100px}
+.bn{display:flex;position:fixed;bottom:0;left:0;right:0;background:var(--card);border-top:1px solid var(--line);justify-content:space-around;padding:8px 4px calc(8px + env(safe-area-inset-bottom,0px));z-index:25}
+.bn a{color:var(--mut);text-decoration:none;font-size:11px;text-align:center;padding:4px 8px;border-radius:10px}
+.bn a.on{color:var(--dteal);font-weight:700;background:var(--mint)}
+.fab{bottom:calc(80px + env(safe-area-inset-bottom,0px))}.toast{bottom:calc(140px + env(safe-area-inset-bottom,0px))}
+.pill.h{display:none}.count{margin-left:0;width:100%}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+html[data-theme=dark] .logo i{background:var(--pri)!important}
+html[data-theme=dark] .av,html[data-theme=dark] .fab{background:var(--pri)!important;box-shadow:none!important}
+html[data-theme=dark] .cover{background:#7C4DFF!important}
+html[data-theme=dark] .grid>*:nth-child(3n+2) .cover{background:#FF4081!important}
+html[data-theme=dark] .grid>*:nth-child(3n) .cover{background:#000000!important}
+html[data-theme=dark] .tag.pro{background:#EDEEEA;color:#000000}
+html[data-theme=dark] .cr .mini{background:#7C4DFF!important}
+html[data-theme=dark] .cr:nth-child(3n+2) .mini{background:#FF4081!important}
+html[data-theme=dark] .cr:nth-child(3n) .mini{background:#000000!important}
+html[data-theme=dark] .acts .read:hover{color:#000000}
+html[data-theme=dark] .tabs button[aria-pressed=true]{color:#000000}
+.av{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--teal),var(--dteal));color:#fff;display:grid;place-items:center;font-weight:800;border:0;cursor:pointer;font-family:inherit}
+.menu{position:absolute;right:0;top:100%;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:6px;display:none;min-width:170px;box-shadow:0 12px 30px rgba(18,52,59,.12);z-index:30}
+.menu.open{display:block}.menu a{display:block;padding:8px 12px;border-radius:8px;color:var(--ink);text-decoration:none;font-weight:600}.menu a:hover{background:var(--mint);color:var(--dteal)}
+</style>
+<script>
+/* PrepSphere theme: apply the saved theme before first paint; keep all pages in sync */
+(function(){var r=document.documentElement;function a(){var d=false;try{d=localStorage.getItem("ps_theme")==="dark"}catch(e){}r.dataset.theme=d?"dark":"light"}a();addEventListener("pageshow",a);addEventListener("storage",function(e){if(e.key==="ps_theme")a()})})();
+</script>
+</head>
+<body>
+<div class="app">
+<aside>
+ <div class="logo"><i></i>PrepSphere</div>
+ <nav class="nav" aria-label="Main">
+  <a href="home.html"> Home</a>
+  <a href="study-books.html" class="on" aria-current="page"> Study Books</a>
+  <a href="analysis.html"> Analysis</a>
+  <a href="notes.html"> Notes</a>
+  <a href="PYQ.html"> Previous Year Questions</a>
+  <a href="mock-test.html"> Mock Test</a>
+  <a href="wishlist.html"> Wishlist</a>
+  <a href="history.html"> History</a>
+  <a href="achievement.html"> Achievements</a>
+  <a href="section.html?s=downloads"> Downloads</a>
+ </nav>
+ <div class="sp"></div>
+ <nav class="nav">
+  <a href="section.html?s=settings"> Settings</a>
+  <a href="section.html?s=premium"> Premium</a>
+  <a href="section.html?s=help"> Help</a>
+ </nav>
+</aside>
+<main>
+ <div class="top">
+  <div class="search"><span></span><input id="q" type="search" placeholder="Search books, authors, subjects…" aria-label="Search books"></div>
+  <span class="sp"></span>
+  <span class="pill"> 12 days</span><a class="pill" href="notifications.html" title="Notifications" aria-label="Notifications" style="text-decoration:none">🔔 3</a><button class="av" id="avb" aria-label="Profile menu" type="button">A</button><div class="menu" id="menu"><a href="section.html?s=settings">My Profile</a><a href="section.html?s=settings">My Target</a><a href="analysis.html">Progress</a><a href="section.html?s=premium">Subscription</a><a href="section.html?s=settings">Settings</a><a href="#">Logout</a></div>
+ </div>
+
+ <section class="hero">
+  <div><h1>Study Books</h1><p>Free and premium books picked for your exam. Switch exams and the library follows.</p></div>
+  <label class="exam">Preparing for
+   <select id="exam"></select>
+  </label>
+ </section>
+
+ <section class="cont" id="cont" aria-label="Continue reading"></section>
+
+ <div class="tabs" id="tabs" role="group" aria-label="Book category"></div>
+ <div class="filters">
+  <select id="subj" aria-label="Subject"></select>
+  <select id="price" aria-label="Access"><option value="">Free &amp; Premium</option><option value="Free">Free only</option><option value="Premium">Premium only</option></select>
+  <select id="sort" aria-label="Sort"><option value="r">Top rated</option><option value="t">Title A–Z</option></select>
+  <span class="count" id="count"></span>
+ </div>
+ <section class="grid" id="grid" aria-live="polite"></section>
+</main>
+</div>
+<nav class="bn" aria-label="Mobile"><a href="home.html"><br>Home</a><a href="study-books.html" class="on"><br>Books</a><a href="PYQ.html"><br>PYQ</a><a href="notes.html"><br>Notes</a><a href="analysis.html"><br>Analysis</a><a href="section.html?s=settings"><br>More</a></nav>
+<button class="fab"> Ask AI</button>
+<div class="toast" id="toast" role="status"></div>
+
+<script src="../assets/js/ps-data.js"></script>
+<script>
+const SUBJ={
+ "JEE Main":["Physics","Chemistry","Mathematics"],"JEE Advanced":["Physics","Chemistry","Mathematics"],"WBJEE":["Physics","Chemistry","Mathematics"],
+ "NEET":["Physics","Chemistry","Biology"],
+ "UPSC":["History","Geography","Polity","Economics","Environment","Current Affairs"],
+ "NDA":["Mathematics","General Ability","English"],"JENPAS-UG":["Physics","Chemistry","Mathematics"],
+ "CAT":["Quant","Verbal Ability","DILR"],"SSC CGL":["Quant","Reasoning","English","General Awareness"],"SSC CHSL":["Quant","Reasoning","English","General Awareness"],
+ "CTET":["Child Pedagogy","Mathematics","EVS","English"],"TET":["Child Pedagogy","Mathematics","EVS","English"],
+ "GATE":["Engineering Mathematics","Core Engineering","General Aptitude"],"Other":["General Studies","Aptitude"]};
+const CATS=["All","NCERT","Reference Books","Exam Guides","Topic-wise Books","Premium Books"];
+const COV=["#00897B","#12343B","#00BFA5","#0b6b74","#127c8a","#1b5e56"];
+const T={"NCERT":["NCERT Textbook","NCERT Exemplar","NCERT Solutions","NCERT Quick Notes"],"Reference Books":["Complete Reference","Concept Builder","Advanced Problem Bank","Formula Handbook"],"Exam Guides":["Exam Guide","Last 90 Days Revision","Smart Strategy Guide","Mistake-Proof Revision"],"Topic-wise Books":["Topic-wise Workbook","Chapter-wise Problems","Speed Practice Book","Concept Maps"]};
+const AU=["Dr. R. Sen","A. Banerjee","P. Nair","S. Iyer","M. Kapoor","T. Das","N. Verma","K. Rao"];
+let books=[],id=0;
+Object.keys(SUBJ).forEach(ex=>SUBJ[ex].forEach((s,si)=>{
+ Object.keys(T).forEach((c,ci)=>{
+  if(c==="NCERT"&&!/Physics|Chemistry|Biology|Mathematics|History|Geography|Polity|Economics|Environment|EVS|English/.test(s))return;
+  [0,1,2].forEach(k=>{const n=T[c][(si+ci+k)%4];const prem=(ci+si+k)%3===0;
+  books.push({id:id++,ex,s,c:prem&&c!=="NCERT"?"Premium Books":c,title:s+" — "+n,au:c==="NCERT"?"NCERT":AU[(id+si)%AU.length],r:(4+((id*7)%10)/10).toFixed(1),prem:c!=="NCERT"&&prem,col:COV[id%COV.length],pg:180+(id*37)%420});});
+ });
+}));
+const $=i=>document.getElementById(i);
+let st={ex:"JEE Main",cat:"All",s:"",p:"",q:"",sort:"r"},wl=new Set(),toastT;
+function toast(m){const t=$("toast");t.textContent=m;t.classList.add("show");clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove("show"),1800)}
+function shape(){
+ $("exam").innerHTML=Object.keys(SUBJ).map(e=>`<option ${e===st.ex?"selected":""}>${e}</option>`).join("");
+ $("tabs").innerHTML=CATS.map(c=>`<button aria-pressed="${c===st.cat}" data-c="${c}">${c}</button>`).join("");
+ $("subj").innerHTML='<option value="">All subjects</option>'+SUBJ[st.ex].map(s=>`<option ${s===st.s?"selected":""}>${s}</option>`).join("");
+}
+function cont(){
+ const mine=books.filter(b=>b.ex===st.ex).slice(0,3);
+ $("cont").innerHTML=mine.map((b,i)=>{const p=[72,45,18][i];return `<div class="cr"><div class="mini" style="background:${b.col}"></div><div style="flex:1"><small>Continue reading</small><b>${b.title}</b><div class="bar"><i style="width:${p}%"></i></div><small>${p}% read</small></div></div>`}).join("");
+}
+function render(){
+ let l=books.filter(b=>b.ex===st.ex&&(st.cat==="All"||b.c===st.cat)&&(!st.s||b.s===st.s)&&(!st.p||(st.p==="Premium")===b.prem)&&(!st.q||(b.title+b.au).toLowerCase().includes(st.q)));
+ l.sort(st.sort==="r"?(a,b)=>b.r-a.r:(a,b)=>a.title.localeCompare(b.title));
+ $("count").textContent=l.length+" book"+(l.length===1?"":"s")+" for "+st.ex;
+ $("grid").innerHTML=l.length?l.map(b=>`<article class="book">
+  <div class="cover" style="background:linear-gradient(150deg,${b.col},#12343B)"><span class="tag ${b.prem?"pro":"free"}">${b.prem?"Premium":"Free"}</span><small>${b.s}</small><b>${b.title.split(" — ")[1]}</b></div>
+  <div><h3>${b.title}</h3><div class="meta"><span>${b.au}</span><span class="stars">★ ${b.r}</span></div><div class="meta"><span>${b.c}</span><span>${b.pg} pages</span></div></div>
+  <div class="acts"><button class="read" data-a="read" data-i="${b.id}">${b.prem?"Unlock":"Read"}</button><button class="dl" data-a="dl" data-i="${b.id}">Download</button><button class="wl" data-a="wl" data-i="${b.id}" aria-pressed="${wl.has(b.id)}" aria-label="Add to wishlist">${wl.has(b.id)?"♥":"♡"}</button></div></article>`).join(""):`<div class="empty"><h3>No books match yet</h3><p>Clear a filter or try another category to see more.</p></div>`;
+}
+$("exam").onchange=e=>{st.ex=e.target.value;st.s="";shape();cont();render();toast("Library updated for "+st.ex)};
+$("tabs").onclick=e=>{const c=e.target.dataset.c;if(!c)return;st.cat=c;shape();render()};
+$("subj").onchange=e=>{st.s=e.target.value;render()};
+$("price").onchange=e=>{st.p=e.target.value;render()};
+$("sort").onchange=e=>{st.sort=e.target.value;render()};
+$("q").oninput=e=>{st.q=e.target.value.trim().toLowerCase();render()};
+$("grid").onclick=e=>{const b=e.target.closest("button[data-a]");if(!b)return;const i=+b.dataset.i,bk=books[i];
+ if(b.dataset.a==="wl"){wl.has(i)?wl.delete(i):wl.add(i);toast(wl.has(i)?"Added to wishlist":"Removed from wishlist");render()}
+ else if(b.dataset.a==="read"){if(bk.prem){toast("Premium book — upgrade to unlock");return}
+  const e=encodeURIComponent;location.href="View.html?id=sb"+bk.id+"&mode=read&t="+e(bk.title)+"&a="+e(bk.au)+"&s="+e(bk.s)+"&p="+bk.pg}
+ else{if(bk.prem){toast("Upgrade to download this book");return}
+  const ok=PSData.addDownload({id:"sb"+bk.id,kind:"book",title:bk.title,sub:bk.au+" · "+bk.pg+" pages",text:PSData.bookText({title:bk.title,author:bk.au,subject:bk.s,total:bk.pg})});
+  toast(ok?"Saved to Downloads":"Storage is full. Remove a download first")}};
+const setTheme=d=>{document.documentElement.dataset.theme=d?"dark":"light";try{localStorage.setItem("ps_theme",d?"dark":"light")}catch(e){}};
+shape();cont();render();
+</script>
+  <script src="../assets/js/navigation-fix.js"></script>
+<script>(function(){var b=document.getElementById("avb"),m=document.getElementById("menu");if(!b||!m)return;b.addEventListener("click",function(e){e.stopPropagation();m.classList.toggle("open")});document.addEventListener("click",function(e){if(!m.contains(e.target))m.classList.remove("open")})})();</script>
+</body>
+</html>

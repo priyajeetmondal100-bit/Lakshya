@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mock Test | PrepSphere</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--mint:#E0F7FA;--teal:#00BFA5;--dteal:#00897B;--white:#fff;--navy:#12343B;--aqua:#B2EBF2;--muted:#4f6f75;--line:#c9ecf0;--bad:#d64545;--warn:#e8a317}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth;scrollbar-gutter:stable}
+body{font-family:Manrope,system-ui,sans-serif;background:var(--mint);color:var(--navy);line-height:1.5}
+a{color:inherit;text-decoration:none}
+button,select{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--dteal);outline-offset:2px}
+.app{display:grid;grid-template-columns:232px minmax(0,1fr);min-height:100vh}
+aside{background:var(--white);border-right:1px solid var(--line);padding:18px 12px;position:sticky;top:0;height:100vh;display:flex;flex-direction:column;gap:2px;overflow:auto}
+.logo{display:flex;gap:10px;align-items:center;font-weight:800;font-size:18px;padding:4px 10px 16px;color:var(--navy)}
+.logo i{width:30px;height:30px;border-radius:50%;background:conic-gradient(from 200deg,var(--teal),var(--dteal),var(--aqua),var(--teal));display:block;flex-shrink:0}
+aside a{padding:9px 12px;border-radius:10px;font-weight:600;font-size:14px;display:flex;gap:10px;align-items:center;color:var(--muted);transition:all .15s ease}
+aside a:hover{background:var(--mint);color:var(--navy)}
+aside a.on{background:var(--teal);color:var(--white);font-weight:700}
+.sp{flex:1}
+main{padding:0 24px 40px;min-width:0}
+.top{display:flex;align-items:center;gap:14px;padding:14px 0;position:sticky;top:env(safe-area-inset-top,0px);background:var(--mint);z-index:5}
+.back-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:10px;border:1px solid var(--line);background:var(--white);color:var(--dteal);font:700 13px/1.2 Manrope,system-ui,sans-serif;cursor:pointer;text-decoration:none;white-space:nowrap;flex-shrink:0;transition:all .15s ease;box-shadow:0 1px 3px rgba(18,52,59,.04)}
+.back-btn:hover{background:var(--aqua);color:var(--navy)}
+.top input{flex:1;min-width:180px;padding:10px 16px;border-radius:99px;border:1px solid var(--line);background:var(--white)}
+.chip{background:var(--white);border:1px solid var(--line);border-radius:99px;padding:8px 14px;font-weight:700;font-size:.85rem}
+h1{font-size:1.9rem;font-weight:800}
+h2{font-size:1.15rem;font-weight:800;margin-bottom:12px}
+.sub{color:var(--muted);margin-bottom:20px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.crumbs{font-size:.82rem;color:var(--muted);margin-top:4px}
+.crumbs a{color:var(--dteal);font-weight:700}
+.panel{background:var(--white);border-radius:16px;padding:22px;border:1px solid var(--line);margin-bottom:22px}
+.cats{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px}
+.cat{text-align:left;background:var(--white);border:2px solid var(--line);border-radius:14px;padding:16px;transition:.15s}
+.cat b{display:block;font-size:1rem}
+.cat span{font-size:.82rem;color:var(--muted)}
+.cat:hover{border-color:var(--teal)}
+.cat.on{border-color:var(--dteal);background:var(--aqua)}
+.cfg{display:grid;grid-template-columns:1fr 320px;gap:22px}
+.fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;align-content:start}
+label{font-size:.82rem;font-weight:700;display:block}
+select{width:100%;margin-top:5px;padding:10px;border:1px solid var(--line);border-radius:10px;background:var(--white)}
+.sum{background:var(--navy);color:var(--white);border-radius:14px;padding:20px}
+.sum dl{display:grid;grid-template-columns:1fr auto;gap:8px 12px;margin:12px 0 18px;font-size:.9rem}
+.sum dt{color:var(--aqua)}
+.sum dd{font-weight:800;text-align:right}
+.btn{background:var(--teal);color:var(--white);border:0;border-radius:12px;padding:12px 22px;font-weight:800}
+.btn:hover{background:var(--dteal)}
+.btn.ghost{background:var(--white);color:var(--dteal);border:2px solid var(--teal)}
+.btn.ghost:hover{background:var(--aqua)}
+.btn.full{width:100%}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.two{display:grid;grid-template-columns:1.4fr 1fr;gap:22px}
+table{width:100%;border-collapse:collapse;font-size:.9rem}
+th{text-align:left;color:var(--muted);font-weight:700;padding:8px;border-bottom:2px solid var(--aqua)}
+td{padding:10px 8px;border-bottom:1px solid var(--mint)}
+.pill{padding:2px 10px;border-radius:99px;background:var(--aqua);font-weight:700;font-size:.78rem}
+.rec{border-left:5px solid var(--teal);padding:4px 0 4px 14px;margin-bottom:14px}
+.rec b{display:block}
+.empty{color:var(--muted);padding:16px 0}
+.mnav{display:none}
+/* test */
+#test,#result{display:none;position:fixed;inset:0;background:var(--mint);z-index:20;overflow:auto}
+.tbar{background:var(--navy);color:var(--white);padding:14px 24px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;position:sticky;top:0;z-index:2}
+.timer{font-weight:800;font-size:1.3rem;font-variant-numeric:tabular-nums;color:var(--aqua)}
+.timer.low{color:#ff8a80}
+.tbody{display:grid;grid-template-columns:1fr 280px;gap:22px;padding:22px 24px;max-width:1100px;margin:auto}
+.q{font-size:1.15rem;font-weight:700;margin:10px 0 18px}
+.opt{display:flex;gap:12px;width:100%;text-align:left;padding:14px;border:2px solid var(--line);border-radius:12px;background:var(--white);margin-bottom:10px}
+.opt:hover{border-color:var(--teal)}
+.opt.sel{border-color:var(--dteal);background:var(--aqua)}
+.opt i{font-style:normal;font-weight:800;color:var(--dteal)}
+.nav{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+aside .nav{display:block;grid-template-columns:none;gap:0}
+.nav button{aspect-ratio:1;border-radius:10px;border:2px solid var(--line);background:var(--white);font-weight:700}
+.nav .ans{background:var(--teal);color:var(--white);border-color:var(--teal)}
+.nav .mark{background:var(--warn);color:var(--white);border-color:var(--warn)}
+.nav .cur{outline:3px solid var(--navy);outline-offset:1px}
+.legend{font-size:.76rem;color:var(--muted);margin-top:14px;display:grid;gap:4px}
+.legend i{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:6px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;margin:18px 0}
+.stat{background:var(--white);border-radius:14px;padding:14px;border:1px solid var(--line)}
+.stat b{font-size:1.5rem;display:block}
+.stat span{font-size:.8rem;color:var(--muted)}
+.big{background:var(--dteal);color:var(--white);border-radius:18px;padding:26px;text-align:center}
+.big b{font-size:3rem;display:block;line-height:1.1}
+.bar{height:10px;background:var(--aqua);border-radius:9px;overflow:hidden;margin:4px 0 12px}
+.bar div{height:100%;background:var(--teal)}
+.rv{border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:10px;background:var(--white)}
+.rv.ok{border-left:6px solid var(--teal)}.rv.no{border-left:6px solid var(--bad)}.rv.sk{border-left:6px solid var(--warn)}
+.wrap{max-width:1000px;margin:auto;padding:24px}
+@media(max-width:900px){
+.app{grid-template-columns:1fr}aside{display:none}main{padding:0 16px 90px}
+.cfg,.two,.tbody{grid-template-columns:1fr}
+.mnav{display:flex;position:fixed;bottom:0;left:0;right:0;background:var(--white);border-top:1px solid var(--line);z-index:10}
+.mnav a{flex:1;text-align:center;padding:10px 2px;font-size:.72rem;font-weight:700}
+.mnav a.on{color:var(--dteal);background:var(--aqua)}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+
+.top{position:relative}
+.av{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--teal),var(--dteal));color:#fff;border:0;font-weight:800}
+.menu{position:absolute;right:0;top:56px;background:var(--white);border:1px solid var(--line);border-radius:12px;padding:6px;display:none;min-width:170px;box-shadow:0 12px 30px rgba(18,52,59,.12);z-index:30}
+.menu.open{display:block}.menu a{display:block;padding:8px 12px;border-radius:8px}.menu a:hover{background:var(--mint)}
+aside{overflow:auto}
+.chip.tog{cursor:pointer}.chip.tog.on{background:var(--teal);color:#fff;border-color:var(--teal)}
+.chgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:10px;margin-top:6px}
+.sbox{border:1px solid var(--line);border-radius:12px;padding:10px}.sbox small{color:var(--muted);font-weight:600}
+.sum dd{word-break:break-all}
+.fab{position:fixed;right:20px;bottom:20px;z-index:25;border-radius:99px;padding:13px 18px;background:linear-gradient(135deg,var(--teal),var(--dteal));color:#fff;border:0;font-weight:700;box-shadow:0 10px 26px rgba(0,191,165,.35)}
+.chat{position:fixed;right:20px;bottom:80px;width:340px;max-width:calc(100vw - 32px);background:var(--white);border:1px solid var(--line);border-radius:16px;display:none;flex-direction:column;z-index:25;box-shadow:0 16px 40px rgba(18,52,59,.18)}
+.chat.open{display:flex}.chat h3{margin:0;padding:14px 16px;border-bottom:1px solid var(--line);font-size:15px}
+.msgs{padding:14px;display:flex;flex-direction:column;gap:8px;max-height:260px;overflow:auto}
+.msgs p{padding:8px 12px;border-radius:12px;background:var(--mint);max-width:88%}.msgs p.me{align-self:flex-end;background:var(--teal);color:#fff}
+.chat form{display:flex;gap:6px;padding:10px;border-top:1px solid var(--line)}.chat input{flex:1;padding:8px 10px;border-radius:10px;border:1px solid var(--line);background:var(--white);color:var(--navy);font:inherit}
+@media(max-width:900px){.fab{bottom:76px}.chat{bottom:130px}}
+html[data-theme=dark]{--mint:#000000;--white:#000000;--navy:#EDEEEA;--aqua:#7C4DFF;--muted:rgba(237,238,234,.66);--line:rgba(237,238,234,.2);--teal:#7C4DFF;--dteal:#00E5FF;--pri:#7C4DFF;--pri2:#00E5FF;color-scheme:dark}
+html[data-theme=dark] .cat.on,html[data-theme=dark] .opt.sel{background:rgba(124,77,255,.22)}
+html[data-theme=dark] .logo i{background:var(--pri)!important}
+html[data-theme=dark] .av,html[data-theme=dark] .fab{background:var(--pri)!important;box-shadow:none!important}
+html[data-theme=dark] .btn:hover{color:#000000}
+</style>
+<script>
+/* PrepSphere theme: apply the saved theme before first paint; keep all pages in sync */
+(function(){var r=document.documentElement;function a(){var d=false;try{d=localStorage.getItem("ps_theme")==="dark"}catch(e){}r.dataset.theme=d?"dark":"light"}a();addEventListener("pageshow",a);addEventListener("storage",function(e){if(e.key==="ps_theme")a()})})();
+</script>
+</head>
+<body>
+<div class="app">
+<aside aria-label="Main navigation">
+  <div class="logo"><i></i>PrepSphere</div>
+  <nav class="nav" id="nav"></nav>
+  <div class="sp"></div>
+  <nav class="nav" id="nav2"></nav>
+</aside>
+<main>
+  <div class="top">
+    <input type="search" placeholder="Search books, concepts, questions, topics…" aria-label="Search">
+    <span class="chip" title="Study streak">🔥 12</span><a class="chip" href="notifications.html" title="Notifications" aria-label="Notifications" style="text-decoration:none">🔔 3</a>
+    <label class="chip" style="display:flex;gap:8px;align-items:center">Exam
+      <select id="exam" style="margin:0;padding:4px;border:0;background:transparent;font-weight:800;width:auto"></select></label>
+    <button class="av" id="avb" aria-label="Profile menu">A</button>
+    <div class="menu" id="menu"><a href="section.html?s=settings">My Profile</a><a href="section.html?s=settings">My Target</a><a href="analysis.html">Progress</a><a href="section.html?s=premium">Subscription</a><a href="section.html?s=settings">Settings</a><a href="#">Logout</a></div>
+  </div>
+
+  <h1>Mock Tests</h1>
+  <p class="crumbs"><a href="home.html">Home</a> / Mock Test</p>
+  <p class="sub" id="lead"></p>
+
+  <div class="panel" id="step1">
+    <h2>1. Choose a test type</h2>
+    <div class="cats" id="cats"></div>
+  </div>
+
+  <div class="panel" id="step2" style="display:none">
+    <div class="row" style="justify-content:space-between;margin-bottom:12px"><h2 id="sTitle" style="margin:0"></h2><button class="btn ghost" id="back">← Back</button></div>
+    <div class="cfg">
+      <div class="fields" id="fields"></div>
+      <div class="sum">
+        <b id="sumTitle"></b>
+        <dl id="sumList"></dl>
+        <button class="btn full" id="start">Start Test</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="two">
+    <div class="panel">
+      <h2>Your recent tests</h2>
+      <div id="hist"></div>
+      <a class="btn ghost" href="history.html" style="display:inline-block;margin-top:14px">View full history</a>
+      <a class="btn ghost" href="analysis.html" style="display:inline-block;margin-top:14px">View full analysis</a>
+    </div>
+    <div class="panel">
+      <h2>Recommended for you</h2>
+      <div class="rec"><b>Revise your weakest topic</b>Take a short chapter test before the next full mock.</div>
+      <div class="rec"><b>Practise real questions</b><a href="PYQ.html" style="color:var(--dteal);font-weight:700">Open previous-year questions</a></div>
+      <div class="rec"><b>Read before you test</b><a href="study-books.html" style="color:var(--dteal);font-weight:700">Browse study books</a> or <a href="notes.html" style="color:var(--dteal);font-weight:700">your notes</a></div>
+    </div>
+  </div>
+</main>
+</div>
+
+<nav class="mnav" aria-label="Mobile navigation">
+  <a href="home.html"><br>Home</a><a href="study-books.html"><br>Books</a><a href="PYQ.html"><br>PYQ</a><a href="notes.html"><br>Notes</a><a href="analysis.html"><br>Analysis</a><a href="mock-test.html" class="on"><br>Mock</a>
+</nav>
+<button class="fab" id="fab"> Ask AI</button>
+<div class="chat" id="chat" role="dialog" aria-label="PrepSphere AI Tutor">
+  <h3>PrepSphere AI Tutor</h3>
+  <div class="msgs" id="msgs"><p>Hi! I can explain concepts, give hints, or build a revision plan. What are you stuck on?</p></div>
+  <form id="cf"><input id="ci" placeholder="Ask a doubt…" aria-label="Message"><button class="btn">Send</button></form>
+</div>
+
+<section id="test" aria-label="Test in progress">
+  <div class="tbar">
+    <div><b id="tTitle"></b><div style="font-size:.85rem;color:var(--aqua)" id="tCount"></div></div>
+    <div class="timer" id="timer">00:00:00</div>
+    <button class="btn" id="submit">Submit Test</button>
+  </div>
+  <div class="tbody">
+    <div class="panel">
+      <span class="pill" id="qTag"></span>
+      <p class="q" id="qText"></p>
+      <div id="opts"></div>
+      <div class="row" style="margin-top:14px">
+        <button class="btn ghost" id="prev">Previous</button>
+        <button class="btn ghost" id="mark">Mark for review</button>
+        <button class="btn ghost" id="clear">Clear answer</button>
+        <button class="btn" id="next">Next</button>
+      </div>
+    </div>
+    <div class="panel">
+      <h2>Question navigator</h2>
+      <div class="nav" id="nav"></div>
+      <div class="legend"><span><i style="background:var(--teal)"></i>Answered</span><span><i style="background:var(--warn)"></i>Marked for review</span><span><i style="background:#fff;border:2px solid var(--line)"></i>Not answered</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="result" aria-label="Test result">
+  <div class="wrap">
+    <button class="back-btn" id="resBack" type="button" aria-label="Back to Mock Test" onclick="location.href='mock-test.html'" style="margin-top:14px">← Back</button>
+    <p class="crumbs"><a href="home.html">Home</a> / <a href="mock-test.html">Mock Test</a> / Result</p>
+    <div class="big" style="margin-top:12px"><span> Test completed</span><b id="rScore"></b><span id="rMeta"></span></div>
+    <div class="stats" id="rStats"></div>
+    <div class="two">
+      <div class="panel"><h2>Subject performance</h2><div id="rSub"></div></div>
+      <div class="panel"><h2>Focus areas</h2><div id="rFocus"></div><h2 style="margin-top:16px">By question source</h2><div id="rSrc"></div></div>
+    </div>
+    <div class="row" style="margin-bottom:22px">
+      <button class="btn" id="bRev">Review answers</button>
+      <a class="btn ghost" id="bWeak" href="PYQ.html">Practice weak topics</a>
+      <a class="btn ghost" href="analysis.html">View analysis</a>
+      <a class="btn ghost" href="history.html">View history</a>
+      <button class="btn ghost" id="bDl" type="button">Download result</button>
+      <a class="btn ghost" href="notes.html">Add to notes</a>
+      <button class="btn ghost" onclick="location.reload()">Take another test</button>
+    </div>
+    <div id="rReview" style="display:none"></div>
+  </div>
+</section>
+
+<script src="../assets/js/question-bank.js"></script>
+<script src="../assets/js/ps-data.js"></script>
+<script>
+const PS=window.PS,SUBJ=PS.SUBJ,MK=PS.MK;
+const $=id=>document.getElementById(id),esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+let attempt="",lastRec=null;
+const hget=()=>{try{return JSON.parse(localStorage.getItem("ps_mock_history")||"[]")}catch(e){return[]}};
+const hset=l=>{try{localStorage.setItem("ps_mock_history",JSON.stringify(l))}catch(e){}};
+const LK={"Home":"home.html","Study Books":"study-books.html","Analysis":"analysis.html","Notes":"notes.html","Previous Year Questions":"PYQ.html","Mock Test":"mock-test.html","Wishlist":"wishlist.html","History":"history.html","Achievements":"achievement.html","Downloads":"section.html?s=downloads","Settings":"section.html?s=settings","Help":"section.html?s=help","Premium":"section.html?s=premium"};
+$("nav").innerHTML=[["","Home"],["","Study Books"],["","Analysis"],["","Notes"],["","Previous Year Questions"],["","Mock Test"],["","Wishlist"],["","History"],["","Achievements"],["","Downloads"]].map(([i,t])=>`<a href="${LK[t]}"${t=="Mock Test"?' class="on" aria-current="page"':""}>${i} ${t}</a>`).join("");
+$("nav2").innerHTML=[["","Settings"],["","Premium"],["","Help"]].map(([i,t,id])=>`<a href="${id?"#":LK[t]}"${id?` id="${id}"`:""}>${i} ${t}</a>`).join("");
+$("avb").onclick=()=>$("menu").classList.toggle("open");
+const setTheme=d=>{document.documentElement.dataset.theme=d?"dark":"light";try{localStorage.setItem("ps_theme",d?"dark":"light")}catch(e){}};
+const tog=e=>{e&&e.preventDefault();$("chat").classList.toggle("open")};$("fab").onclick=tog;
+$("cf").onsubmit=e=>{e.preventDefault();const v=$("ci").value.trim();if(!v)return;const m=$("msgs");m.insertAdjacentHTML("beforeend","<p class=\"me\"></p>");m.lastChild.textContent=v;m.insertAdjacentHTML("beforeend","<p>This is a demo reply. Connect the AI backend to get explanations, hints and practice questions for "+esc(exam)+".</p>");$("ci").value="";m.scrollTop=m.scrollHeight};
+
+let exam="JEE Main";try{exam=localStorage.getItem("ps_exam")||exam}catch(e){}
+if(!SUBJ[exam])exam="JEE Main";
+const lead=()=>$("lead").textContent=`Preparing for ${exam}. Subjects: ${SUBJ[exam].join(", ")}.`;
+$("exam").innerHTML=Object.keys(SUBJ).map(e=>`<option ${e==exam?"selected":""}>${e}</option>`).join("");
+$("exam").onchange=e=>{exam=e.target.value;try{localStorage.setItem("ps_exam",exam)}catch(x){}back();lead()};
+const TYPES=[["full","Full Syllabus Test","All subjects and chapters in one exam-style paper"],["chapter","Chapter Test","Choose how many chapters from each subject"],["subject","Subject Test","Choose subjects, all their chapters included"],["random","Random Test","Auto-generated paper with random subjects and difficulty"],["daily","Daily Challenge","5 quick questions for your streak"]];
+$("cats").innerHTML=TYPES.map(t=>`<button class="cat" data-c="${t[0]}"><b>${t[1]}</b><span>${t[2]}</span></button>`).join("");
+$("cats").onclick=e=>{const b=e.target.closest(".cat");if(b)openSetup(b.dataset.c)};
+const SN={PYQ:"Previous year",Book:"Study books",Mock:"Practice set"};
+let type="",S={},qs=[],ans=[],marks=[],cur=0,left=0,total=0,tick,def=null;
+const subjIdx=s=>SUBJ[exam].indexOf(s),chapters=s=>[...new Set(PS.pool(exam,s).map(q=>q.ch))];
+const sc=s=>s.replace(/[^A-Za-z]/g,"").slice(0,3).toUpperCase(),pad=n=>String(n).padStart(2,"0"),EC=()=>exam.replace(/\s+/g,"-").toUpperCase();
+
+/* ---------- Set up your test ---------- */
+function openSetup(t){type=t;S={n:t=="daily"?5:t=="chapter"?10:20,d:"Mixed",mins:"auto",tno:1,src:"all",chn:{},subs:[SUBJ[exam][0]],rnd:null};
+ SUBJ[exam].forEach(s=>S.chn[s]=1);if(t=="random")genRandom();
+ $("step1").style.display="none";$("step2").style.display="";renderSetup();window.scrollTo(0,0)}
+function back(){type="";$("step2").style.display="none";$("step1").style.display=""}
+$("back").onclick=back;
+function genRandom(){const seed=Math.random()*4e9>>>0,r=PS.rnd(seed),all=SUBJ[exam],big=all.filter(s=>PS.pool(exam,s).length>=6);
+ let subs=all,n=r()<.5?20:30;                                  /* all subjects: 20 or 30 questions */
+ if(all.length>2&&big.length>=2&&r()<.5){subs=PS.shuf(big,r).slice(0,2);n=r()<.5?30:40}  /* 2 subjects: 30 or 40 */
+ S.rnd={subs,n,seed}}
+function code(){const n=pad(S.tno);return type=="full"?`${EC()}-FULL-T${n}`:type=="chapter"?`${EC()}-CHP-T${n}`:type=="subject"?`${EC()}-${S.subs.map(sc).join("-")}-T${n}`:type=="daily"?`${EC()}-DAILY-${new Date().toISOString().slice(0,10).replace(/-/g,"")}`:`${EC()}-RND-${S.rnd.seed.toString(36).toUpperCase().slice(0,5)}`}
+function title(){const n=S.tno;return type=="full"?"Full Syllabus Test "+n:type=="chapter"?"Chapter Test "+n:type=="subject"?S.subs.join(" + ")+" · Test "+n:type=="daily"?"Daily Challenge":"Random Test"}
+function parts(){const subs=type=="subject"?S.subs:type=="random"?S.rnd.subs:SUBJ[exam],src=type=="random"?"all":S.src,d=type=="random"?"Mixed":S.d;
+ return subs.map(s=>{let l=PS.pool(exam,s);
+  if(type=="chapter"){const k=S.chn[s]||0,c=chapters(s).slice(0,k);l=l.filter(q=>c.includes(q.ch))}
+  return l.filter(q=>(src=="all"||q.src==src)&&(d=="Mixed"||["Easy","Medium","Hard"][q.d]==d))})}
+const availN=p=>new Set(p.flat().map(q=>q.q)).size;
+function paper(){const seed=type=="random"?S.rnd.seed:PS.h([code(),S.d,S.src,JSON.stringify(S.chn),S.subs.join()].join("|")),r=PS.rnd(seed);
+ const L=parts().map(l=>PS.pick(l,l.length,r)),out=[],seen=new Set();
+ while(out.length<S.n&&L.some(l=>l.length))L.forEach(l=>{while(l.length&&seen.has(l[0].q))l.shift();if(l.length&&out.length<S.n){const q=l.shift();seen.add(q.q);out.push(q)}});
+ return out.sort((a,b)=>subjIdx(a.s)-subjIdx(b.s))}
+function renderSetup(){const T=TYPES.find(x=>x[0]==type),subs=SUBJ[exam];$("sTitle").textContent="2. Set up your test · "+T[1];let h="";
+ if(type=="chapter")h+=`<div style="grid-column:1/-1"><label>Number of chapters from each subject</label><div class="chgrid">${subs.map(s=>{const m=chapters(s).length;return `<label class="sbox">${esc(s)}<select data-chn="${esc(s)}">${Array.from({length:m+1},(_,i)=>`<option ${i==S.chn[s]?"selected":""}>${i}</option>`).join("")}</select><small>${m} chapters available</small></label>`}).join("")}</div><p class="sub" id="chList" style="margin:8px 0 0;font-size:.82rem"></p></div>`;
+ if(type=="subject")h+=`<div style="grid-column:1/-1"><label>Subjects (all chapters included): <span id="subCnt"></span></label><div class="row" style="margin-top:6px">${subs.map(s=>`<button type="button" class="chip tog" data-sub="${esc(s)}">${esc(s)}</button>`).join("")}</div></div>`;
+ if(type=="random")h+=`<div style="grid-column:1/-1" class="rec" id="rndBox"></div><div><button type="button" class="btn ghost" id="shuffle">Generate another paper</button></div>`;
+ if(["full","chapter","subject"].includes(type))h+=`<div><label>Test number<select id="fTno">${[1,2,3,4,5,6].map(i=>`<option value="${i}">Test ${i}</option>`).join("")}</select></label></div>`;
+ if(type!="random")h+=`<div><label>Question source<select id="fSrc"><option value="all">Mixed: PYQ + Study Books + Practice</option><option value="PYQ">Previous Year Questions</option><option value="Book">Study Books</option></select></label></div><div><label>Number of questions<select id="fN" ${type=="daily"?"disabled":""}></select></label></div><div><label>Difficulty<select id="fD">${["Mixed","Easy","Medium","Hard"].map(x=>`<option>${x}</option>`).join("")}</select></label></div>`;
+ h+=`<div><label>Time<select id="fT"><option value="auto">Auto (1.5 min per question)</option>${[15,30,45,60,90,120,180].map(m=>`<option value="${m}">${m} minutes</option>`).join("")}</select></label></div><div style="grid-column:1/-1"><p class="sub" id="note" style="margin:0;font-size:.85rem"></p></div>`;
+ $("fields").innerHTML=h;update()}
+$("fields").onchange=e=>{const t=e.target;
+ if(t.dataset.chn!=null)S.chn[t.dataset.chn]=+t.value;else if(t.id=="fTno")S.tno=+t.value;else if(t.id=="fSrc")S.src=t.value;else if(t.id=="fN")S.n=+t.value;else if(t.id=="fD")S.d=t.value;else if(t.id=="fT")S.mins=t.value;
+ update()};
+$("fields").onclick=e=>{const b=e.target.closest("[data-sub]");
+ if(b){const s=b.dataset.sub,i=S.subs.indexOf(s);if(i<0)S.subs.push(s);else if(S.subs.length>1)S.subs.splice(i,1);update()}
+ if(e.target.id=="shuffle"){genRandom();update()}};
+const minsFor=n=>S.mins=="auto"?Math.max(5,Math.round(n*1.5)):+S.mins;
+function update(){const av=availN(parts());
+ if(type=="random")S.n=Math.min(S.rnd.n,av);else if(type=="daily")S.n=Math.min(5,av);
+ else{const o=[...new Set([10,20,30,40,50].filter(n=>n<=av).concat(av?[av]:[]))].sort((a,b)=>a-b);
+  S.n=o.filter(n=>n<=S.n).pop()||o[0]||0;$("fN").innerHTML=o.map(n=>`<option ${n==S.n?"selected":""}>${n}</option>`).join("")}
+ document.querySelectorAll("[data-sub]").forEach(b=>b.classList.toggle("on",S.subs.includes(b.dataset.sub)));
+ if($("subCnt"))$("subCnt").textContent=S.subs.length+" of "+SUBJ[exam].length+" selected";
+ if($("chList"))$("chList").innerHTML=SUBJ[exam].filter(s=>S.chn[s]).map(s=>`<b>${esc(s)}:</b> ${esc(chapters(s).slice(0,S.chn[s]).join(", "))}`).join("<br>")||"Choose at least one chapter.";
+ if($("rndBox"))$("rndBox").innerHTML=`<b>Random paper generated</b>${esc(S.rnd.subs.join(" + "))} · ${S.rnd.n} questions · difficulty randomised`;
+ const [pos,neg]=MK[exam],h=hget().filter(r=>r.code==code());
+ $("note").textContent=`${av} question${av==1?"":"s"} match these settings.`+(type=="random"&&av<S.rnd.n?` Only ${av} are in the sample bank, so this paper has ${av}.`:"");
+ $("sumTitle").textContent=title();
+ $("sumList").innerHTML=[["Test code",code()],["Questions",S.n],["Time limit",minsFor(S.n)+" min"],["Difficulty",type=="random"?"Randomised":S.d],["Marking","+"+pos+" / −"+neg],["Total marks",+(S.n*pos).toFixed(2)],["Attempts",h.length?h.length+" · best "+Math.max(...h.map(r=>r.acc))+"%":"None yet"]].map(r=>`<dt>${r[0]}</dt><dd>${esc(r[1])}</dd>`).join("");
+ $("start").disabled=!S.n}
+$("start").onclick=()=>{const q=paper();if(!q.length)return;
+ begin({code:code(),title:title(),type:TYPES.find(x=>x[0]==type)[1],qs:q,mins:minsFor(q.length),diff:type=="random"?"Randomised":S.d})};
+
+/* ---------- Test ---------- */
+const fmt=s=>[s/3600|0,(s%3600)/60|0,s%60].map(x=>String(x).padStart(2,"0")).join(":");
+function begin(d){def=d;attempt=PSData.logTest({code:d.code,title:d.title,exam:exam,type:d.type,n:d.qs.length,mins:d.mins});qs=d.qs;ans=qs.map(()=>-1);marks=qs.map(()=>false);cur=0;total=left=d.mins*60;
+ $("tTitle").textContent=`${d.title} · ${d.code}`;$("test").style.display="block";document.body.style.overflow="hidden";
+ clearInterval(tick);tick=setInterval(()=>{left--;$("timer").textContent=fmt(left);$("timer").classList.toggle("low",left<60);if(left<=0)finish()},1000);
+ $("timer").textContent=fmt(left);draw()}
+function draw(){const q=qs[cur];
+ $("tCount").textContent=`Question ${cur+1} of ${qs.length}`;
+ $("qTag").textContent=`${q.s} · ${q.ch} · ${SN[q.src]}`;$("qText").textContent=q.q;
+ $("opts").innerHTML=q.o.map((o,i)=>`<button class="opt ${ans[cur]==i?"sel":""}" data-i="${i}"><i>${"ABCD"[i]}</i>${esc(o)}</button>`).join("");
+ $("nav").innerHTML=qs.map((_,i)=>`<button data-i="${i}" class="${i==cur?"cur ":""}${marks[i]?"mark":ans[i]>=0?"ans":""}">${i+1}</button>`).join("");
+ $("mark").textContent=marks[cur]?"Unmark review":"Mark for review";$("prev").disabled=cur==0;$("next").disabled=cur==qs.length-1}
+$("opts").onclick=e=>{const b=e.target.closest(".opt");if(b){ans[cur]=+b.dataset.i;draw()}};
+$("nav").onclick=e=>{const b=e.target.closest("button");if(b){cur=+b.dataset.i;draw()}};
+$("prev").onclick=()=>{cur--;draw()};$("next").onclick=()=>{cur++;draw()};
+$("clear").onclick=()=>{ans[cur]=-1;draw()};$("mark").onclick=()=>{marks[cur]=!marks[cur];draw()};
+$("submit").onclick=()=>{const un=ans.filter(a=>a<0).length;if(!un||confirm(`${un} question(s) are unanswered. Submit anyway?`))finish()};
+
+/* ---------- Result (saved to History, read by Analysis) ---------- */
+function finish(){clearInterval(tick);$("test").style.display="none";document.body.style.overflow="";
+ const [pos,neg]=MK[exam];let c=0,w=0,k=0;const by={},tp={},sr={};
+ qs.forEach((q,i)=>{const ok=ans[i]==q.a;[[by,q.s],[tp,q.ch],[sr,q.src]].forEach(([o,key])=>{const s=o[key]??=[0,0];s[1]++;if(ok)s[0]++});if(ans[i]<0)k++;else if(ok)c++;else w++});
+ const score=+(c*pos-w*neg).toFixed(2),max=+(qs.length*pos).toFixed(2),att=c+w,acc=att?Math.round(c/att*100):0,used=total-Math.max(left,0);
+ const pct=Math.min(99.9,Math.max(5,+(Math.max(0,score)/max*70+25+Math.random()*4).toFixed(1)));
+ const T=Object.entries(tp).map(([n,v])=>[n,v[0]/v[1]]).sort((a,b)=>b[1]-a[1]),strong=T.filter(t=>t[1]>=.7).map(t=>t[0]),weak=T.filter(t=>t[1]<.5).map(t=>t[0]);
+ const rec={id:Date.now().toString(36),code:def.code,title:def.title,type:def.type,exam,ts:Date.now(),n:qs.length,score,max,acc,c,w,k,used,mins:def.mins,pct,diff:def.diff,subs:by,tops:tp,srcs:sr,weak,strong,
+  rev:qs.map((q,i)=>[q.q,q.o,ans[i],q.a,q.sol,q.s,q.ch,q.src,q.ref,q.d])};
+ const h=hget();h.unshift(rec);hset(h.slice(0,30));lastRec=rec;PSData.finishTest(attempt,rec.id);recent();
+ $("rScore").textContent=`${score} / ${max}`;$("rMeta").textContent=`${exam} · ${def.title} · ${def.code}`;
+ $("rStats").innerHTML=[["Accuracy",acc+"%"],["Correct",c],["Wrong",w],["Skipped",k],["Time taken",fmt(used)],["Percentile (est.)",pct]].map(s=>`<div class="stat"><b>${s[1]}</b><span>${s[0]}</span></div>`).join("");
+ const bars=(o,nm=x=>x)=>Object.entries(o).map(([n,v])=>`<b>${esc(nm(n))}</b> <span style="float:right">${v[0]}/${v[1]}</span><div class="bar"><div style="width:${Math.round(v[0]/v[1]*100)}%"></div></div>`).join("");
+ $("rSub").innerHTML=bars(by);$("rSrc").innerHTML=bars(sr,x=>SN[x]);
+ $("rFocus").innerHTML=`<p><b>Strong areas</b><br>${esc(strong.join(", "))||"Keep practising to build strengths"}</p><p style="margin-top:12px"><b>Needs revision</b><br>${esc(weak.join(", "))||"No weak topics this time"}</p>`;
+ $("bWeak").href="PYQ.html?topic="+encodeURIComponent(weak[0]||"");
+ $("rReview").innerHTML=qs.map((q,i)=>{const st=ans[i]<0?"sk":ans[i]==q.a?"ok":"no";return `<div class="rv ${st}"><b>Q${i+1}. ${esc(q.q)}</b><br>Your answer: ${ans[i]<0?"Skipped":esc(q.o[ans[i]])}<br>Correct answer: ${esc(q.o[q.a])}<br><small>${esc(q.sol)} · Source: ${SN[q.src]} (${esc(q.ref)})</small></div>`}).join("");
+ $("result").style.display="block";$("result").scrollTop=0}
+$("bDl").onclick=()=>{if(!lastRec)return;const ok=PSData.addDownload({id:lastRec.id,kind:"test",title:lastRec.title+" · "+lastRec.code,sub:lastRec.exam+" · "+lastRec.score+"/"+lastRec.max,text:PSData.testText(lastRec)});PSData.notify(ok?"Result saved to Downloads":"Storage is full. Remove a download first")};
+$("bRev").onclick=()=>{const r=$("rReview");r.style.display=r.style.display=="none"?"block":"none";if(r.style.display=="block")r.scrollIntoView({behavior:"smooth"})};
+
+/* ---------- Recent tests, retake ---------- */
+function recent(){const h=hget();$("hist").innerHTML=h.length?`<table><tr><th>Date</th><th>Test</th><th>Score</th><th>Accuracy</th></tr>${h.slice(0,5).map(t=>`<tr><td>${new Date(t.ts).toLocaleDateString("en-IN",{day:"numeric",month:"short"})}</td><td>${esc(t.title)}<br><span class="pill">${esc(t.code)}</span></td><td>${t.score}/${t.max}</td><td>${t.acc}%</td></tr>`).join("")}</table>`:`<p class="empty">No tests yet. Pick a test type above to begin.</p>`}
+recent();lead();
+const rid=new URLSearchParams(location.search).get("retake"),rr0=rid&&hget().find(r=>r.id==rid);
+if(rr0&&SUBJ[rr0.exam]){exam=rr0.exam;$("exam").value=exam;lead();
+ begin({code:rr0.code,title:rr0.title,type:rr0.type,mins:rr0.mins,diff:rr0.diff,qs:rr0.rev.map(r=>({q:r[0],o:r[1],a:r[3],sol:r[4],s:r[5],ch:r[6],src:r[7],ref:r[8],d:r[9]}))})}
+</script>
+  <script src="../assets/js/navigation-fix.js"></script>
+</body>
+</html>

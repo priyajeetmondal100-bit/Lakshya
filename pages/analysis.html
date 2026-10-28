@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>PrepSphere — Analysis</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--mint:#E0F7FA;--teal:#00BFA5;--dteal:#00897B;--white:#FFFFFF;--navy:#12343B;--aqua:#B2EBF2;--muted:#4d6a70;--line:#d4eef1;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scrollbar-gutter:stable}
+html[data-theme="dark"]{
+  --white:#000000;--navy:#EDEEEA;--muted:rgba(237,238,234,.66);--line:rgba(237,238,234,.2);
+  --mint:rgba(237,238,234,.08);--aqua:#7C4DFF;--teal:#7C4DFF;--dteal:#00E5FF;--pri:#7C4DFF;--pri2:#00E5FF;color-scheme:dark;
+}
+html[data-theme="dark"],html[data-theme="dark"] body{background:#000000;color:var(--navy)}
+html[data-theme="dark"] aside,html[data-theme="dark"] .card,html[data-theme="dark"] select,html[data-theme="dark"] .btn.ghost,html[data-theme="dark"] .lo,html[data-theme="dark"] .bk.keep,html[data-theme="dark"] .nav-m{background:var(--white);color:var(--navy)}
+html[data-theme="dark"] .btn.ghost:hover{background:var(--mint)}
+html[data-theme="dark"] .top{background:#000000}
+html[data-theme="dark"] .btn.ghost,html[data-theme="dark"] .lo,html[data-theme="dark"] .kpi .d,html[data-theme="dark"] .sec,html[data-theme="dark"] .bk b,html[data-theme="dark"] .nav-m a.on{color:var(--dteal)}
+html[data-theme="dark"] .lo{border-color:var(--dteal)}
+html[data-theme="dark"] .tt{color:var(--white)}
+/* chart colours that are written straight into the SVG markup */
+html[data-theme="dark"] svg text[fill="#4d6a70"]{fill:var(--muted)}
+html[data-theme="dark"] svg text[fill="#12343B"]{fill:var(--navy)}
+html[data-theme="dark"] svg line[stroke="#E0F7FA"]{stroke:var(--line)}
+html[data-theme="dark"] svg polygon[fill="#E0F7FA"]{fill:var(--dteal);opacity:.14}
+html[data-theme="dark"] svg circle[fill="#fff"]{fill:var(--white)}
+html[data-theme="dark"] svg path[stroke="#fff"]{stroke:var(--white)}
+html[data-theme="dark"] svg path[fill="#12343B"]{fill:#FF4081}
+html[data-theme="dark"] .lg i[style*="12343B"]{background:#FF4081!important}
+
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:#fff;color:var(--navy);font:15px/1.5 'Plus Jakarta Sans',system-ui,sans-serif}
+.app{display:grid;grid-template-columns:232px minmax(0,1fr);min-height:100vh}
+aside{display:flex;flex-direction:column;overflow:auto;width:232px;border-right:1px solid var(--line);padding:18px 12px;position:sticky;top:0;height:100vh;flex-shrink:0;gap:2px;background:var(--white);font-family:'Manrope',system-ui,sans-serif}
+.logo{display:flex;gap:10px;align-items:center;font-weight:800;font-size:18px;padding:4px 10px 16px;color:var(--navy)}
+.logo i{width:30px;height:30px;border-radius:50%;background:conic-gradient(from 200deg,var(--teal),var(--dteal),var(--aqua),var(--teal));display:block;flex-shrink:0}
+aside .sp{flex:1;min-height:24px}
+.nav{display:flex;flex-direction:column;gap:2px}
+.nav a, aside a{display:flex;gap:10px;align-items:center;padding:9px 12px;border-radius:10px;color:var(--muted);text-decoration:none;font-weight:600;font-size:14px;transition:all .15s ease}
+.nav a:hover, aside a:hover{background:var(--mint);color:var(--navy)}
+.nav a.on, aside a.on{background:var(--teal);color:#fff;font-weight:600}
+main{padding:0 24px 40px;min-width:0}
+h1{font-size:26px;margin:0 0 2px;font-weight:800}
+h2{font-size:17px;margin:0 0 4px;font-weight:700}
+.sub{color:var(--muted);margin:0}
+.top{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;align-items:center;padding:14px 0;position:sticky;top:env(safe-area-inset-top,0px);background:#fff;z-index:5}
+.back-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:10px;border:1px solid var(--line);background:var(--white);color:var(--dteal);font:700 13px/1.2 Manrope,system-ui,sans-serif;cursor:pointer;text-decoration:none;white-space:nowrap;flex-shrink:0;transition:all .15s ease;box-shadow:0 1px 3px rgba(18,52,59,.04)}
+.back-btn:hover{background:var(--mint);color:var(--navy)}
+.ctrl{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+select,button{font:inherit;color:var(--navy)}
+select{border:1.5px solid var(--aqua);border-radius:10px;padding:8px 12px;background:#fff;font-weight:600}
+.seg{display:flex;background:var(--mint);border-radius:10px;padding:3px;flex-wrap:wrap}
+.seg button{border:0;background:none;padding:6px 12px;border-radius:8px;cursor:pointer;font-weight:600;font-size:13px}
+.seg button.on{background:var(--teal);color:#fff}
+.btn{background:var(--dteal);color:#fff;border:0;border-radius:10px;padding:9px 16px;font-weight:700;cursor:pointer}
+.btn:hover{background:var(--teal)}
+.btn.ghost{background:#fff;color:var(--dteal);border:1.5px solid var(--teal)}
+.btn.ghost:hover{background:var(--mint)}
+:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px;min-width:0}
+.grid{display:grid;gap:16px;margin-bottom:16px}
+.g4{grid-template-columns:repeat(4,1fr)}.g2{grid-template-columns:3fr 2fr}.g2e{grid-template-columns:1fr 1fr}
+.kpi .lab{color:var(--muted);font-size:13px;font-weight:600}
+.kpi .val{font-size:30px;font-weight:800;line-height:1.2}
+.kpi .d{font-size:12.5px;font-weight:700;color:var(--dteal)}
+.kpi svg{width:100%;height:34px;margin-top:6px}
+.insight{background:var(--mint);border-radius:12px;padding:12px 14px;font-weight:600;margin-top:12px}
+.hd{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+.chip{display:inline-block;padding:3px 10px;border-radius:99px;font-size:12px;font-weight:700;background:var(--aqua);color:var(--navy)}
+.bar{margin:11px 0}.bar .r{display:flex;justify-content:space-between;font-weight:600;font-size:14px;margin-bottom:4px}
+.track{height:10px;background:var(--mint);border-radius:9px;overflow:hidden}
+.fill{height:100%;background:linear-gradient(90deg,var(--teal),var(--dteal));border-radius:9px;transition:width .7s}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:10px 0}
+.stats div{background:var(--mint);border-radius:10px;padding:10px}
+.stats b{display:block;font-size:19px}.stats span{font-size:12px;color:var(--muted);font-weight:600}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{text-align:left;color:var(--muted);font-size:12.5px;font-weight:600;padding:6px 8px;border-bottom:1px solid var(--line)}
+td{padding:9px 8px;border-bottom:1px solid var(--line)}
+.pill{padding:2px 9px;border-radius:99px;font-size:12px;font-weight:700}
+.hi{background:var(--teal);color:#fff}.md{background:var(--aqua)}.lo{background:#fff;border:1.5px solid var(--dteal);color:var(--dteal)}
+.ov{overflow-x:auto}
+.tt{position:fixed;pointer-events:none;background:var(--navy);color:#fff;padding:5px 9px;border-radius:8px;font-size:12px;display:none;z-index:9}
+.nav-m{display:none}
+.pie{display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin:8px 0 14px}.pie svg{width:190px;height:190px;flex-shrink:0}
+.lg{flex:1;min-width:150px;font-size:13px}.lg div{display:flex;align-items:center;gap:7px;margin:3px 0;font-weight:600}.lg i{width:11px;height:11px;border-radius:3px;display:inline-block}
+.bk{display:flex;gap:8px;align-items:flex-start;margin-top:8px;font-size:13.5px;background:var(--mint);border-radius:10px;padding:8px 10px}.bk b{color:var(--dteal)}
+.bk.keep{background:#fff;border:1px solid var(--line)}
+.sec{font-size:14px;font-weight:700;margin:16px 0 4px;color:var(--dteal)}
+@media(max-width:900px){aside{display:none}.g4{grid-template-columns:1fr 1fr}.g2,.g2e{grid-template-columns:1fr}.nav-m{display:flex;overflow-x:auto;gap:4px;justify-content:flex-start;position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--line);justify-content:space-around;padding:8px 4px calc(8px + env(safe-area-inset-bottom,0px));z-index:5}.nav-m a{white-space:nowrap;padding:2px 10px;font-size:11.5px;color:var(--navy);text-decoration:none;font-weight:600}.nav-m a.on{color:var(--dteal)}main{padding-bottom:80px}}
+@media(max-width:480px){.g4{grid-template-columns:1fr}h1{font-size:22px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+/* dark: flat classic finish */
+html[data-theme=dark] .logo i{background:var(--pri)!important}
+html[data-theme=dark] .av,html[data-theme=dark] .fab{background:var(--pri)!important;box-shadow:none!important}
+html[data-theme=dark] .fill{background:var(--teal)}
+html[data-theme=dark] svg polyline[stroke="#00BFA5"]{stroke:#00E5FF}
+html[data-theme=dark] svg circle[stroke="#00897B"]{stroke:#00E5FF}
+html[data-theme=dark] svg rect[fill="#00BFA5"]{fill:#7C4DFF}
+html[data-theme=dark] svg rect[fill="#00897B"]{fill:#00E5FF}
+html[data-theme=dark] svg path[fill="#00897B"]{fill:#7C4DFF}
+html[data-theme=dark] svg path[fill="#00BFA5"]{fill:#00E5FF}
+html[data-theme=dark] svg path[fill="#B2EBF2"]{fill:#EDEEEA}
+html[data-theme=dark] svg path[fill="#4DB6AC"]{fill:#e29a0b}
+html[data-theme=dark] svg path[fill="#80CBC4"]{fill:#8A8B89}
+html[data-theme=dark] .lg i[style*="00897B"]{background:#7C4DFF!important}
+html[data-theme=dark] .lg i[style*="00BFA5"]{background:#00E5FF!important}
+html[data-theme=dark] .lg i[style*="B2EBF2"]{background:#EDEEEA!important}
+html[data-theme=dark] .lg i[style*="4DB6AC"]{background:#e29a0b!important}
+html[data-theme=dark] .lg i[style*="80CBC4"]{background:#8A8B89!important}
+html[data-theme=dark] .btn:not(.ghost){background:var(--teal)}
+.bell{display:inline-flex;align-items:center;gap:6px;padding:7px 11px;border-radius:99px;background:var(--mint);border:1px solid var(--line);font-weight:700;color:var(--navy)}
+.av{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--teal),var(--dteal));color:#fff;display:grid;place-items:center;font-weight:800;border:0;cursor:pointer;font-family:inherit}
+.menu{position:absolute;right:0;top:100%;background:var(--white);border:1px solid var(--line);border-radius:12px;padding:6px;display:none;min-width:170px;box-shadow:0 12px 30px rgba(18,52,59,.12);z-index:30}
+.menu.open{display:block}.menu a{display:block;padding:8px 12px;border-radius:8px;color:var(--navy);text-decoration:none;font-weight:600}.menu a:hover{background:var(--mint);color:var(--dteal)}
+</style>
+<script>
+/* PrepSphere theme: apply the saved theme before first paint; keep all pages in sync */
+(function(){var r=document.documentElement;function a(){var d=false;try{d=localStorage.getItem("ps_theme")==="dark"}catch(e){}r.dataset.theme=d?"dark":"light"}a();addEventListener("pageshow",a);addEventListener("storage",function(e){if(e.key==="ps_theme")a()})})();
+</script>
+</head><body>
+<div class="app">
+<aside>
+ <div class="logo"><i></i>PrepSphere</div>
+ <nav class="nav" id="nav" aria-label="Main"></nav>
+ <div class="sp"></div>
+ <nav class="nav" id="nav2" aria-label="Secondary"></nav>
+</aside>
+<main>
+<div class="top">
+<div><h1>Performance Analysis</h1><p class="sub" id="lead"></p></div>
+<div class="ctrl"><select id="exam" aria-label="Exam"></select>
+<div class="seg" id="range" role="group" aria-label="Time range"></div><a class="bell" href="notifications.html" title="Notifications" aria-label="Notifications" style="text-decoration:none">🔔 3</a><button class="av" id="avb" aria-label="Profile menu" type="button">A</button><div class="menu" id="menu"><a href="section.html?s=settings">My Profile</a><a href="section.html?s=settings">My Target</a><a href="analysis.html">Progress</a><a href="section.html?s=premium">Subscription</a><a href="section.html?s=settings">Settings</a><a href="#">Logout</a></div></div></div>
+
+<div class="grid g4" id="kpis"></div>
+
+<div class="grid g2">
+<div class="card"><div class="hd"><h2>Your study progress</h2><div class="seg" id="metric"></div></div>
+<div id="chart"></div><div class="insight" id="msg"></div></div>
+<div class="card"><h2>Subject performance</h2><p class="sub">Accuracy by subject</p><div id="subs"></div></div>
+</div>
+
+<div class="grid g2e">
+<div class="card"><div class="hd"><h2>Weekly performance analysis</h2><span class="chip">This week</span></div>
+<div class="stats" id="wk"></div><div id="wkTxt"></div>
+<button class="btn" style="margin-top:12px" onclick="alert('Detailed weekly analysis would open here.')">View detailed analysis</button></div>
+<div class="card"><div class="hd"><h2>Study hours</h2><span class="chip">Last 7 days</span></div><div id="hours"></div></div>
+</div>
+
+<div class="card" style="margin-bottom:16px"><div class="hd"><div><h2>Monthly performance</h2><p class="sub">October 2026 vs September</p></div><button class="btn ghost" onclick="dl()">Download monthly report</button></div>
+<div class="stats" id="mo" style="grid-template-columns:repeat(auto-fit,minmax(130px,1fr))"></div>
+<div class="grid g2e" style="margin:12px 0 0"><div><h2 style="font-size:15px">Accuracy trend</h2><div id="acc"></div></div><div><h2 style="font-size:15px">Mock-test scores</h2><div id="mock"></div></div></div></div>
+
+<div class="card" id="mockPerf" style="margin-bottom:16px"></div>
+
+<div class="grid g2e">
+<div class="card"><h2>Topic-wise strength</h2><div class="pie"><div id="pie"></div><div class="lg" id="lg"></div></div><div class="ov"><table><thead><tr><th>Topic</th><th>Accuracy</th><th>Status</th></tr></thead><tbody id="topics"></tbody></table></div></div>
+<div class="card"><h2>Revise next</h2><p class="sub">Based on your recent mistakes</p><div id="rev"></div></div>
+</div>
+<div class="card" style="margin-top:16px"><h2>Books you should practice</h2><p class="sub">Chosen from your topic accuracy — weakest topics come first</p><div class="ov"><table><thead><tr><th>Topic</th><th>Book to practice</th><th>Suggested practice</th></tr></thead><tbody id="books"></tbody></table></div></div>
+</main></div>
+
+<nav class="nav-m" id="navm" aria-label="Mobile"></nav>
+<div class="tt" id="tt"></div>
+<script src="../assets/js/ps-data.js"></script>
+<script>
+const LK={"Home":"home.html","Study Books":"study-books.html","Books":"study-books.html","Analysis":"analysis.html","Notes":"notes.html","Previous Year Questions":"PYQ.html","PYQ":"PYQ.html","Mock Test":"mock-test.html","Mock":"mock-test.html","Wishlist":"wishlist.html","History":"history.html","Achievements":"achievement.html","Downloads":"section.html?s=downloads","Settings":"section.html?s=settings","More":"section.html?s=settings","Help":"section.html?s=help","Premium":"section.html?s=premium","Purchase / Premium":"section.html?s=premium","My Profile":"section.html?s=settings","My Target":"section.html?s=settings","Subscription":"section.html?s=premium"};
+const lbl=t=>t.replace(/^[^A-Za-z]+/,"").trim();
+const $=id=>document.getElementById(id);
+const D={
+"JEE Main":{subs:[["Physics",71],["Chemistry",78],["Mathematics",86]],topics:[["Algebra",91],["Organic Chemistry",84],["Calculus",80],["Thermodynamics",63],["Rotational Motion",54],["Electrostatics",58]],strong:"Mathematics",weak:"Physics — Rotational Motion",goal:"250 / 300"},
+"NEET":{subs:[["Physics",64],["Chemistry",76],["Biology",88]],topics:[["Human Physiology",92],["Genetics",86],["Organic Chemistry",79],["Optics",61],["Thermodynamics",57],["Electrochemistry",55]],strong:"Biology",weak:"Physics — Optics",goal:"620 / 720"},
+"UPSC":{subs:[["History",82],["Geography",74],["Polity",85],["Economics",66],["Environment",72],["Current Affairs",69]],topics:[["Constitution",90],["Modern History",84],["Climatology",76],["Monetary Policy",60],["Biodiversity",70],["Budget & Fiscal",56]],strong:"Polity",weak:"Economics — Fiscal Policy",goal:"Prelims cut-off +15"}};
+const R={"7 days":{l:["Sat","Sun","Mon","Tue","Wed","Thu","Fri"],score:[66,70,68,74,77,75,81],acc:[69,72,71,77,79,78,83],q:[60,85,70,110,95,100,125],h:[4.5,5.2,3.8,6,5.5,5.8,6.4]},
+"30 days":{l:["Wk 1","Wk 2","Wk 3","Wk 4"],score:[62,68,73,78],acc:[66,71,76,81],q:[420,510,580,640],h:[28,32,36,41]},
+"3 months":{l:["Jul","Aug","Sep","Oct"],score:[55,63,70,78],acc:[60,67,74,81],q:[1500,1800,2100,2400],h:[110,125,140,155]},
+"6 months":{l:["May","Jun","Jul","Aug","Sep","Oct"],score:[48,52,55,63,70,78],acc:[54,58,60,67,74,81],q:[900,1100,1500,1800,2100,2400],h:[80,92,110,125,140,155]},
+"All time":{l:["Q1","Q2","Q3","Q4"],score:[41,52,66,78],acc:[47,58,70,81],q:[2200,3900,5600,7400],h:[260,340,420,520]}};
+const M={score:["Test score","%"],acc:["Accuracy","%"],q:["Questions attempted",""],h:["Study hours","h"]};
+const B={"JEE Main":{"Algebra":"Cengage Algebra — G. Tewani","Organic Chemistry":"Organic Chemistry — M.S. Chouhan","Calculus":"Differential Calculus — Amit M. Agarwal","Thermodynamics":"Concepts of Physics Vol. 2 — H.C. Verma","Rotational Motion":"Mechanics Vol. 1 — D.C. Pandey","Electrostatics":"Electricity & Magnetism — D.C. Pandey"},
+"NEET":{"Human Physiology":"NCERT Biology (Class 11 & 12)","Genetics":"Trueman's Elementary Biology Vol. 2","Organic Chemistry":"Organic Chemistry — M.S. Chouhan","Optics":"Concepts of Physics Vol. 2 — H.C. Verma","Thermodynamics":"Concepts of Physics Vol. 2 — H.C. Verma","Electrochemistry":"Physical Chemistry — N. Awasthi"},
+"UPSC":{"Constitution":"Indian Polity — M. Laxmikanth","Modern History":"A Brief History of Modern India — Spectrum","Climatology":"Certificate Physical & Human Geography — G.C. Leong","Monetary Policy":"Indian Economy — Ramesh Singh","Biodiversity":"Environment — Shankar IAS","Budget & Fiscal":"Indian Economy — Nitin Singhania"}};
+Object.assign(D,{"JEE Advanced": {"subs": [["Physics", 74], ["Chemistry", 69], ["Mathematics", 77]], "topics": [["Electrostatics", 52], ["Calculus", 61], ["Physical Chemistry", 68], ["Coordinate Geometry", 82], ["Organic Chemistry", 79], ["Mechanics", 74]], "strong": "Mathematics", "weak": "Physics — Electrostatics", "goal": "180 / 360", "d": 240}, "WBJEE": {"subs": [["Physics", 78], ["Chemistry", 80], ["Mathematics", 85]], "topics": [["Vectors", 58], ["Matrices", 72], ["Chemical Bonding", 81], ["Kinematics", 77], ["Equilibrium", 54], ["Trigonometry", 88]], "strong": "Mathematics", "weak": "Chemistry — Equilibrium", "goal": "150 / 200", "d": 150}, "NDA": {"subs": [["Mathematics", 70], ["General Ability", 66], ["English", 80]], "topics": [["Algebra", 82], ["Trigonometry", 74], ["Mechanics (GA)", 58], ["History", 66], ["Grammar", 85], ["Vocabulary", 61]], "strong": "English", "weak": "General Ability — Mechanics", "goal": "150 / 200", "d": 180}, "JENPAS-UG": {"subs": [["Physics", 72], ["Chemistry", 75], ["Mathematics", 80]], "topics": [["Kinematics", 70], ["Organic Chemistry", 62], ["Calculus", 78], ["Thermodynamics", 56], ["Atomic Structure", 83], ["Probability", 74]], "strong": "Mathematics", "weak": "Physics — Thermodynamics", "goal": "140 / 200", "d": 160}, "CAT": {"subs": [["Quant", 68], ["Verbal Ability", 74], ["DILR", 59]], "topics": [["Algebra", 76], ["Geometry", 66], ["Reading Comprehension", 80], ["Para Jumbles", 71], ["Sets & Caselets", 55], ["Arrangements", 52]], "strong": "Verbal Ability", "weak": "DILR — Arrangements", "goal": "99 percentile", "d": 56}, "SSC CGL": {"subs": [["Quant", 72], ["Reasoning", 78], ["English", 70], ["General Awareness", 62]], "topics": [["Percentage", 82], ["Algebra", 66], ["Syllogism", 85], ["Grammar", 71], ["Polity", 60], ["Static GK", 54]], "strong": "Reasoning", "weak": "General Awareness — Static GK", "goal": "170 / 200", "d": 90}, "SSC CHSL": {"subs": [["Quant", 68], ["Reasoning", 76], ["English", 74], ["General Awareness", 64]], "topics": [["Simplification", 80], ["Ratio & Proportion", 68], ["Analogy", 84], ["Vocabulary", 63], ["Static GK", 57], ["Current Affairs", 66]], "strong": "Reasoning", "weak": "General Awareness — Static GK", "goal": "150 / 200", "d": 100}, "CTET": {"subs": [["Child Pedagogy", 80], ["Mathematics", 66], ["EVS", 71], ["English", 75]], "topics": [["Learning Theories", 84], ["Inclusive Education", 62], ["Number System", 68], ["Geometry", 55], ["Environmental Studies", 73], ["Grammar Pedagogy", 77]], "strong": "Child Pedagogy", "weak": "Mathematics — Geometry", "goal": "120 / 150", "d": 120}, "TET": {"subs": [["Child Pedagogy", 78], ["Mathematics", 64], ["EVS", 70], ["English", 73]], "topics": [["Child Development", 82], ["Teaching Methods", 67], ["Fractions & Decimals", 59], ["Mensuration", 53], ["Natural Resources", 72], ["Comprehension", 79]], "strong": "Child Pedagogy", "weak": "Mathematics — Mensuration", "goal": "110 / 150", "d": 110}, "GATE": {"subs": [["Engineering Mathematics", 72], ["Core Engineering", 64], ["General Aptitude", 85]], "topics": [["Linear Algebra", 78], ["Algorithms", 52], ["Data Structures", 66], ["Probability", 70], ["Verbal Ability", 86], ["Numerical Ability", 82]], "strong": "General Aptitude", "weak": "Core — Algorithms", "goal": "65 / 100", "d": 130}, "Other": {"subs": [["General Studies", 70], ["Aptitude", 74]], "topics": [["Indian Polity", 72], ["General Science", 66], ["Reasoning", 78], ["Numerical Ability", 61], ["Current Affairs", 58], ["Basic English", 82]], "strong": "Basic English", "weak": "Aptitude — Current Affairs", "goal": "150 / 200", "d": 90}});
+D['JEE Main'].d=125;D['NEET'].d=210;D['UPSC'].d=260;
+const ORDER=['JEE Main','JEE Advanced','WBJEE','NEET','UPSC','NDA','JENPAS-UG','CAT','SSC CGL','SSC CHSL','CTET','TET','GATE','Other'];
+const NV=[[" Home","home.html"],[" Study Books","study-books.html"],[" Analysis","analysis.html",1],[" Notes","notes.html"],[" Previous Year Questions","PYQ.html"],[" Mock Test"],[" Wishlist"],[" History"],[" Achievements"],[" Downloads"]];
+const NV2=[[" Settings"],[" Premium","section.html?s=premium"],[" Help","section.html?s=help"]];
+const lk=a=>a.map(x=>`<a href="${x[1]||LK[lbl(x[0])]||'#'}"${x[2]?' class="on" aria-current="page"':''}${x[3]?` id="${x[3]}"`:''}>${x[0]}</a>`).join("");
+$("nav").innerHTML=lk(NV);$("nav2").innerHTML=lk(NV2);$("navm").innerHTML=lk(NV.concat(NV2));
+let rng="30 days",met="score";
+function tip(e,t){const x=$("tt");x.textContent=t;x.style.display="block";x.style.left=e.clientX+12+"px";x.style.top=e.clientY-30+"px"}
+function hide(){$("tt").style.display="none"}
+function line(el,labels,vals,unit,h=220,mini=false){
+ const w=560,p=mini?{l:4,r:4,t:4,b:4}:{l:38,r:14,t:14,b:26};
+ const mn=Math.min(...vals),mx=Math.max(...vals),lo=mini?mn:Math.max(0,mn-(mx-mn)*.3),hi=mx+(mx-mn)*.15||1;
+ const X=i=>p.l+i*(w-p.l-p.r)/(vals.length-1),Y=v=>h-p.b-(v-lo)/(hi-lo)*(h-p.t-p.b);
+ const pts=vals.map((v,i)=>X(i)+","+Y(v)).join(" ");
+ let s=`<svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="${mini?'none':'xMidYMid meet'}" role="img" aria-label="Line chart" style="width:100%;height:${mini?34:'auto'}">`;
+ if(!mini){for(let i=0;i<4;i++){const v=lo+(hi-lo)*i/3,y=Y(v);s+=`<line x1="${p.l}" x2="${w-p.r}" y1="${y}" y2="${y}" stroke="#E0F7FA"/><text x="${p.l-6}" y="${y+4}" font-size="11" text-anchor="end" fill="#4d6a70">${Math.round(v)}</text>`}
+ labels.forEach((t,i)=>s+=`<text x="${X(i)}" y="${h-6}" font-size="11" text-anchor="middle" fill="#4d6a70">${t}</text>`);
+ s+=`<polygon points="${X(0)},${h-p.b} ${pts} ${X(vals.length-1)},${h-p.b}" fill="#E0F7FA" opacity=".7"/>`}
+ s+=`<polyline points="${pts}" fill="none" stroke="#00BFA5" stroke-width="${mini?2:3}" stroke-linejoin="round" stroke-linecap="round"/>`;
+ if(!mini)vals.forEach((v,i)=>s+=`<circle cx="${X(i)}" cy="${Y(v)}" r="5" fill="#fff" stroke="#00897B" stroke-width="2.5" data-t="${labels[i]}: ${v}${unit}"/>`);
+ el.innerHTML=s+"</svg>";
+ el.querySelectorAll("circle").forEach(c=>{c.onmousemove=e=>tip(e,c.dataset.t);c.onmouseleave=hide})}
+function bars(el,labels,vals,unit,h=190){
+ const w=560,mx=Math.max(...vals)*1.15,bw=(w-40)/vals.length;let s=`<svg viewBox="0 0 ${w} ${h}" style="width:100%;height:auto" role="img" aria-label="Bar chart">`;
+ vals.forEach((v,i)=>{const bh=v/mx*(h-40),x=30+i*bw+bw*.18;s+=`<rect x="${x}" y="${h-26-bh}" width="${bw*.64}" height="${bh}" rx="6" fill="${i==vals.length-1?'#00897B':'#00BFA5'}" data-t="${labels[i]}: ${v}${unit}"/><text x="${x+bw*.32}" y="${h-8}" font-size="11" text-anchor="middle" fill="#4d6a70">${labels[i]}</text><text x="${x+bw*.32}" y="${h-30-bh}" font-size="11" font-weight="700" text-anchor="middle" fill="#12343B">${v}</text>`});
+ el.innerHTML=s+"</svg>";el.querySelectorAll("rect").forEach(c=>{c.onmousemove=e=>tip(e,c.dataset.t);c.onmouseleave=hide})}
+function render(){
+ const e=D[$("exam").value],r=R[rng],n=r.score.length,f=a=>a[0],l=a=>a[a.length-1];
+ $("lead").textContent=`${$("exam").value} · target ${e.goal} · ${e.d} days to go`;
+ const sum=a=>a.reduce((x,y)=>x+y,0);
+ const k=[["Total tests","","+8 this month",r.score],["Average score",Math.round(sum(r.score)/n)+"%","+"+(l(r.score)-f(r.score))+" pts since start",r.score],["Study streak","12 days","Study today to keep it",r.h],["Study time",Math.round(sum(r.h))+"h","Across "+rng,r.h]];
+ k[0][1]={"7 days":"9","30 days":"42","3 months":"96","6 months":"148","All time":"212"}[rng];
+ $("kpis").innerHTML=k.map((x,i)=>`<div class="card kpi"><div class="lab">${x[0]}</div><div class="val">${x[1]}</div><div class="d">${x[2]}</div><div id="k${i}"></div></div>`).join("");
+ k.forEach((x,i)=>line($("k"+i),r.l,x[3],"",34,true));
+ $("metric").innerHTML=Object.keys(M).map(m=>`<button class="${m==met?'on':''}" data-m="${m}">${M[m][0]}</button>`).join("");
+ $("metric").querySelectorAll("button").forEach(b=>b.onclick=()=>{met=b.dataset.m;render()});
+ line($("chart"),r.l,r[met],M[met][1]);
+ const ch=Math.round((l(r[met])-f(r[met]))/f(r[met])*100);
+ $("msg").textContent=`Your ${M[met][0].toLowerCase()} improved by ${ch}% over the last ${rng}.`;
+ $("subs").innerHTML=e.subs.map(s=>`<div class="bar"><div class="r"><span>${s[0]}</span><span>${s[1]}%</span></div><div class="track"><div class="fill" style="width:${s[1]}%"></div></div></div>`).join("");
+ $("wk").innerHTML=[["8","Tests"],["560","Questions"],["453","Correct"],["107","Wrong"],["81%","Accuracy"],["38h","Study time"]].map(x=>`<div><b>${x[0]}</b><span>${x[1]}</span></div>`).join("");
+ $("wkTxt").innerHTML=`<p style="margin:6px 0"><b>Strongest subject:</b> ${e.strong}</p><p style="margin:6px 0"><b>Needs improvement:</b> ${e.weak}</p>`;
+ bars($("hours"),R["7 days"].l,R["7 days"].h,"h");
+ $("mo").innerHTML=[["42","Tests"],["78%","Avg score"],["81%","Avg accuracy"],["155h","Study hours"],["2,400","Questions solved"],["+16%","Improvement"],["#214","Monthly rank"],["26/31","Active days"]].map(x=>`<div><b>${x[0]}</b><span>${x[1]}</span></div>`).join("");
+ line($("acc"),R["6 months"].l,R["6 months"].acc,"%",170);
+ bars($("mock"),["M1","M2","M3","M4","M5","M6"],[61,68,72,74,79,84],"%",170);
+ $("topics").innerHTML=e.topics.map(t=>{const c=t[1]>=80?["hi","Strong"]:t[1]>=65?["md","Average"]:["lo","Weak"];return`<tr><td>${t[0]}</td><td>${t[1]}%</td><td><span class="pill ${c[0]}">${c[1]}</span></td></tr>`}).join("");
+ const bk=B[$("exam").value];
+ $("rev").innerHTML='<div class="sec">Revise these books next</div>'+e.topics.filter(t=>t[1]<65).sort((a,b)=>a[1]-b[1]).map(t=>`<div class="bar"><div class="r"><span>${t[0]}</span><span>${t[1]}%</span></div><div class="track"><div class="fill" style="width:${t[1]}%"></div></div><div class="bk"><span>📘</span><span><b>Revise next:</b> ${bk[t[0]]}</span></div><div style="margin-top:8px;display:flex;gap:8px"><button class="btn ghost" style="padding:5px 12px;font-size:13px">Revise now</button><button class="btn" style="padding:5px 12px;font-size:13px">Practice now</button></div></div>`).join("")+'<div class="sec">Keep practicing from these books</div>'+e.topics.filter(t=>t[1]>=65).map(t=>`<div class="bk keep"><span>📗</span><span><b>${t[0]} (${t[1]}%):</b> ${bk[t[0]]}</span></div>`).join("");
+ const cols=["#00897B","#00BFA5","#12343B","#B2EBF2","#4DB6AC","#80CBC4"],tot=sum(e.topics.map(t=>t[1]));let ang=-Math.PI/2,ps='<svg viewBox="0 0 200 200" role="img" aria-label="Topic-wise strength pie chart">';
+ e.topics.forEach((t,i)=>{const a=t[1]/tot*2*Math.PI,x1=100+90*Math.cos(ang),y1=100+90*Math.sin(ang);ang+=a;const x2=100+90*Math.cos(ang),y2=100+90*Math.sin(ang);ps+=`<path d="M100 100 L${x1} ${y1} A90 90 0 ${a>Math.PI?1:0} 1 ${x2} ${y2}Z" fill="${cols[i]}" stroke="#fff" stroke-width="2" data-t="${t[0]}: ${t[1]}%"/>`});
+ $("pie").innerHTML=ps+"</svg>";$("pie").querySelectorAll("path").forEach(c=>{c.onmousemove=ev=>tip(ev,c.dataset.t);c.onmouseleave=hide});
+ $("lg").innerHTML=e.topics.map((t,i)=>`<div><i style="background:${cols[i]}"></i>${t[0]} — ${t[1]}%</div>`).join("");
+ $("books").innerHTML=[...e.topics].sort((a,b)=>a[1]-b[1]).map(t=>`<tr><td>${t[0]}</td><td>${bk[t[0]]}</td><td>${t[1]<65?"Revise, then 25 questions/day":t[1]<80?"15 questions/day":"10 questions/week to stay sharp"}</td></tr>`).join("");
+}
+$("range").innerHTML=Object.keys(R).map(k=>`<button class="${k==rng?'on':''}">${k}</button>`).join("");
+$("range").querySelectorAll("button").forEach(b=>b.onclick=()=>{rng=b.textContent;$("range").querySelectorAll("button").forEach(x=>x.classList.toggle("on",x==b));render()});
+ORDER.forEach(k=>$("exam").add(new Option(k,k)));$("exam").onchange=render;
+const setTheme=d=>{document.documentElement.dataset.theme=d?"dark":"light";try{localStorage.setItem("ps_theme",d?"dark":"light")}catch(e){}};
+function dl(){const e=D[$("exam").value];const t=`PrepSphere monthly report\nExam: ${$("exam").value}\nTests: 42\nAvg score: 78%\nAccuracy: 81%\nStudy hours: 155\nStrongest: ${e.strong}\nNeeds work: ${e.weak}\n`;const ok=PSData.addDownload({id:"monthly-"+$("exam").value,kind:"other",title:"Monthly report — "+$("exam").value,sub:"Performance report · October 2026",text:t});PSData.notify(ok?"Saved to Downloads":"Storage is full. Remove a download first")}
+render();
+</script><script>
+/* Mock-test performance: reads tests saved by mock-test.html (localStorage "ps_mock_history") */
+(function(){
+const G=()=>{try{return JSON.parse(localStorage.getItem("ps_mock_history")||"[]")}catch(e){return[]}};
+const SN={PYQ:"Previous year",Book:"Study books",Mock:"Practice set"};
+const bar=(n,p)=>`<div class="bar"><div class="r"><span>${n}</span><span>${p}%</span></div><div class="track"><div class="fill" style="width:${p}%"></div></div></div>`;
+function mockPerf(){
+ const ex=$("exam").value,all=G(),H=all.filter(r=>r.exam==ex).reverse(),el=$("mockPerf");
+ if(!H.length){el.innerHTML=`<div class="hd"><div><h2>Your mock-test performance</h2><p class="sub">${all.length?"No mock tests for "+ex+" yet. Switch exam or take one.":"Take a mock test and your overall performance will appear here."}</p></div><a class="btn" href="mock-test.html">Take a mock test</a></div>`;return}
+ const sum=f=>H.reduce((a,r)=>a+f(r),0),agg=k=>{const o={};H.forEach(r=>Object.entries(r[k]||{}).forEach(([n,v])=>{o[n]=o[n]||[0,0];o[n][0]+=v[0];o[n][1]+=v[1]}));return Object.entries(o).map(([n,v])=>[n,Math.round(v[0]/v[1]*100)])};
+ const subs=agg("subs"),srcs=agg("srcs"),tops=agg("tops").sort((a,b)=>a[1]-b[1]).filter(t=>t[1]<60).slice(0,6),sc=r=>Math.max(0,Math.round(r.score/r.max*100));
+ el.innerHTML=`<div class="hd"><div><h2>Your mock-test performance</h2><p class="sub">${ex} · ${H.length} test${H.length>1?"s":""} taken</p></div><div class="ctrl"><a class="btn ghost" href="history.html">View history</a><a class="btn" href="mock-test.html">Take a mock test</a></div></div>
+ <div class="stats" style="grid-template-columns:repeat(auto-fit,minmax(130px,1fr))">${[[H.length,"Tests taken"],[Math.round(sum(r=>r.acc)/H.length)+"%","Avg accuracy"],[Math.max(...H.map(sc))+"%","Best score"],[sum(r=>r.n),"Questions attempted"],[sum(r=>r.c),"Correct answers"],[(sum(r=>r.pct)/H.length).toFixed(1),"Avg percentile (est.)"]].map(x=>`<div><b>${x[0]}</b><span>${x[1]}</span></div>`).join("")}</div>
+ <div class="grid g2e" style="margin:12px 0 0"><div><h2 style="font-size:15px">Score trend (latest tests)</h2><div id="mpTrend"></div></div>
+ <div><h2 style="font-size:15px">Accuracy by subject</h2>${subs.map(s=>bar(s[0],s[1])).join("")}<h2 style="font-size:15px;margin-top:14px">By question source</h2>${srcs.map(s=>bar(SN[s[0]]||s[0],s[1])).join("")}</div></div>
+ <h2 style="font-size:15px;margin-top:14px">Topics to revise</h2><p>${tops.map(t=>`<span class="pill lo">${t[0]} · ${t[1]}%</span>`).join(" ")||"No weak topics yet. Keep going."}</p>
+ <p class="sub"><a href="PYQ.html">Practise previous-year questions</a> · <a href="study-books.html">Open study books</a></p>`;
+ const L=H.slice(-8);bars($("mpTrend"),L.map((r,i)=>"T"+(H.length-L.length+i+1)),L.map(sc),"%",170);
+}
+$("exam").addEventListener("change",mockPerf);
+try{const x=localStorage.getItem("ps_exam");if(x&&[...$("exam").options].some(o=>o.value==x)){$("exam").value=x;render()}}catch(e){}
+mockPerf();
+})();
+</script>
+  <script src="../assets/js/navigation-fix.js"></script>
+<script>(function(){var b=document.getElementById("avb"),m=document.getElementById("menu");if(!b||!m)return;b.addEventListener("click",function(e){e.stopPropagation();m.classList.toggle("open")});document.addEventListener("click",function(e){if(!m.contains(e.target))m.classList.remove("open")})})();</script>
+</body></html>
